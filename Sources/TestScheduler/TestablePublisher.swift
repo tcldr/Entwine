@@ -9,8 +9,8 @@ public enum TestablePublisherBehavior { case hot, cold }
 // MARK: - Event value definition
 
 public struct TestablePublisherEvent <Element> {
-    let time: VirtualTime
-    let value: Element
+    public let time: VirtualTime
+    public let value: Element
 }
 
 // MARK: - Publisher definition

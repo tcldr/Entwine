@@ -11,12 +11,12 @@ public enum DemandLedgerRow<Time: Strideable>: Equatable where Time.Stride : Sch
 // MARK: - TestableSubscriberOptions value definition
 
 public struct TestableSubscriberOptions {
-    var initialDemand = Subscribers.Demand.unlimited
-    var subsequentDemand = Subscribers.Demand.none
-    var demandReplenishmentDelay: VirtualTimeInterval = 100
-    var negativeBalanceHandler: (() -> Void)? = nil
+    public var initialDemand = Subscribers.Demand.unlimited
+    public var subsequentDemand = Subscribers.Demand.none
+    public var demandReplenishmentDelay: VirtualTimeInterval = 100
+    public var negativeBalanceHandler: (() -> Void)? = nil
 
-    static let `default` = TestableSubscriberOptions()
+    public static let `default` = TestableSubscriberOptions()
 }
 
 // MARK: - TestableSubscriber definition
