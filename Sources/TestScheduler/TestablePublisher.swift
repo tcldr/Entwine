@@ -9,6 +9,12 @@ public enum TestablePublisherBehavior { case hot, cold }
 // MARK: - Event value definition
 
 public struct TestablePublisherEvent <Element> {
+    
+    public init(time: VirtualTime, _ value: Element) {
+        self.time = time
+        self.value = value
+    }
+    
     public let time: VirtualTime
     public let value: Element
 }
