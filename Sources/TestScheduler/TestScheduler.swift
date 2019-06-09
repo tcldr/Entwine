@@ -8,13 +8,13 @@ public class TestScheduler {
     public struct Configuration {
         
         /// Absolute time when to create tested observable sequence.
-        var created: VirtualTime = 100
+        public var created: VirtualTime = 100
         /// Absolute time when to subscribe to tested observable sequence.
-        var subscribed: VirtualTime = 200
+        public var subscribed: VirtualTime = 200
         /// Absolute time when to cancel a subscription to an observable sequence.
-        var cancelled: VirtualTime = 1000
+        public var cancelled: VirtualTime = 1000
         
-        var subscriberOptions = TestableSubscriberOptions.default
+        public var subscriberOptions = TestableSubscriberOptions.default
         
         public static let `default` = Configuration()
     }
