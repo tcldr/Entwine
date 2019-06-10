@@ -21,7 +21,7 @@ public struct TestableSubscriberOptions {
 
 // MARK: - TestableSubscriber definition
 
-public final class TestableSubscriber<Upstream: Publisher> {
+public final class TestableSubscriber<Input, Failure: Error> {
     
     public internal(set) var events = [TestableSubscriberEvent<Input, Failure>]()
     public internal(set) var demands = [DemandLedgerRow<VirtualTime>]()
@@ -97,9 +97,6 @@ public final class TestableSubscriber<Upstream: Publisher> {
 // MARK: - Subscriber conformance
 
 extension TestableSubscriber: Subscriber {
-    
-    public typealias Input = Upstream.Output
-    public typealias Failure = Upstream.Failure
     
     public func receive(subscription: Subscription) {
         

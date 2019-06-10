@@ -183,7 +183,7 @@ final class TestableSubscriberTests: XCTestCase {
             .init(time: 0, .init()),
         ])
         
-        var testableSubscriber: TestableSubscriber<TestablePublisher<Token, Never>>! = testScheduler.start { testablePublisher }
+        var testableSubscriber: TestableSubscriber<Token, Never>! = testScheduler.start { testablePublisher }
         weak var weakTestableSubscriber = testableSubscriber
         
         let expected: [TestableSubscriberEvent<Token, Never>] = [
@@ -210,7 +210,7 @@ final class TestableSubscriberTests: XCTestCase {
             .init(time: 100, .init()),
         ])
         
-        var testableSubscriber: TestableSubscriber<TestablePublisher<Token, Never>>!
+        var testableSubscriber: TestableSubscriber<Token, Never>!
             = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         weak var weakTestableSubscriber = testableSubscriber
         var earlyCancellationToken: AnyCancellable? = AnyCancellable { testableSubscriber.cancel() }

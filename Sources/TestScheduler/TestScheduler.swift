@@ -28,11 +28,11 @@ public class TestScheduler {
         self.currentTime = initialClock
     }
     
-    public func start<P: Publisher>(configuration: Configuration = .default, create: @escaping () -> P) -> TestableSubscriber<P> {
+    public func start<P: Publisher>(configuration: Configuration = .default, create: @escaping () -> P) -> TestableSubscriber<P.Output, P.Failure> {
         
         reset()
         
-        var subscriber: TestableSubscriber<P>! = .init(scheduler: self, options: configuration.subscriberOptions)
+        var subscriber: TestableSubscriber<P.Output, P.Failure>! = .init(scheduler: self, options: configuration.subscriberOptions)
         var source: AnyPublisher<P.Output, P.Failure>!
         
         schedule(after: configuration.created, tolerance: minimumTolerance, options: nil) {
@@ -60,6 +60,10 @@ public class TestScheduler {
     
     public func createTestableColdPublisher<Value, Failure: Error>(_ events: [TestablePublisherEvent<Value>]) -> TestablePublisher<Value, Failure> {
         return TestablePublisher(testScheduler: self, behavior: .cold, recordedEvents: events)
+    }
+    
+    public func createObserver<Input, Failure>(_ inputType: Input.Type, _ failureType: Failure.Type, options: TestableSubscriberOptions = .default) -> TestableSubscriber<Input, Failure> {
+        return TestableSubscriber(scheduler: self, options: options)
     }
     
     public func resume() {
