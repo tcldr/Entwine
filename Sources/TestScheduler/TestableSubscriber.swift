@@ -128,7 +128,7 @@ extension TestableSubscriber: Subscriber {
 
 extension TestableSubscriber: Cancellable {
     public func cancel() {
-        replenishmentToken = nil
-        subscription = nil
+        replenishmentToken?.cancel()
+        subscription?.cancel()
     }
 }
