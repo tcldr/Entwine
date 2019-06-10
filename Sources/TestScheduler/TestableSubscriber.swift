@@ -37,6 +37,10 @@ public final class TestableSubscriber<Upstream: Publisher> {
         self.options = options
     }
     
+    deinit {
+        subscription = nil
+    }
+    
     func creditDemand(_ demand: Subscribers.Demand) {
         
         demandBalance += demand
@@ -127,6 +131,7 @@ extension TestableSubscriber: Subscriber {
 
 extension TestableSubscriber: Cancellable {
     public func cancel() {
+        replenishmentToken = nil
         subscription = nil
     }
 }

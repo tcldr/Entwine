@@ -34,19 +34,20 @@ public struct TestablePublisher<Output, Failure: Error>: Publisher {
     }
     
     public func receive<S: Subscriber>(subscriber: S) where S.Failure == Failure, S.Input == Output {
+        // needs to return a subscription that doesn't own sink (or retain cycle.)
+        // but needs to send messages to sink
+        // sink can be any conforming subscriber – event a struct – so weak var is not an option
         subscriber.receive(subscription: TestablePublisherSubscription(sink: subscriber, testScheduler: testScheduler, behavior: behavior, recordedEvents: recordedEvents))
     }
 }
 
 // MARK: - Subscription definition
 
-fileprivate class TestablePublisherSubscription<Sink: Subscriber>: Subscription {
+fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscription {
     
-    private var queue: SinkOutputQueue<Sink>
-    
+    private var queue: SinkOutputQueue<Sink>?
     private var cancellables = [AnyCancellable]()
-    private var capacity = Subscribers.Demand.none
-    private var queuedItems = [Sink.Input]()
+    private let serialDispatchQueue = DispatchQueue.init(label: "TestScheduler.TestablePublisherSubscription.serialDispatchQueue")
     
     init(sink: Sink, testScheduler: TestScheduler, behavior: TestablePublisherBehavior, recordedEvents: [TestablePublisherEvent<Sink.Input>]) {
         
@@ -56,7 +57,7 @@ fileprivate class TestablePublisherSubscription<Sink: Subscriber>: Subscription 
             guard behavior == .cold || testScheduler.now <= recordedEvent.time else { return }
             let due = behavior == .cold ? testScheduler.now + recordedEvent.time : recordedEvent.time
             let cancellable = testScheduler.schedule(after: due, interval: 0) { [unowned self] in
-                self.queue.enqueueItem(recordedEvent.value)
+                self.queue?.enqueueItem(recordedEvent.value)
             }
             cancellables.append(AnyCancellable { cancellable.cancel() })
         }
@@ -67,12 +68,13 @@ fileprivate class TestablePublisherSubscription<Sink: Subscriber>: Subscription 
     }
     
     func request(_ demand: Subscribers.Demand) {
-        queue.request(demand)
+        queue?.request(demand)
     }
     
     func cancel() {
+        queue?.sink.receive(completion: .finished)
         cancellables.forEach { $0.cancel() }
-        queue.sink.receive(completion: .finished)
+        self.queue = nil
     }
 }
 

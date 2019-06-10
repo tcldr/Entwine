@@ -6,7 +6,7 @@ import Combine
 public class TestScheduler {
     
     public struct Configuration {
-        
+        public var pausedOnStart = false
         /// Absolute time when to create tested observable sequence.
         public var created: VirtualTime = 100
         /// Absolute time when to subscribe to tested observable sequence.
@@ -32,21 +32,24 @@ public class TestScheduler {
         
         reset()
         
-        let subscriber = TestableSubscriber<P>(scheduler: self, options: configuration.subscriberOptions)
-        
-        var source: AnyPublisher<P.Output, P.Failure>?
+        var subscriber: TestableSubscriber<P>! = .init(scheduler: self, options: configuration.subscriberOptions)
+        var source: AnyPublisher<P.Output, P.Failure>!
         
         schedule(after: configuration.created, tolerance: minimumTolerance, options: nil) {
             source = create().eraseToAnyPublisher()
         }
         schedule(after: configuration.subscribed, tolerance: minimumTolerance, options: nil) {
-            source!.subscribe(subscriber)
+            source.subscribe(subscriber)
         }
         schedule(after: configuration.cancelled, tolerance: minimumTolerance, options: nil) {
             subscriber.cancel()
         }
         
-        resume()
+        guard !configuration.pausedOnStart else {
+            return subscriber
+        }
+        
+        defer { resume() }
         
         return subscriber
     }
@@ -59,7 +62,7 @@ public class TestScheduler {
         return TestablePublisher(testScheduler: self, behavior: .cold, recordedEvents: events)
     }
     
-    func resume() {
+    public func resume() {
         while let next = findNext() {
             if next.time > currentTime {
                 currentTime = next.time

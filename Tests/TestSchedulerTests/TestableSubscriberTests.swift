@@ -18,9 +18,9 @@ final class TestableSubscriberTests: XCTestCase {
             
             // Won't be delivered
             
-            .init(time: 100, value: .init()),
-            .init(time: 200, value: .init()),
-            .init(time: 300, value: .init()),
+            .init(time: 100, .init()),
+            .init(time: 200, .init()),
+            .init(time: 300, .init()),
         ])
         
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
@@ -55,9 +55,9 @@ final class TestableSubscriberTests: XCTestCase {
             // to be replenished 100 in the future – at 300. When the demand is finally requested
             // the buffered values are delivered immediately.
             
-            .init(time: 10, value: .init()),
-            .init(time: 20, value: .init()),
-            .init(time: 30, value: .init()),
+            .init(time: 10, .init()),
+            .init(time: 20, .init()),
+            .init(time: 30, .init()),
         ])
         
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
@@ -94,13 +94,13 @@ final class TestableSubscriberTests: XCTestCase {
             
             // the first two fit within the initial demand limit and will fire as normal
             
-            .init(time: 10, value: .init()),
-            .init(time: 20, value: .init()),
+            .init(time: 10, .init()),
+            .init(time: 20, .init()),
             
             // Subsequent elements will be buffered until demand is replenished at 120. (last element time + .demandReplenishDelay)
             
-            .init(time: 30, value: .init()), // will be delivered as soon as demand replenished at 120
-            .init(time: 140, value: .init()), // will be delivered as scheduled as there should be remaining demand capacity of 1
+            .init(time: 30, .init()), // will be delivered as soon as demand replenished at 120
+            .init(time: 140, .init()), // will be delivered as scheduled as there should be remaining demand capacity of 1
         ])
         
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
@@ -175,9 +175,70 @@ final class TestableSubscriberTests: XCTestCase {
         XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
     }
     
+    func testDoesNotCreateRetainCycleWhenStreamFinishesBeforeSubscriberDeallocation() {
+        
+        let testScheduler = TestScheduler(initialClock: 0)
+        
+        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
+            .init(time: 0, .init()),
+        ])
+        
+        var testableSubscriber: TestableSubscriber<TestablePublisher<Token, Never>>! = testScheduler.start { testablePublisher }
+        weak var weakTestableSubscriber = testableSubscriber
+        
+        let expected: [TestableSubscriberEvent<Token, Never>] = [
+            .subscribe(time: 200),
+            .input(time: 200, .init()),
+            .completion(time: 1000, .finished)
+        ]
+        
+        XCTAssertEqual(expected, testableSubscriber.events)
+        
+        testableSubscriber = nil
+        
+        XCTAssertNil(weakTestableSubscriber)
+    }
+    
+    func testDoesNotCreateRetainCycleWhenStreamCancelledBeforeSubscriberDeallocation() {
+        
+        var testConfiguration = TestScheduler.Configuration.default
+        testConfiguration.pausedOnStart = true
+        
+        let testScheduler = TestScheduler(initialClock: 0)
+        
+        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
+            .init(time: 100, .init()),
+        ])
+        
+        var testableSubscriber: TestableSubscriber<TestablePublisher<Token, Never>>!
+            = testScheduler.start(configuration: testConfiguration) { testablePublisher }
+        weak var weakTestableSubscriber = testableSubscriber
+        var earlyCancellationToken: AnyCancellable? = AnyCancellable { testableSubscriber.cancel() }
+        
+        XCTAssertNotNil(earlyCancellationToken)
+        
+        testScheduler.schedule(after: 400) { earlyCancellationToken = nil }
+        
+        testScheduler.resume()
+        
+        let expected: [TestableSubscriberEvent<Token, Never>] = [
+            .subscribe(time: 200),
+            .input(time: 300, .init()),
+            .completion(time: 400, .finished)
+        ]
+        
+        XCTAssertEqual(expected, testableSubscriber.events)
+        
+        testableSubscriber = nil
+        
+        XCTAssertNil(weakTestableSubscriber)
+    }
+    
     static var allTests = [
         ("testColdObservableProducesExpectedValues", testSubscriberObeysInitialDemandLimit),
         ("testSubscriberObeysSubsequentDemandLimit", testSubscriberObeysSubsequentDemandLimit),
         ("testSubscriberObeysThrottledDemandLimit", testSubscriberObeysThrottledDemandLimit),
+        ("testDoesNotCreateRetainCycleWhenStreamFinishesBeforeSubscriberDeallocation", testDoesNotCreateRetainCycleWhenStreamFinishesBeforeSubscriberDeallocation),
+        ("testDoesNotCreateRetainCycleWhenStreamCancelledBeforeSubscriberDeallocation", testDoesNotCreateRetainCycleWhenStreamCancelledBeforeSubscriberDeallocation),
     ]
 }
