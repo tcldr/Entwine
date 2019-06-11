@@ -6,7 +6,7 @@ public struct TestableSubscriberEvent <Input, Failure: Error> {
     public let time: VirtualTime
     public let signal: Signal<Input, Failure>
     
-    init(_ time: VirtualTime, _ signal: Signal<Input, Failure>) {
+    public init(_ time: VirtualTime, _ signal: Signal<Input, Failure>) {
         self.time = time
         self.signal = signal
     }
