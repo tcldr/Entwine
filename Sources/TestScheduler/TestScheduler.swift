@@ -12,7 +12,7 @@ public class TestScheduler {
         /// Absolute time when to subscribe to tested observable sequence.
         public var subscribed: VirtualTime = 200
         /// Absolute time when to cancel a subscription to an observable sequence.
-        public var cancelled: VirtualTime = 1000
+        public var cancelled: VirtualTime = 900
         
         public var subscriberOptions = TestableSubscriberOptions.default
         
@@ -42,7 +42,7 @@ public class TestScheduler {
             source.subscribe(subscriber)
         }
         schedule(after: configuration.cancelled, tolerance: minimumTolerance, options: nil) {
-            subscriber.cancel()
+            subscriber.terminateSubscription()
         }
         
         guard !configuration.pausedOnStart else {

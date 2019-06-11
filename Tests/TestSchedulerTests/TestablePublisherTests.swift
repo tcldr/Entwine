@@ -13,7 +13,7 @@ final class TestablePublisherTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
-            .init(time: 0, .init()),
+            .init(time:   0, .init()),
             .init(time: 200, .init()),
             .init(time: 400, .init()),
         ])
@@ -21,11 +21,11 @@ final class TestablePublisherTests: XCTestCase {
         let testableSubscriber = testScheduler.start { testablePublisher }
         
         let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .subscribe(time: 200),
-            .input(time: 200, .init()),
-            .input(time: 400, .init()),
-            .input(time: 600, .init()),
-            .completion(time: 1000, .finished)
+            .init(200, .subscribe),
+            .init(200, .input(.init())),
+            .init(400, .input(.init())),
+            .init(600, .input(.init())),
+            .init(900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.events)
@@ -36,7 +36,7 @@ final class TestablePublisherTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableHotPublisher([
-            .init(time: 0, .init()),
+            .init(time:   0, .init()),
             .init(time: 200, .init()),
             .init(time: 400, .init()),
         ])
@@ -44,10 +44,10 @@ final class TestablePublisherTests: XCTestCase {
         let testableSubscriber = testScheduler.start { testablePublisher }
         
         let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .subscribe(time: 200),
-            .input(time: 200, .init()),
-            .input(time: 400, .init()),
-            .completion(time: 1000, .finished)
+            .init(200, .subscribe),
+            .init(200, .input(.init())),
+            .init(400, .input(.init())),
+            .init(900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.events)

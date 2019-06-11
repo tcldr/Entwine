@@ -34,10 +34,11 @@ public struct TestablePublisher<Output, Failure: Error>: Publisher {
     }
     
     public func receive<S: Subscriber>(subscriber: S) where S.Failure == Failure, S.Input == Output {
-        // needs to return a subscription that doesn't own sink (or retain cycle.)
-        // but needs to send messages to sink
-        // sink can be any conforming subscriber – event a struct – so weak var is not an option
-        subscriber.receive(subscription: TestablePublisherSubscription(sink: subscriber, testScheduler: testScheduler, behavior: behavior, recordedEvents: recordedEvents))
+        subscriber.receive(subscription: createSubscription(subscriber: subscriber))
+    }
+    
+    func createSubscription<S: Subscriber>(subscriber: S) -> Subscription where S.Failure == Failure, S.Input == Output {
+        TestablePublisherSubscription(sink: subscriber, testScheduler: testScheduler, behavior: behavior, recordedEvents: recordedEvents)
     }
 }
 
@@ -64,7 +65,7 @@ fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscri
     }
     
     deinit {
-        cancel()
+        cancellables.forEach { $0.cancel() }
     }
     
     func request(_ demand: Subscribers.Demand) {
@@ -72,9 +73,9 @@ fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscri
     }
     
     func cancel() {
-        queue?.sink.receive(completion: .finished)
-        cancellables.forEach { $0.cancel() }
+        guard let queue = queue else { return }
         self.queue = nil
+        queue.sink.receive(completion: .finished)
     }
 }
 

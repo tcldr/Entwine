@@ -26,14 +26,14 @@ final class TestableSubscriberTests: XCTestCase {
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         
         let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .subscribe(time: testConfiguration.subscribed),
-            .completion(time: testConfiguration.cancelled, .finished)
+            .init(200, .subscribe),
+            .init(900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.events)
         
         let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
-            .credit(time: 200, amount: .none, balance: .none),
+            .init(200, .credit(amount: .none), balance: .none)
         ]
         
         XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
@@ -63,21 +63,21 @@ final class TestableSubscriberTests: XCTestCase {
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         
         let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .subscribe(time: testConfiguration.subscribed),
-            .input(time: 300, .init()),
-            .input(time: 300, .init()),
-            .input(time: 300, .init()),
-            .completion(time: testConfiguration.cancelled, .finished)
+            .init(200, .subscribe),
+            .init(300, .input(.init())),
+            .init(300, .input(.init())),
+            .init(300, .input(.init())),
+            .init(900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.events)
         
         let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
-            .credit(time: 200, amount: .none, balance: .none),
-            .credit(time: 300, amount: .unlimited, balance: .unlimited),
-            .debit(time: 300, balance: .unlimited, authorized: true),
-            .debit(time: 300, balance: .unlimited, authorized: true),
-            .debit(time: 300, balance: .unlimited, authorized: true),
+            .init(200, .credit(amount: .none),      balance: .none),
+            .init(300, .credit(amount: .unlimited), balance: .unlimited),
+            .init(300, .debit(authorized: true),    balance: .unlimited),
+            .init(300, .debit(authorized: true),    balance: .unlimited),
+            .init(300, .debit(authorized: true),    balance: .unlimited),
         ]
         
         XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
@@ -106,24 +106,24 @@ final class TestableSubscriberTests: XCTestCase {
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         
         let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .subscribe(time: testConfiguration.subscribed),
-            .input(time: 210, .init()),
-            .input(time: 220, .init()),
-            .input(time: 320, .init()),
-            .input(time: 340, .init()),
-            .completion(time: testConfiguration.cancelled, .finished)
+            .init(200, .subscribe),
+            .init(210, .input(.init())),
+            .init(220, .input(.init())),
+            .init(320, .input(.init())),
+            .init(340, .input(.init())),
+            .init(900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.events)
         
         let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
-            .credit(time: 200, amount: .max(2), balance: .max(2)),
-            .debit(time: 210, balance: .max(1), authorized: true),
-            .debit(time: 220, balance: .none, authorized: true),
-            .credit(time: 320, amount: .max(2), balance: .max(2)),
-            .debit(time: 320, balance: .max(1), authorized: true),
-            .debit(time: 340, balance: .none, authorized: true),
-            .credit(time: 440, amount: .max(2), balance: .max(2)),
+            .init(200, .credit(amount: .max(2)), balance: .max(2)),
+            .init(210, .debit(authorized: true), balance: .max(1)),
+            .init(220, .debit(authorized: true), balance: .none),
+            .init(320, .credit(amount: .max(2)), balance: .max(2)),
+            .init(320, .debit(authorized: true), balance: .max(1)),
+            .init(340, .debit(authorized: true), balance: .none),
+            .init(440, .credit(amount: .max(2)), balance: .max(2)),
         ]
         
         XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
@@ -165,11 +165,12 @@ final class TestableSubscriberTests: XCTestCase {
         
         XCTAssert(didSignalNegativeBalance)
         
+        
         let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
-            .credit(time: 200, amount: .max(2), balance: .max(2)),
-            .debit(time: 200, balance: .max(1), authorized: true),
-            .debit(time: 200, balance: .none, authorized: true),
-            .debit(time: 200, balance: .max(-1), authorized: false),
+            .init(200, .credit(amount: .max(2)),  balance: .max(2)),
+            .init(200, .debit(authorized: true),  balance: .max(1)),
+            .init(200, .debit(authorized: true),  balance: .none),
+            .init(200, .debit(authorized: false), balance: .max(-1)),
         ]
         
         XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
@@ -187,9 +188,9 @@ final class TestableSubscriberTests: XCTestCase {
         weak var weakTestableSubscriber = testableSubscriber
         
         let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .subscribe(time: 200),
-            .input(time: 200, .init()),
-            .completion(time: 1000, .finished)
+            .init(200, .subscribe),
+            .init(200, .input(.init())),
+            .init(900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.events)
@@ -213,7 +214,7 @@ final class TestableSubscriberTests: XCTestCase {
         var testableSubscriber: TestableSubscriber<Token, Never>!
             = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         weak var weakTestableSubscriber = testableSubscriber
-        var earlyCancellationToken: AnyCancellable? = AnyCancellable { testableSubscriber.cancel() }
+        var earlyCancellationToken: AnyCancellable? = AnyCancellable { testableSubscriber.terminateSubscription() }
         
         XCTAssertNotNil(earlyCancellationToken)
         
@@ -222,9 +223,9 @@ final class TestableSubscriberTests: XCTestCase {
         testScheduler.resume()
         
         let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .subscribe(time: 200),
-            .input(time: 300, .init()),
-            .completion(time: 400, .finished)
+            .init(200, .subscribe),
+            .init(300, .input(.init())),
+            .init(400, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.events)
@@ -234,11 +235,38 @@ final class TestableSubscriberTests: XCTestCase {
         XCTAssertNil(weakTestableSubscriber)
     }
     
+    func testEnforcesSingleSubscriber() {
+        
+        let scheduler = TestScheduler(initialClock: 0)
+
+        let publisher1 = PassthroughSubject<Int, Never>()
+        let publisher2 = PassthroughSubject<Int, Never>()
+
+        let subject = scheduler.createObserver(Int.self, Never.self)
+
+        scheduler.schedule(after: 100) { publisher1.subscribe(subject) }
+        scheduler.schedule(after: 110) { publisher1.send(0) }
+        scheduler.schedule(after: 200) { publisher2.subscribe(subject) }
+        scheduler.schedule(after: 210) { publisher2.send(1) }
+        scheduler.schedule(after: 310) { publisher1.send(2) }
+        
+        scheduler.resume()
+        
+        let expected: [TestableSubscriberEvent<Int, Never>] = [
+            .init(100, .subscribe),
+            .init(110, .input(0)),
+            .init(310, .input(2)),
+        ]
+        
+        XCTAssertEqual(expected, subject.events)
+    }
+    
     static var allTests = [
         ("testColdObservableProducesExpectedValues", testSubscriberObeysInitialDemandLimit),
         ("testSubscriberObeysSubsequentDemandLimit", testSubscriberObeysSubsequentDemandLimit),
         ("testSubscriberObeysThrottledDemandLimit", testSubscriberObeysThrottledDemandLimit),
         ("testDoesNotCreateRetainCycleWhenStreamFinishesBeforeSubscriberDeallocation", testDoesNotCreateRetainCycleWhenStreamFinishesBeforeSubscriberDeallocation),
         ("testDoesNotCreateRetainCycleWhenStreamCancelledBeforeSubscriberDeallocation", testDoesNotCreateRetainCycleWhenStreamCancelledBeforeSubscriberDeallocation),
+        ("testEnforcesSingleSubscriber", testEnforcesSingleSubscriber),
     ]
 }

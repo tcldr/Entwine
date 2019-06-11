@@ -1,13 +1,6 @@
 
 import Combine
 
-// MARK: - DemandLedgerRow value definition
-
-public enum DemandLedgerRow<Time: Strideable>: Equatable where Time.Stride : SchedulerTimeIntervalConvertible {
-    case credit(time: Time, amount: Subscribers.Demand, balance: Subscribers.Demand)
-    case debit(time: Time, balance: Subscribers.Demand, authorized: Bool)
-}
-
 // MARK: - TestableSubscriberOptions value definition
 
 public struct TestableSubscriberOptions {
@@ -38,13 +31,18 @@ public final class TestableSubscriber<Input, Failure: Error> {
     }
     
     deinit {
-        subscription = nil
+        terminateSubscription()
     }
     
-    func creditDemand(_ demand: Subscribers.Demand) {
+    public func terminateSubscription() {
+        replenishmentToken?.cancel()
+        subscription?.cancel()
+    }
+    
+    func issueDemandCredit(_ demand: Subscribers.Demand) {
         
         demandBalance += demand
-        demands.append(.credit(time: scheduler.now, amount: demand, balance: demandBalance))
+        demands.append(.init(scheduler.now, .credit(amount: demand), balance: demandBalance))
         
         subscription?.request(demand)
     }
@@ -54,7 +52,7 @@ public final class TestableSubscriber<Input, Failure: Error> {
         let authorized = (demandBalance > .none)
         
         demandBalance -= demand
-        demands.append(.debit(time: scheduler.now, balance: demandBalance, authorized: authorized))
+        demands.append(.init(scheduler.now, .debit(authorized: authorized), balance: demandBalance))
         
         if !authorized {
             signalNegativeBalance()
@@ -88,7 +86,7 @@ public final class TestableSubscriber<Input, Failure: Error> {
         guard replenishmentToken == nil else { return }
         
         replenishmentToken = scheduler.schedule(after: scheduler.now + options.demandReplenishmentDelay, interval: 0, tolerance: 1, options: nil) {
-            self.creditDemand(self.options.subsequentDemand)
+            self.issueDemandCredit(self.options.subsequentDemand)
             self.replenishmentToken = nil
         }
     }
@@ -100,18 +98,23 @@ extension TestableSubscriber: Subscriber {
     
     public func receive(subscription: Subscription) {
         
-        self.subscription = subscription
+        guard self.subscription == nil else {
+            subscription.cancel()
+            return
+        }
+        
         self.demandBalance = .none
+        self.subscription = subscription
         
-        events.append(.subscribe(time: scheduler.now))
+        events.append(.init(scheduler.now, .subscribe))
         
-        creditDemand(options.initialDemand)
+        issueDemandCredit(options.initialDemand)
         delayedReplenishDemandIfNeeded()
     }
     
     public func receive(_ input: Input) -> Subscribers.Demand {
         
-        events.append(.input(time: scheduler.now, input))
+        events.append(.init(scheduler.now, .input(input)))
         
         debitDemand(.max(1))
         delayedReplenishDemandIfNeeded()
@@ -120,15 +123,7 @@ extension TestableSubscriber: Subscriber {
     }
     
     public func receive(completion: Subscribers.Completion<Failure>) {
-        events.append(.completion(time: scheduler.now, completion))
+        events.append(.init(scheduler.now, .completion(completion)))
+        subscription = nil
     }    
-}
-
-// MARK: - Cancellable conformance
-
-extension TestableSubscriber: Cancellable {
-    public func cancel() {
-        replenishmentToken?.cancel()
-        subscription?.cancel()
-    }
 }
