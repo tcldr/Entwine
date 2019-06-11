@@ -72,6 +72,7 @@ public class TestScheduler {
                 currentTime = next.time
             }
             next.action()
+            print("\(currentTime): Firing scheduled event")
             schedulerQueue.remove(next)
         }
     }
