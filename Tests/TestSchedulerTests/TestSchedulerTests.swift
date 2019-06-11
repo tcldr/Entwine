@@ -1,4 +1,7 @@
+
+import Combine
 import XCTest
+
 @testable import TestScheduler
 
 final class TestSchedulerTests: XCTestCase {
@@ -108,6 +111,32 @@ final class TestSchedulerTests: XCTestCase {
         scheduler.resume()
         
         XCTAssertEqual(times, [100, 300,])
+    }
+    
+    func testSchedulerQueues() {
+        
+        let scheduler = TestScheduler(initialClock: 0)
+        
+        let publisher1 = PassthroughSubject<Int, Never>()
+        let publisher2 = PassthroughSubject<Int, Never>()
+        
+        let subject = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { publisher1.subscribe(subject) }
+        scheduler.schedule(after: 110) { publisher1.send(0) }
+        scheduler.schedule(after: 200) { publisher2.subscribe(subject) }
+        scheduler.schedule(after: 210) { publisher2.send(1) }
+        scheduler.schedule(after: 310) { publisher1.send(2) }
+        
+        scheduler.resume()
+        
+        let expected: [TestableSubscriberEvent<Int, Never>] = [
+            .init(100, .subscribe),
+            .init(110, .input(0)),
+            .init(310, .input(2)),
+        ]
+        
+        XCTAssertEqual(expected, subject.events)
     }
 
     static var allTests = [

@@ -30,9 +30,7 @@ public class TestScheduler {
     
     public func start<P: Publisher>(configuration: Configuration = .default, create: @escaping () -> P) -> TestableSubscriber<P.Output, P.Failure> {
         
-        reset()
-        
-        var subscriber: TestableSubscriber<P.Output, P.Failure>! = .init(scheduler: self, options: configuration.subscriberOptions)
+        var subscriber = createTestableSubscriber(P.Output.self, P.Failure.self, options: configuration.subscriberOptions)
         var source: AnyPublisher<P.Output, P.Failure>!
         
         schedule(after: configuration.created, tolerance: minimumTolerance, options: nil) {
@@ -62,7 +60,7 @@ public class TestScheduler {
         return TestablePublisher(testScheduler: self, behavior: .cold, recordedEvents: events)
     }
     
-    public func createObserver<Input, Failure>(_ inputType: Input.Type, _ failureType: Failure.Type, options: TestableSubscriberOptions = .default) -> TestableSubscriber<Input, Failure> {
+    public func createTestableSubscriber<Input, Failure>(_ inputType: Input.Type, _ failureType: Failure.Type, options: TestableSubscriberOptions = .default) -> TestableSubscriber<Input, Failure> {
         return TestableSubscriber(scheduler: self, options: options)
     }
     
@@ -72,7 +70,6 @@ public class TestScheduler {
                 currentTime = next.time
             }
             next.action()
-            print("\(currentTime): Firing scheduled event")
             schedulerQueue.remove(next)
         }
     }

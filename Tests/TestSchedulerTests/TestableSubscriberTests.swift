@@ -242,7 +242,7 @@ final class TestableSubscriberTests: XCTestCase {
         let publisher1 = PassthroughSubject<Int, Never>()
         let publisher2 = PassthroughSubject<Int, Never>()
 
-        let subject = scheduler.createObserver(Int.self, Never.self)
+        let subject = scheduler.createTestableSubscriber(Int.self, Never.self)
 
         scheduler.schedule(after: 100) { publisher1.subscribe(subject) }
         scheduler.schedule(after: 110) { publisher1.send(0) }
