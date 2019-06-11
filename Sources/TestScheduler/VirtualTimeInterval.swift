@@ -7,7 +7,7 @@ public struct VirtualTimeInterval {
     
     internal var _duration: Int
     
-    init(_ duration: Int) {
+    public init(_ duration: Int) {
         _duration = duration
     }
 }

@@ -7,7 +7,7 @@ public struct VirtualTime: Hashable {
     
     internal var _time: Int
     
-    init(_ time: Int) {
+    public init(_ time: Int) {
         _time = time
     }
 }
