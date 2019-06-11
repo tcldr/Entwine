@@ -138,6 +138,28 @@ final class TestSchedulerTests: XCTestCase {
         
         XCTAssertEqual(expected, subject.events)
     }
+    
+    func testFiresEventsScheduledBeforeStartCalled() {
+        
+        let scheduler = TestScheduler(initialClock: 0)
+        
+        let publisher1 = PassthroughSubject<Int, Never>()
+        
+        scheduler.schedule(after: 300) { publisher1.send(0) }
+        scheduler.schedule(after: 400) { publisher1.send(1) }
+        scheduler.schedule(after: 500) { publisher1.send(2) }
+        
+        let testableSubscriber = scheduler.start { publisher1 }
+        
+        let expected: [TestableSubscriberEvent<Int, Never>] = [
+            .init(200, .subscribe),
+            .init(300, .input(0)),
+            .init(400, .input(1)),
+            .init(500, .input(2)),
+        ]
+        
+        XCTAssertEqual(expected, testableSubscriber.events)
+    }
 
     static var allTests = [
         ("testSchedulerTasksSortSensibly", testSchedulerTasksSortSensibly),
