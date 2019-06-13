@@ -3,9 +3,13 @@ import XCTest
 import TestSchedulerTests
 
 var tests: [XCTestCaseEntry] = [
-    TestSchedulerTests.allTests,
-    TestableSubscriberTests.allTests,
+    BufferTests.allTests,
+    MyMapTests.allTests,
+    ReplaySubjectTests.allTests,
+    WithLatestFromTests.allTests,
     TestablePublisherTests.allTests,
+    TestableSubscriberTests.allTests,
+    TestSchedulerTests.allTests,
 ]
 
 XCTMain(tests)

@@ -1,3 +1,7 @@
-# TestScheduler
+# Entwine
 
-A TestScheduler for use with [Apple's Combine Framework](https://developer.apple.com/documentation/combine) based on the RxSwift API.
+A suite of accessories for [Apple's Combine Framework](https://developer.apple.com/documentation/combine).
+
+##EntwineTest
+
+Based on RxSwift's `RxTest` API. 

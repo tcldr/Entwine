@@ -2,7 +2,8 @@
 import XCTest
 import Combine
 
-@testable import TestScheduler
+@testable import Entwine
+@testable import EntwineTest
 
 final class TestableSubscriberTests: XCTestCase {
     
