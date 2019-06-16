@@ -40,7 +40,7 @@ extension ReplaySubject: Publisher {
         
         // we use seperate collections for identifiers and subscriptions
         // to improve performance of identifier lookups and to keep the
-        // order in which subscribers are signalled to be the order in that
+        // order in which subscribers are signalled to be in the order that
         // they intially subscribed.
         
         subscriberIdentifiers.insert(subscriberIdentifier)
@@ -59,15 +59,10 @@ extension ReplaySubject: Publisher {
 extension ReplaySubject: Subject {
     
     public func send(_ value: Output) {
-        
         replayValues.addValueToBuffer(value)
-        
-        assert(!isDispatching)
-        isDispatching = true
-        subscriptions.forEach { subscription in
+        subscriptions.enumerated().forEach { offset, subscription in
             subscription.forwardValueToSink(value)
         }
-        isDispatching = false
     }
     
     public func send(completion: Subscribers.Completion<Failure>) {
@@ -80,30 +75,29 @@ extension ReplaySubject: Subject {
 
 fileprivate final class ReplaySubjectSubscription<Input, Failure: Error>: Subscription {
     
-    private var queue: SinkOutputQueue<Input, Failure>?
+    private let queue: SinkOutputQueue<Input, Failure>
     
     var cleanupHandler: (() -> Void)?
     let subscriberIdentifier: CombineIdentifier
     
-    init<S: Subscriber>(sink: S, replayedInputs: [Input]) where S.Input == Input, S.Failure == Failure {
+    init<S: Subscriber, ReplayedInputs: Sequence>(sink: S, replayedInputs: ReplayedInputs) where S.Failure == Failure, S.Input == Input, ReplayedInputs.Element == Input {
         self.queue = SinkOutputQueue(sink: sink)
-        self.queue?.enqueueItems(replayedInputs)
         self.subscriberIdentifier = sink.combineIdentifier
+        queue.enqueueItems(replayedInputs)
     }
     
     func forwardValueToSink(_ value: Input) {
-        queue?.enqueueItem(value)
+        queue.enqueueItem(value)
     }
     
     func forwardCompletionToSink(_ completion: Subscribers.Completion<Failure>) {
-        guard let queue = queue else { return }
-        self.queue = nil
-        queue.sink.receive(completion: .finished)
+        queue.complete(completion)
         cleanupHandler?()
+        cleanupHandler = nil
     }
     
     func request(_ demand: Subscribers.Demand) {
-        queue?.request(demand)
+        queue.request(demand)
     }
     
     func cancel() {
@@ -124,17 +118,18 @@ extension ReplaySubject {
 
 fileprivate struct ReplaySubjectValueBuffer<Value> {
     
-    private (set) var buffer = [Value]()
+    
     let maxBufferSize: Int
+    private (set) var buffer = LinkedListQueue<Value>()
     
     init(maxBufferSize: Int) {
         self.maxBufferSize = maxBufferSize
     }
     
     mutating func addValueToBuffer(_ value: Value) {
-        buffer.append(value)
+        buffer.enqueue(value)
         if buffer.count > maxBufferSize {
-            buffer.removeFirst()
+            _ = buffer.dequeue()
         }
     }
 }

@@ -24,15 +24,18 @@ extension Publishers {
         }
         
         public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
-            
-            let otherSink = WithLatestFromOtherSink(publisher: other)
-            let sink = WithLatestFromSink<Upstream, Other, S>(downstream: subscriber, otherSink: otherSink, transform: transform)
-            
-            upstream.subscribe(sink)
+            upstream.subscribe(
+                WithLatestFromSink<Upstream, Other, S>(
+                    downstream: subscriber,
+                    otherSink: WithLatestFromOtherSink(publisher: other),
+                    transform: transform
+                )
+            )
         }
     }
     
-    fileprivate class WithLatestFromSink<Upstream: Publisher, Other: Publisher, Downstream: Subscriber>: Subscriber where Upstream.Failure == Other.Failure, Upstream.Failure == Downstream.Failure {
+    fileprivate class WithLatestFromSink<Upstream: Publisher, Other: Publisher, Downstream: Subscriber>: Subscriber
+        where Upstream.Failure == Other.Failure, Upstream.Failure == Downstream.Failure {
         
         typealias Input = Upstream.Output
         typealias Failure = Upstream.Failure
@@ -40,6 +43,8 @@ extension Publishers {
         let downstream: Downstream
         let otherSink: WithLatestFromOtherSink<Other>
         let transform: (Upstream.Output, Other.Output) -> Downstream.Input
+        
+        var idle = true
         
         init(downstream: Downstream, otherSink: WithLatestFromOtherSink<Other>, transform: @escaping (Input, Other.Output) -> Downstream.Input) {
             self.downstream = downstream
@@ -49,22 +54,19 @@ extension Publishers {
         
         func receive(subscription: Subscription) {
             downstream.receive(subscription: subscription)
+            otherSink.subscribe()
         }
         
         func receive(_ input: Input) -> Subscribers.Demand {
-            
             guard let otherInput = otherSink.lastInput else {
-                
                 // we ignore results from the `Upstream` publisher until
                 // we have received an item from the `Other` publisher.
                 //
                 // As we are ignoring this item, we need to signal to the
                 // upstream publisher that they may reclaim the budget for
                 // the dropped item by returning a Subscribers.Demand of 1.
-                
                 return .max(1)
             }
-            
             return downstream.receive(transform(input, otherInput))
         }
         
@@ -79,10 +81,16 @@ extension Publishers {
         typealias Input = P.Output
         typealias Failure = P.Failure
         
+        private let publisher: AnyPublisher<P.Output, P.Failure>
         private (set) var lastInput: Input?
         private var subscription: Subscription?
         
+        
         init(publisher: P) {
+            self.publisher = publisher.eraseToAnyPublisher()
+        }
+        
+        func subscribe() {
             publisher.subscribe(self)
         }
         

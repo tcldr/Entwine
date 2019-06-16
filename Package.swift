@@ -29,12 +29,12 @@ let package = Package(
             dependencies: []),
         .target(
             name: "EntwineTest",
-            dependencies: []),
+            dependencies: ["Entwine"]),
         .testTarget(
             name: "EntwineTests",
             dependencies: ["Entwine", "EntwineTest"]),
         .testTarget(
             name: "EntwineTestTests",
-            dependencies: ["Entwine", "EntwineTest"]),
+            dependencies: ["EntwineTest"]),
     ]
 )

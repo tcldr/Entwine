@@ -1,0 +1,23 @@
+{
+  "configurations" : [
+    {
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:..\/Entwine",
+        "identifier" : "EntwineTests",
+        "name" : "EntwineTests"
+      }
+    }
+  ],
+  "version" : 1
+}

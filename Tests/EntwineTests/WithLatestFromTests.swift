@@ -129,6 +129,6 @@ final class WithLatestFromTests: XCTestCase {
         ("testTakesLatestValueFromOther", testTakesOnlyLatestValueFromOther),
         ("testDropsUpstreamValuesReceivedPriorToFirstOtherValue", testDropsUpstreamValuesReceivedPriorToFirstOtherValue),
         ("testMatchesLimitedSubscriberDemand", testMatchesLimitedSubscriberDemand),
-        
+        ("testCancelsUpstreamSubscriptions", testCancelsUpstreamSubscriptions)
     ]
 }

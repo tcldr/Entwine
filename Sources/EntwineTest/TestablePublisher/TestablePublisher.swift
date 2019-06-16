@@ -1,5 +1,6 @@
 
 import Combine
+import Entwine
 import Foundation
 
 // MARK: - Behavior value definition
@@ -46,19 +47,20 @@ public struct TestablePublisher<Output, Failure: Error>: Publisher {
 
 fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscription {
     
-    private var queue: SinkOutputQueue<Sink>?
+    private let linkedList = LinkedList<Int>.empty
+    private let queue: Entwine.SinkOutputQueue<Sink.Input, Sink.Failure>
     private var cancellables = [AnyCancellable]()
-    private let serialDispatchQueue = DispatchQueue.init(label: "TestScheduler.TestablePublisherSubscription.serialDispatchQueue")
+    private let serialDispatchQueue = DispatchQueue.init(label: "com.celder.entwine.TestablePublisherSubscription.serialDispatchQueue")
     
     init(sink: Sink, testScheduler: TestScheduler, behavior: TestablePublisherBehavior, recordedEvents: [TestablePublisherEvent<Sink.Input>]) {
         
-        self.queue = SinkOutputQueue(sink: sink)
+        self.queue = Entwine.SinkOutputQueue(sink: sink)
         
         recordedEvents.forEach { recordedEvent in
             guard behavior == .cold || testScheduler.now <= recordedEvent.time else { return }
             let due = behavior == .cold ? testScheduler.now + recordedEvent.time : recordedEvent.time
             let cancellable = testScheduler.schedule(after: due, interval: 0) { [unowned self] in
-                self.queue?.enqueueItem(recordedEvent.value)
+                self.queue.enqueueItem(recordedEvent.value)
             }
             cancellables.append(AnyCancellable { cancellable.cancel() })
         }
@@ -69,43 +71,10 @@ fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscri
     }
     
     func request(_ demand: Subscribers.Demand) {
-        queue?.request(demand)
+        queue.request(demand)
     }
     
     func cancel() {
-        guard let queue = queue else { return }
-        self.queue = nil
-        queue.sink.receive(completion: .finished)
-    }
-}
-
-// MARK: - SinkOutputQueue definition
-
-struct SinkOutputQueue<Sink: Subscriber> {
-    
-    let sink: Sink
-    
-    private var queuedItems = [Sink.Input]()
-    private var capacity = Subscribers.Demand.none
-    
-    init(sink: Sink) {
-        self.sink = sink
-    }
-    
-    mutating func enqueueItem(_ item: Sink.Input) {
-        queuedItems.append(item)
-        dispatchPendingItems()
-    }
-    
-    mutating func request(_ demand: Subscribers.Demand) {
-        capacity += demand
-        dispatchPendingItems()
-    }
-    
-    private mutating func dispatchPendingItems() {
-        while !queuedItems.isEmpty {
-            guard capacity > .none else { break }
-            capacity += (sink.receive(queuedItems.removeFirst()) - 1)
-        }
+        queue.complete(.finished)
     }
 }
