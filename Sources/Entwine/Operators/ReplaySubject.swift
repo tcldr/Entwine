@@ -61,7 +61,6 @@ extension ReplaySubject: Publisher {
 extension ReplaySubject: Subject {
     
     public func send(_ value: Output) {
-        Swift.print("VALUE: \(value)")
         guard status == .active else { return }
         replayValues.addValueToBuffer(value)
         subscriptions.forEach { subscription in
