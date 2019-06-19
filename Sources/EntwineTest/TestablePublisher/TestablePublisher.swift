@@ -48,13 +48,12 @@ public struct TestablePublisher<Output, Failure: Error>: Publisher {
 fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscription {
     
     private let linkedList = LinkedList<Int>.empty
-    private let queue: Entwine.SinkOutputQueue<Sink.Input, Sink.Failure>
+    private let queue: SinkOutputQueue<Sink.Input, Sink.Failure>
     private var cancellables = [AnyCancellable]()
-    private let serialDispatchQueue = DispatchQueue.init(label: "com.celder.entwine.TestablePublisherSubscription.serialDispatchQueue")
     
     init(sink: Sink, testScheduler: TestScheduler, behavior: TestablePublisherBehavior, recordedEvents: [TestablePublisherEvent<Sink.Input>]) {
         
-        self.queue = Entwine.SinkOutputQueue(sink: sink)
+        self.queue = SinkOutputQueue(sink: sink)
         
         recordedEvents.forEach { recordedEvent in
             guard behavior == .cold || testScheduler.now <= recordedEvent.time else { return }

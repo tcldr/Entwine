@@ -12,7 +12,7 @@ public final class TrampolineScheduler {
     
     public static let shared = TrampolineScheduler()
     
-    static let localThreadActionQueueKey = "com.github.tcldr.Entwine.TrampolineScheduler.localThreadQueueKey"
+    static let localThreadActionQueueKey = "com.github.tcldr.Entwine.TrampolineScheduler.localThreadActionQueueKey"
     
     static var localThreadActionQueue: TrampolineSchedulerQueue {
         guard let queue = Thread.current.threadDictionary.value(forKey: Self.localThreadActionQueueKey) as? TrampolineSchedulerQueue else {

@@ -123,7 +123,6 @@ extension ReplaySubject {
 
 fileprivate struct ReplaySubjectValueBuffer<Value> {
     
-    
     let maxBufferSize: Int
     private (set) var buffer = LinkedListQueue<Value>()
     

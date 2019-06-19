@@ -1,9 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tristan Celder on 09/06/2019.
-//
 
 import XCTest
 import Combine
@@ -124,11 +118,4 @@ final class WithLatestFromTests: XCTestCase {
         scheduler.resume()
         
     }
-
-    static var allTests = [
-        ("testTakesLatestValueFromOther", testTakesOnlyLatestValueFromOther),
-        ("testDropsUpstreamValuesReceivedPriorToFirstOtherValue", testDropsUpstreamValuesReceivedPriorToFirstOtherValue),
-        ("testMatchesLimitedSubscriberDemand", testMatchesLimitedSubscriberDemand),
-        ("testCancelsUpstreamSubscriptions", testCancelsUpstreamSubscriptions)
-    ]
 }

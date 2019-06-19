@@ -2,7 +2,7 @@
 //  File.swift
 //  
 //
-//  Created by Tristan Celder on 11/06/2019.
+//  Created by Tristan Celder on 19/06/2019.
 //
 
 import Combine
@@ -13,21 +13,6 @@ public enum Signal <Input, Failure: Error> {
     case subscribe
     case input(Input)
     case completion(Subscribers.Completion<Failure>)
-}
-
-// MARK: - CustomDebugStringConvertible conformance
-
-extension Signal: CustomDebugStringConvertible {
-    public var debugDescription: String {
-        switch self {
-        case .subscribe:
-            return ".subscribe"
-        case .input(let input):
-            return ".input(\(input))"
-        case .completion(let completion):
-            return ".completion(\(completion))"
-        }
-    }
 }
 
 // MARK: - Equatable conformance
