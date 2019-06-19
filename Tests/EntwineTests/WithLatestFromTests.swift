@@ -117,7 +117,7 @@ final class WithLatestFromTests: XCTestCase {
         scheduler.schedule(after: 300) { subject.subscribe(results1) }
         scheduler.schedule(after: 400) { XCTAssertEqual(1, publisher1.subscriptionCount) }
         scheduler.schedule(after: 400) { XCTAssertEqual(1, publisher2.subscriptionCount) }
-        scheduler.schedule(after: 500) { results1.terminateSubscription() }
+        scheduler.schedule(after: 500) { results1.cancel() }
         scheduler.schedule(after: 600) { XCTAssertEqual(0, publisher1.subscriptionCount) }
         scheduler.schedule(after: 600) { XCTAssertEqual(0, publisher2.subscriptionCount) }
         

@@ -215,7 +215,7 @@ final class TestableSubscriberTests: XCTestCase {
         var testableSubscriber: TestableSubscriber<Token, Never>!
             = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         weak var weakTestableSubscriber = testableSubscriber
-        var earlyCancellationToken: AnyCancellable? = AnyCancellable { testableSubscriber.terminateSubscription() }
+        var earlyCancellationToken: AnyCancellable? = AnyCancellable { testableSubscriber.cancel() }
         
         XCTAssertNotNil(earlyCancellationToken)
         

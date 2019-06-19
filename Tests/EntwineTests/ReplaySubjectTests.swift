@@ -191,7 +191,7 @@ final class ReplaySubjectTests: XCTestCase {
         scheduler.schedule(after: 250) { XCTAssertEqual(0, subject.subscriptionCount) }
         scheduler.schedule(after: 300) { subject.subscribe(results1) }
         scheduler.schedule(after: 350) { XCTAssertEqual(1, subject.subscriptionCount) }
-        scheduler.schedule(after: 400) { results1.terminateSubscription() }
+        scheduler.schedule(after: 400) { results1.cancel() }
         scheduler.schedule(after: 450) { XCTAssertEqual(0, subject.subscriptionCount) }
 
         scheduler.resume()
@@ -211,11 +211,11 @@ final class ReplaySubjectTests: XCTestCase {
         scheduler.schedule(after: 301) { subject.subscribe(results2) }
         scheduler.schedule(after: 302) { subject.subscribe(results3) }
         scheduler.schedule(after: 350) { XCTAssertEqual(3, subject.subscriptionCount) }
-        scheduler.schedule(after: 400) { results1.terminateSubscription() }
+        scheduler.schedule(after: 400) { results1.cancel() }
         scheduler.schedule(after: 405) { XCTAssertEqual(2, subject.subscriptionCount) }
-        scheduler.schedule(after: 410) { results2.terminateSubscription() }
+        scheduler.schedule(after: 410) { results2.cancel() }
         scheduler.schedule(after: 415) { XCTAssertEqual(1, subject.subscriptionCount) }
-        scheduler.schedule(after: 420) { results3.terminateSubscription() }
+        scheduler.schedule(after: 420) { results3.cancel() }
         scheduler.schedule(after: 450) { XCTAssertEqual(0, subject.subscriptionCount) }
         
         scheduler.resume()
@@ -230,7 +230,7 @@ final class ReplaySubjectTests: XCTestCase {
         scheduler.schedule(after: 100) { subject = ReplaySubject(maxBufferSize: 0) }
         scheduler.schedule(after: 200) { subject.subscribe(results1) }
         scheduler.schedule(after: 300) { subject.send(1) }
-        scheduler.schedule(after: 400) { results1.terminateSubscription() }
+        scheduler.schedule(after: 400) { results1.cancel() }
         
         scheduler.resume()
         
@@ -253,7 +253,7 @@ final class ReplaySubjectTests: XCTestCase {
         scheduler.schedule(after: 200) { subject.send(1) }
         scheduler.schedule(after: 300) { subject.subscribe(results1) }
         scheduler.schedule(after: 400) { subject.send(2) }
-        scheduler.schedule(after: 500) { results1.terminateSubscription() }
+        scheduler.schedule(after: 500) { results1.cancel() }
         
         scheduler.resume()
         
@@ -280,7 +280,7 @@ final class ReplaySubjectTests: XCTestCase {
         scheduler.schedule(after: 500) { subject.subscribe(results1) }
         scheduler.schedule(after: 600) { subject.send(4) }
         scheduler.schedule(after: 700) { subject.send(5) }
-        scheduler.schedule(after: 800) { results1.terminateSubscription() }
+        scheduler.schedule(after: 800) { results1.cancel() }
         
         scheduler.resume()
         
@@ -310,9 +310,9 @@ final class ReplaySubjectTests: XCTestCase {
         scheduler.schedule(after: 300) { subject.subscribe(results2) }
         scheduler.schedule(after: 300) { subject.subscribe(results3) }
         scheduler.schedule(after: 400) { subject.send(2) }
-        scheduler.schedule(after: 500) { results1.terminateSubscription() }
-        scheduler.schedule(after: 500) { results2.terminateSubscription() }
-        scheduler.schedule(after: 500) { results3.terminateSubscription() }
+        scheduler.schedule(after: 500) { results1.cancel() }
+        scheduler.schedule(after: 500) { results2.cancel() }
+        scheduler.schedule(after: 500) { results3.cancel() }
         
         scheduler.resume()
         
@@ -336,7 +336,7 @@ final class ReplaySubjectTests: XCTestCase {
         
         scheduler.schedule(after: 100) { subject = ReplaySubject(maxBufferSize: 1) }
         scheduler.schedule(after: 200) { subject.subscribe(results1) }
-        scheduler.schedule(after: 300) { results1.terminateSubscription() }
+        scheduler.schedule(after: 300) { results1.cancel() }
         
         scheduler.resume()
         

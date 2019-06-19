@@ -41,7 +41,7 @@ public class TestScheduler {
             source.subscribe(subscriber)
         }
         schedule(after: configuration.cancelled, tolerance: minimumTolerance, options: nil) {
-            subscriber.terminateSubscription()
+            subscriber.cancel()
         }
         
         guard !configuration.pausedOnStart else {

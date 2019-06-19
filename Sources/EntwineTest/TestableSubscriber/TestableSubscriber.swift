@@ -31,12 +31,7 @@ public final class TestableSubscriber<Input, Failure: Error> {
     }
     
     deinit {
-        terminateSubscription()
-    }
-    
-    public func terminateSubscription() {
-        replenishmentToken?.cancel()
-        subscription?.cancel()
+        cancel()
     }
     
     func issueDemandCredit(_ demand: Subscribers.Demand) {
@@ -126,4 +121,13 @@ extension TestableSubscriber: Subscriber {
         events.append(.init(scheduler.now, .completion(completion)))
         subscription = nil
     }    
+}
+
+// MARK: - Cancellable conformance
+
+extension TestableSubscriber: Cancellable {
+    public func cancel() {
+        replenishmentToken?.cancel()
+        subscription?.cancel()
+    }
 }
