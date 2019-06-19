@@ -9,13 +9,14 @@ import Combine
 
 public final class ReplaySubject<Output, Failure: Error> {
     
+    enum Status { case active, completed }
+    
+    private var status = Status.active
     private var subscriptions = [ReplaySubjectSubscription<Output, Failure>]()
     private var subscriberIdentifiers = Set<CombineIdentifier>()
     
     private var buffer = [Output]()
     private var replayValues: ReplaySubjectValueBuffer<Output>
-    
-    private var isDispatching = false
     
     var subscriptionCount: Int {
         return subscriptions.count
@@ -30,7 +31,8 @@ extension ReplaySubject: Publisher {
     
     public func receive<S : Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
         
-        guard !subscriberIdentifiers.contains(subscriber.combineIdentifier) else {
+        guard status != .completed, !subscriberIdentifiers.contains(subscriber.combineIdentifier) else {
+            subscriber.receive(subscription: Subscriptions.empty)
             subscriber.receive(completion: .finished)
             return
         }
@@ -59,13 +61,17 @@ extension ReplaySubject: Publisher {
 extension ReplaySubject: Subject {
     
     public func send(_ value: Output) {
+        Swift.print("VALUE: \(value)")
+        guard status == .active else { return }
         replayValues.addValueToBuffer(value)
-        subscriptions.enumerated().forEach { offset, subscription in
+        subscriptions.forEach { subscription in
             subscription.forwardValueToSink(value)
         }
     }
     
     public func send(completion: Subscribers.Completion<Failure>) {
+        guard status == .active else { return }
+        self.status = .completed
         subscriptions.forEach { subscription in
             subscription.forwardCompletionToSink(completion)
         }

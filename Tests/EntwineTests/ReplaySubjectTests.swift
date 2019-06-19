@@ -25,6 +25,152 @@ final class ReplaySubjectTests: XCTestCase {
     
     // MARK: - Tests
 
+    func testPassesThroughValueWithBufferOfZero() {
+
+        let subject = ReplaySubject<Int, Never>(maxBufferSize: 0)
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject.send(0) }
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+        scheduler.schedule(after: 300) { subject.send(1) }
+
+        scheduler.resume()
+        
+        let expected: [TestableSubscriberEvent<Int, Never>] = [
+            .init(200, .subscribe),
+            .init(300, .input(1)),
+        ]
+        
+        XCTAssertEqual(expected, results1.events)
+    }
+
+    func testPassesThroughValueWithBufferOfOne() {
+
+        let subject = ReplaySubject<Int, Never>(maxBufferSize: 1)
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject.send(0) }
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+
+        scheduler.resume()
+        
+        let expected: [TestableSubscriberEvent<Int, Never>] = [
+            .init(200, .subscribe),
+            .init(200, .input(0)),
+        ]
+        
+        XCTAssertEqual(expected, results1.events)
+    }
+
+    func testPassesThroughLatestValueWithBufferOfOne() {
+
+        let subject = ReplaySubject<Int, Never>(maxBufferSize: 1)
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject.send(0) }
+        scheduler.schedule(after: 150) { subject.send(1) }
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+
+        scheduler.resume()
+        
+        let expected: [TestableSubscriberEvent<Int, Never>] = [
+            .init(200, .subscribe),
+            .init(200, .input(1)),
+        ]
+        
+        XCTAssertEqual(expected, results1.events)
+    }
+
+    func testPassesThroughCompletionIssuedPreSubscribe() {
+
+        let subject = ReplaySubject<Int, Never>(maxBufferSize: 0)
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject.send(completion: .finished) }
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+
+        scheduler.resume()
+        
+        let expected: [TestableSubscriberEvent<Int, Never>] = [
+            .init(200, .subscribe),
+            .init(200, .completion(.finished)),
+        ]
+        
+        XCTAssertEqual(expected, results1.events)
+    }
+
+    func testPassesThroughCompletionIssuedPostSubscribe() {
+
+        let subject = ReplaySubject<Int, Never>(maxBufferSize: 0)
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+        scheduler.schedule(after: 300) { subject.send(completion: .finished) }
+
+
+        scheduler.resume()
+        
+        let expected: [TestableSubscriberEvent<Int, Never>] = [
+            .init(200, .subscribe),
+            .init(300, .completion(.finished)),
+        ]
+        
+        XCTAssertEqual(expected, results1.events)
+    }
+
+    func testStopsForwardingToSubscribersPostCompletion() {
+
+        let subject = ReplaySubject<Int, Never>(maxBufferSize: 0)
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+        scheduler.schedule(after: 300) { subject.send(completion: .finished) }
+        scheduler.schedule(after: 400) { subject.send(0) }
+
+
+        scheduler.resume()
+        
+        let expected1: [TestableSubscriberEvent<Int, Never>] = [
+            .init(200, .subscribe),
+            .init(300, .completion(.finished)),
+        ]
+        
+        XCTAssertEqual(expected1, results1.events)
+    }
+
+    func testImmediatelyCompletesForNewSubscribersPostPreviousCompletion() {
+
+        let subject = ReplaySubject<Int, Never>(maxBufferSize: 0)
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        let results2 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+        scheduler.schedule(after: 300) { subject.send(0) }
+        scheduler.schedule(after: 400) { subject.send(completion: .finished) }
+        
+        scheduler.schedule(after: 500) { subject.subscribe(results2) }
+        scheduler.schedule(after: 600) { subject.send(0) }
+        scheduler.schedule(after: 700) { subject.send(completion: .finished) }
+
+
+        scheduler.resume()
+        
+        let expected1: [TestableSubscriberEvent<Int, Never>] = [
+            .init(200, .subscribe),
+            .init(300, .input(0)),
+            .init(400, .completion(.finished)),
+        ]
+        
+        XCTAssertEqual(expected1, results1.events)
+        
+        let expected2: [TestableSubscriberEvent<Int, Never>] = [
+            .init(500, .subscribe),
+            .init(500, .completion(.finished)),
+        ]
+        
+        XCTAssertEqual(expected2, results2.events)
+    }
+
     func testHasNoSubscribers() {
 
         var subject: ReplaySubject<Int, Never>! = nil
@@ -253,16 +399,4 @@ final class ReplaySubjectTests: XCTestCase {
             subject.send(i)
         }
     }
-
-    static var allTests = [
-        ("testHasNoSubscribers", testHasNoSubscribers),
-        ("testHasOneSubscriber", testHasOneSubscriber),
-        ("testHasManySubscribers", testHasManySubscribers),
-        ("testReplaysZeroValues", testReplaysZeroValues),
-        ("testReplaysTwoValues", testReplaysTwoValues),
-        ("testReplaysToManySubscribers", testReplaysToManySubscribers),
-        ("testCancelPropagatesDownstream", testCancelPropagatesDownstream),
-        ("testDeallocationBehaviorMatchesControl", testDeallocationBehaviorMatchesControl),
-        ("testReentrancyBehaviorMatchesControl", testReentrancyBehaviorMatchesControl),
-    ]
 }
