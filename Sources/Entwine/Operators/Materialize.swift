@@ -34,7 +34,6 @@ extension Publishers {
         init(upstream: Upstream, downstream: Downstream) {
             let sink = MaterializeSink(upstream: upstream, downstream: downstream)
             self.sink = sink
-            upstream.subscribe(sink)
         }
         
         // Subscription Methods
@@ -62,14 +61,12 @@ extension Publishers {
         typealias Input = Upstream.Output
         typealias Failure = Upstream.Failure
         
-        let upstream: Upstream
-        
         var queue: SinkQueue<Downstream>
         var upstreamSubscription: Subscription?
         
         init(upstream: Upstream, downstream: Downstream) {
             self.queue = SinkQueue(sink: downstream)
-            self.upstream = upstream
+            upstream.subscribe(self)
         }
         
         deinit {
@@ -82,6 +79,7 @@ extension Publishers {
         func receive(subscription: Subscription) {
             self.upstreamSubscription = subscription
             let demand = queue.enqueue(.subscribe)
+            guard demand > .none else { return }
             subscription.request(demand)
         }
         
@@ -104,6 +102,7 @@ extension Publishers {
         // to signal that more items can be sent downstream
         func signalDemand(_ demand: Subscribers.Demand) {
             let spareDemand = queue.requestDemand(demand)
+            guard spareDemand > .none else { return }
             upstreamSubscription?.request(spareDemand)
         }
         
@@ -113,16 +112,16 @@ extension Publishers {
         }
     }
     
-    fileprivate class SinkQueue<Sink: Subscriber> {
+    class SinkQueue<Sink: Subscriber> {
         
-        var sink: Sink?
-        var buffer = LinkedListQueue<Sink.Input>()
+        private var sink: Sink?
+        private var buffer = LinkedListQueue<Sink.Input>()
         
-        var demandRequested = Subscribers.Demand.none
-        var demandProcessed = Subscribers.Demand.none
-        var demandQueued: Subscribers.Demand { .max(buffer.count) }
+        private var demandRequested = Subscribers.Demand.none
+        private var demandProcessed = Subscribers.Demand.none
+        private var demandQueued: Subscribers.Demand { .max(buffer.count) }
         
-        var completion: Subscribers.Completion<Sink.Failure>?
+        private var completion: Subscribers.Completion<Sink.Failure>?
         
         init(sink: Sink) {
             self.sink = sink

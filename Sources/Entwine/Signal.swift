@@ -43,3 +43,18 @@ extension Signal: Equatable where Input: Equatable, Failure: Equatable {
         }
     }
 }
+
+public protocol SignalConvertible {
+    
+    associatedtype Input
+    associatedtype Failure: Error
+    
+    var signal: Signal<Input, Failure> { get }
+}
+
+extension Signal: SignalConvertible {
+    
+    public var signal: Signal<Input, Failure> {
+        return self
+    }
+}
