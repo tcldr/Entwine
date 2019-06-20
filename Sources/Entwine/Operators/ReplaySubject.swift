@@ -9,7 +9,7 @@ import Combine
 
 public final class ReplaySubject<Output, Failure: Error> {
     
-    enum Status { case active, completed }
+    private enum Status { case active, completed }
     
     private var status = Status.active
     private var subscriptions = [ReplaySubjectSubscription<Output, Failure>]()
@@ -22,7 +22,7 @@ public final class ReplaySubject<Output, Failure: Error> {
         return subscriptions.count
     }
     
-    init(maxBufferSize: Int) {
+    public init(maxBufferSize: Int) {
         self.replayValues = .init(maxBufferSize: maxBufferSize)
     }
 }

@@ -13,11 +13,11 @@ extension Publishers {
         
         public typealias Failure = Upstream.Failure
         
-        let upstream: Upstream
-        let other: Other
-        let transform: (Upstream.Output, Other.Output) -> Output
+        private let upstream: Upstream
+        private let other: Other
+        private let transform: (Upstream.Output, Other.Output) -> Output
         
-        init(upstream: Upstream, other: Other, transform: @escaping (Upstream.Output, Other.Output) -> Output) {
+        public init(upstream: Upstream, other: Other, transform: @escaping (Upstream.Output, Other.Output) -> Output) {
             self.upstream = upstream
             self.other = other
             self.transform = transform

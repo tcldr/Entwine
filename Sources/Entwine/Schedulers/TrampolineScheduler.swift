@@ -12,9 +12,9 @@ public final class TrampolineScheduler {
     
     public static let shared = TrampolineScheduler()
     
-    static let localThreadActionQueueKey = "com.github.tcldr.Entwine.TrampolineScheduler.localThreadActionQueueKey"
+    private static let localThreadActionQueueKey = "com.github.tcldr.Entwine.TrampolineScheduler.localThreadActionQueueKey"
     
-    static var localThreadActionQueue: TrampolineSchedulerQueue {
+    private static var localThreadActionQueue: TrampolineSchedulerQueue {
         guard let queue = Thread.current.threadDictionary.value(forKey: Self.localThreadActionQueueKey) as? TrampolineSchedulerQueue else {
             let newQueue = TrampolineSchedulerQueue()
             Thread.current.threadDictionary.setValue(newQueue, forKey: Self.localThreadActionQueueKey)
@@ -55,13 +55,13 @@ extension TrampolineScheduler: Scheduler {
 
 // MARK: - Scheduler Queue
 
-final class TrampolineSchedulerQueue {
+fileprivate final class TrampolineSchedulerQueue {
     
     typealias Action = () -> Void
     enum Status { case idle, active }
     
-    private (set) var queuedActions = LinkedListQueue<Action>()
-    private (set) var status = Status.idle
+    private var queuedActions = LinkedListQueue<Action>()
+    private var status = Status.idle
     
     func push(_ action: @escaping Action) {
         queuedActions.enqueue(action)
