@@ -48,18 +48,18 @@ public struct TestablePublisher<Output, Failure: Error>: Publisher {
 fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscription {
     
     private let linkedList = LinkedList<Int>.empty
-    private let queue: SinkOutputQueue<Sink.Input, Sink.Failure>
+    private let queue: SinkQueue<Sink>
     private var cancellables = [AnyCancellable]()
     
     init(sink: Sink, testScheduler: TestScheduler, behavior: TestablePublisherBehavior, recordedEvents: [TestablePublisherEvent<Sink.Input>]) {
         
-        self.queue = SinkOutputQueue(sink: sink)
+        self.queue = SinkQueue(sink: sink)
         
         recordedEvents.forEach { recordedEvent in
             guard behavior == .cold || testScheduler.now <= recordedEvent.time else { return }
             let due = behavior == .cold ? testScheduler.now + recordedEvent.time : recordedEvent.time
             let cancellable = testScheduler.schedule(after: due, interval: 0) { [unowned self] in
-                self.queue.enqueueItem(recordedEvent.value)
+                _ = self.queue.enqueue(recordedEvent.value)
             }
             cancellables.append(AnyCancellable { cancellable.cancel() })
         }
@@ -70,10 +70,10 @@ fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscri
     }
     
     func request(_ demand: Subscribers.Demand) {
-        queue.request(demand)
+        _ = queue.requestDemand(demand)
     }
     
     func cancel() {
-        queue.complete(.finished)
+        queue.expediteCompletion(.finished)
     }
 }

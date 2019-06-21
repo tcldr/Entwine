@@ -111,58 +111,6 @@ extension Publishers {
             upstreamSubscription = nil
         }
     }
-    
-    class SinkQueue<Sink: Subscriber> {
-        
-        private var sink: Sink?
-        private var buffer = LinkedListQueue<Sink.Input>()
-        
-        private var demandRequested = Subscribers.Demand.none
-        private var demandProcessed = Subscribers.Demand.none
-        private var demandQueued: Subscribers.Demand { .max(buffer.count) }
-        
-        private var completion: Subscribers.Completion<Sink.Failure>?
-        
-        init(sink: Sink) {
-            self.sink = sink
-        }
-        
-        func requestDemand(_ demand: Subscribers.Demand) -> Subscribers.Demand {
-            demandRequested += demand
-            return processDemand()
-        }
-        
-        func enqueue(_ input: Sink.Input) -> Subscribers.Demand {
-            buffer.enqueue(input)
-            return processDemand()
-        }
-        
-        func enqueue(completion: Subscribers.Completion<Sink.Failure>) -> Subscribers.Demand {
-            self.completion = completion
-            return processDemand()
-        }
-        
-        func expediteCompletion(_ completion: Subscribers.Completion<Sink.Failure>) {
-            guard let sink = sink else { return }
-            self.sink = nil
-            sink.receive(completion: completion)
-        }
-        
-        // Processes as much demand as requested, returns spare capacity that
-        // can be forwarded to upstream subscriber/s
-        func processDemand() -> Subscribers.Demand {
-            while demandProcessed < demandRequested, let next = buffer.next() {
-                demandProcessed += 1
-                demandRequested += sink?.receive(next) ?? .none
-            }
-            guard let completion = completion, demandQueued < 1 else {
-                let spareDemand = (demandRequested - demandProcessed - demandQueued)
-                return max(.none, spareDemand)
-            }
-            expediteCompletion(completion)
-            return .none
-        }
-    }
 }
 
 public extension Publisher {

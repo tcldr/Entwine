@@ -9,10 +9,12 @@ import Combine
 
 public final class ReplaySubject<Output, Failure: Error> {
     
+    typealias Sink = AnySubscriber<Output, Failure>
+    
     private enum Status { case active, completed }
     
     private var status = Status.active
-    private var subscriptions = [ReplaySubjectSubscription<Output, Failure>]()
+    private var subscriptions = [ReplaySubjectSubscription<Sink>]()
     private var subscriberIdentifiers = Set<CombineIdentifier>()
     
     private var buffer = [Output]()
@@ -78,35 +80,40 @@ extension ReplaySubject: Subject {
     }
 }
 
-fileprivate final class ReplaySubjectSubscription<Input, Failure: Error>: Subscription {
+fileprivate final class ReplaySubjectSubscription<Sink: Subscriber>: Subscription {
     
-    private let queue: SinkOutputQueue<Input, Failure>
+    private let queue: SinkQueue<Sink>
     
     var cleanupHandler: (() -> Void)?
     let subscriberIdentifier: CombineIdentifier
     
-    init<S: Subscriber, ReplayedInputs: Sequence>(sink: S, replayedInputs: ReplayedInputs) where S.Failure == Failure, S.Input == Input, ReplayedInputs.Element == Input {
-        self.queue = SinkOutputQueue(sink: sink)
+    init<ReplayedInputs: Sequence>(sink: Sink, replayedInputs: ReplayedInputs) where ReplayedInputs.Element == Sink.Input {
+        self.queue = SinkQueue(sink: sink)
         self.subscriberIdentifier = sink.combineIdentifier
-        queue.enqueueItems(replayedInputs)
+        replayedInputs.forEach { _ = queue.enqueue($0) }
     }
     
-    func forwardValueToSink(_ value: Input) {
-        queue.enqueueItem(value)
+    func forwardValueToSink(_ value: Sink.Input) {
+        _ = queue.enqueue(value)
     }
     
-    func forwardCompletionToSink(_ completion: Subscribers.Completion<Failure>) {
-        queue.complete(completion)
-        cleanupHandler?()
-        cleanupHandler = nil
+    func forwardCompletionToSink(_ completion: Subscribers.Completion<Sink.Failure>) {
+        queue.expediteCompletion(completion)
+        cleanup()
     }
     
     func request(_ demand: Subscribers.Demand) {
-        queue.request(demand)
+        _ = queue.requestDemand(demand)
     }
     
     func cancel() {
-        forwardCompletionToSink(.finished)
+        queue.expediteCompletion(.finished)
+        cleanup()
+    }
+    
+    func cleanup() {
+        cleanupHandler?()
+        cleanupHandler = nil
     }
 }
 

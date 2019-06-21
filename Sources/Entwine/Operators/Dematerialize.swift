@@ -134,7 +134,7 @@ extension Publishers {
                 // re-imburse the sender as we're not queueing an
                 // additional element on the outer stream, only
                 // sending an element on the inner-stream
-                return .max(1)
+                return .none
             }
         }
         
