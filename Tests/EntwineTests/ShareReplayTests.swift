@@ -39,20 +39,20 @@ final class ShareReplayTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected1: [SignalEvent<Signal<Int, Never>>] = [
-            .init(100, .subscription),
-            .init(200, .input(0)),
-            .init(400, .input(1)),
+        let expected1: TestSequence<Int, Never> = [
+            (100, .subscription),
+            (200, .input(0)),
+            (400, .input(1)),
         ]
         
-        XCTAssertEqual(expected1, results1.events)
+        XCTAssertEqual(expected1, results1.sequence)
         
-        let expected2: [SignalEvent<Signal<Int, Never>>] = [
-            .init(300, .subscription),
-            .init(400, .input(1)),
+        let expected2: TestSequence<Int, Never> = [
+            (300, .subscription),
+            (400, .input(1)),
         ]
         
-        XCTAssertEqual(expected2, results2.events)
+        XCTAssertEqual(expected2, results2.sequence)
     }
 
     func testPassesThroughValueWithBufferOfOne() {
@@ -69,21 +69,21 @@ final class ShareReplayTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected1: [SignalEvent<Signal<Int, Never>>] = [
-            .init(100, .subscription),
-            .init(200, .input(0)),
-            .init(400, .input(1)),
+        let expected1: TestSequence<Int, Never> = [
+            (100, .subscription),
+            (200, .input(0)),
+            (400, .input(1)),
         ]
         
-        XCTAssertEqual(expected1, results1.events)
+        XCTAssertEqual(expected1, results1.sequence)
         
-        let expected2: [SignalEvent<Signal<Int, Never>>] = [
-            .init(300, .subscription),
-            .init(300, .input(0)),
-            .init(400, .input(1)),
+        let expected2: TestSequence<Int, Never> = [
+            (300, .subscription),
+            (300, .input(0)),
+            (400, .input(1)),
         ]
         
-        XCTAssertEqual(expected2, results2.events)
+        XCTAssertEqual(expected2, results2.sequence)
     }
 
     func testPassesThroughLatestValueWithBufferOfOne() {
@@ -101,22 +101,22 @@ final class ShareReplayTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected1: [SignalEvent<Signal<Int, Never>>] = [
-            .init(100, .subscription),
-            .init(200, .input(0)),
-            .init(250, .input(1)),
-            .init(400, .input(2)),
+        let expected1: TestSequence<Int, Never> = [
+            (100, .subscription),
+            (200, .input(0)),
+            (250, .input(1)),
+            (400, .input(2)),
         ]
         
-        XCTAssertEqual(expected1, results1.events)
+        XCTAssertEqual(expected1, results1.sequence)
         
-        let expected2: [SignalEvent<Signal<Int, Never>>] = [
-            .init(300, .subscription),
-            .init(300, .input(1)),
-            .init(400, .input(2)),
+        let expected2: TestSequence<Int, Never> = [
+            (300, .subscription),
+            (300, .input(1)),
+            (400, .input(2)),
         ]
         
-        XCTAssertEqual(expected2, results2.events)
+        XCTAssertEqual(expected2, results2.sequence)
     }
 
     func testPassesThroughCompletionIssuedPreSubscribe() {
@@ -130,12 +130,12 @@ final class ShareReplayTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected: [SignalEvent<Signal<Int, Never>>] = [
-            .init(200, .subscription),
-            .init(200, .completion(.finished)),
+        let expected: TestSequence<Int, Never> = [
+            (200, .subscription),
+            (200, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, results1.events)
+        XCTAssertEqual(expected, results1.sequence)
     }
 
     func testPassesThroughCompletionIssuedPostSubscribe() {
@@ -150,12 +150,12 @@ final class ShareReplayTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected: [SignalEvent<Signal<Int, Never>>] = [
-            .init(200, .subscription),
-            .init(300, .completion(.finished)),
+        let expected: TestSequence<Int, Never> = [
+            (200, .subscription),
+            (300, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, results1.events)
+        XCTAssertEqual(expected, results1.sequence)
     }
 
     func testStopsForwardingToSubscribersPostCompletion() {
@@ -171,12 +171,12 @@ final class ShareReplayTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected1: [SignalEvent<Signal<Int, Never>>] = [
-            .init(200, .subscription),
-            .init(300, .completion(.finished)),
+        let expected1: TestSequence<Int, Never> = [
+            (200, .subscription),
+            (300, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected1, results1.events)
+        XCTAssertEqual(expected1, results1.sequence)
     }
 
     func testImmediatelyCompletesForNewSubscribersPostPreviousCompletion() {
@@ -197,19 +197,19 @@ final class ShareReplayTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected1: [SignalEvent<Signal<Int, Never>>] = [
-            .init(200, .subscription),
-            .init(300, .input(0)),
-            .init(400, .completion(.finished)),
+        let expected1: TestSequence<Int, Never> = [
+            (200, .subscription),
+            (300, .input(0)),
+            (400, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected1, results1.events)
+        XCTAssertEqual(expected1, results1.sequence)
         
-        let expected2: [SignalEvent<Signal<Int, Never>>] = [
-            .init(500, .subscription),
-            .init(500, .completion(.finished)),
+        let expected2: TestSequence<Int, Never> = [
+            (500, .subscription),
+            (500, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected2, results2.events)
+        XCTAssertEqual(expected2, results2.sequence)
     }
 }

@@ -55,12 +55,12 @@ public class TestScheduler {
     
     
     
-    public func createTestableHotPublisher<Value, Failure: Error>(_ events: [SignalEvent<Signal<Value, Failure>>]) -> TestablePublisher<Value, Failure> {
-        return TestablePublisher(testScheduler: self, behavior: .hot, recordedEvents: events)
+    public func createTestableHotPublisher<Value, Failure: Error>(_ sequence: TestSequence<Value, Failure>) -> TestablePublisher<Value, Failure> {
+        return TestablePublisher(testScheduler: self, behavior: .hot, testSequence: sequence)
     }
     
-    public func createTestableColdPublisher<Value, Failure: Error>(_ events: [SignalEvent<Signal<Value, Failure>>]) -> TestablePublisher<Value, Failure> {
-        return TestablePublisher(testScheduler: self, behavior: .cold, recordedEvents: events)
+    public func createTestableColdPublisher<Value, Failure: Error>(_ sequence: TestSequence<Value, Failure>) -> TestablePublisher<Value, Failure> {
+        return TestablePublisher(testScheduler: self, behavior: .cold, testSequence: sequence)
     }
     
     public func createTestableSubscriber<Input, Failure>(_ inputType: Input.Type, _ failureType: Failure.Type, options: TestableSubscriberOptions = .default) -> TestableSubscriber<Input, Failure> {

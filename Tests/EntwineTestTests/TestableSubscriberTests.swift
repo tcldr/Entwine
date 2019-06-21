@@ -19,19 +19,19 @@ final class TestableSubscriberTests: XCTestCase {
             
             // Won't be delivered
             
-            .input(100, .init()),
-            .input(200, .init()),
-            .input(300, .init()),
+            (100, .input(.init())),
+            (200, .input(.init())),
+            (300, .input(.init())),
         ])
         
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         
-        let expected: [SignalEvent<Signal<Token, Never>>] = [
-            .init(200, .subscription),
-            .init(900, .completion(.finished)),
+        let expected: TestSequence<Token, Never> = [
+            (200, .subscription),
+            (900, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.events)
+        XCTAssertEqual(expected, testableSubscriber.sequence)
         
         let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
             .init(200, .credit(amount: .none), balance: .none)
@@ -56,22 +56,22 @@ final class TestableSubscriberTests: XCTestCase {
             // to be replenished 100 in the future – at 300. When the demand is finally requested
             // the buffered values are delivered immediately.
             
-            .input(10, .init()),
-            .input(20, .init()),
-            .input(30, .init()),
+            (10, .input(.init())),
+            (20, .input(.init())),
+            (30, .input(.init())),
         ])
         
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         
-        let expected: [SignalEvent<Signal<Token, Never>>] = [
-            .init(200, .subscription),
-            .init(300, .input(.init())),
-            .init(300, .input(.init())),
-            .init(300, .input(.init())),
-            .init(900, .completion(.finished)),
+        let expected: TestSequence<Token, Never> = [
+            (200, .subscription),
+            (300, .input(.init())),
+            (300, .input(.init())),
+            (300, .input(.init())),
+            (900, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.events)
+        XCTAssertEqual(expected, testableSubscriber.sequence)
         
         let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
             .init(200, .credit(amount: .none),      balance: .none),
@@ -95,27 +95,27 @@ final class TestableSubscriberTests: XCTestCase {
             
             // the first two fit within the initial demand limit and will fire as normal
             
-            .input(10, .init()),
-            .input(20, .init()),
+            ( 10, .input(.init())),
+            ( 20, .input(.init())),
             
             // Subsequent elements will be buffered until demand is replenished at 120. (last element time + .demandReplenishDelay)
             
-            .input(30, .init()), // will be delivered as soon as demand replenished at 120
-            .input(140, .init()), // will be delivered as scheduled as there should be remaining demand capacity of 1
+            ( 30, .input(.init())), // will be delivered as soon as demand replenished at 120
+            (140, .input(.init())), // will be delivered as scheduled as there should be remaining demand capacity of 1
         ])
         
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         
-        let expected: [SignalEvent<Signal<Token, Never>>] = [
-            .init(200, .subscription),
-            .init(210, .input(.init())),
-            .init(220, .input(.init())),
-            .init(320, .input(.init())),
-            .init(340, .input(.init())),
-            .init(900, .completion(.finished)),
+        let expected: TestSequence<Token, Never> = [
+            (200, .subscription),
+            (210, .input(.init())),
+            (220, .input(.init())),
+            (320, .input(.init())),
+            (340, .input(.init())),
+            (900, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.events)
+        XCTAssertEqual(expected, testableSubscriber.sequence)
         
         let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
             .init(200, .credit(amount: .max(2)), balance: .max(2)),
@@ -182,19 +182,19 @@ final class TestableSubscriberTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
-            .input(0, .init()),
+            (0, .input(.init())),
         ])
         
         var testableSubscriber: TestableSubscriber<Token, Never>! = testScheduler.start { testablePublisher }
         weak var weakTestableSubscriber = testableSubscriber
         
-        let expected: [SignalEvent<Signal<Token, Never>>] = [
-            .init(200, .subscription),
-            .init(200, .input(.init())),
-            .init(900, .completion(.finished)),
+        let expected: TestSequence<Token, Never> = [
+            (200, .subscription),
+            (200, .input(.init())),
+            (900, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.events)
+        XCTAssertEqual(expected, testableSubscriber.sequence)
         
         testableSubscriber = nil
         
@@ -209,7 +209,7 @@ final class TestableSubscriberTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
-            .input(100, .init()),
+            (100, .input(.init())),
         ])
         
         var testableSubscriber: TestableSubscriber<Token, Never>!
@@ -223,13 +223,13 @@ final class TestableSubscriberTests: XCTestCase {
         
         testScheduler.resume()
         
-        let expected: [SignalEvent<Signal<Token, Never>>] = [
-            .init(200, .subscription),
-            .init(300, .input(.init())),
-            .init(400, .completion(.finished)),
+        let expected: TestSequence<Token, Never> = [
+            (200, .subscription),
+            (300, .input(.init())),
+            (400, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.events)
+        XCTAssertEqual(expected, testableSubscriber.sequence)
         
         testableSubscriber = nil
         
@@ -253,13 +253,13 @@ final class TestableSubscriberTests: XCTestCase {
         
         scheduler.resume()
         
-        let expected: [SignalEvent<Signal<Int, Never>>] = [
-            .init(100, .subscription),
-            .init(110, .input(0)),
-            .init(310, .input(2)),
+        let expected: TestSequence<Int, Never> = [
+            (100, .subscription),
+            (110, .input(0)),
+            (310, .input(2)),
         ]
         
-        XCTAssertEqual(expected, subject.events)
+        XCTAssertEqual(expected, subject.sequence)
     }
     
     static var allTests = [

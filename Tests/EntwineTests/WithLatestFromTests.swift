@@ -12,28 +12,28 @@ final class WithLatestFromTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .input(10, "x"),
-            .input(20, "y"),
-            .input(30, "z"),
+            (010, .input("x")),
+            (020, .input("y")),
+            (030, .input("z")),
         ])
         
         let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .input(1, "a"),
-            .input(2, "b"),
-            .input(3, "c"),
+            (001, .input("a")),
+            (002, .input("b")),
+            (003, .input("c")),
         ])
         
         let testableSubscriber = testScheduler.start { testablePublisher.withLatest(from: testablePublisherOther)  }
         
-        let expected: [SignalEvent<Signal<String, Never>>] = [
-            .subscription(200),
-            .input(210, "c"),
-            .input(220, "c"),
-            .input(230, "c"),
-            .completion(900, .finished),
+        let expected: TestSequence<String, Never> = [
+            (200, .subscription),
+            (210, .input("c")),
+            (220, .input("c")),
+            (230, .input("c")),
+            (900, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.events)
+        XCTAssertEqual(expected, testableSubscriber.sequence)
     }
     
     func testDropsUpstreamValuesReceivedPriorToFirstOtherValue() {
@@ -41,27 +41,27 @@ final class WithLatestFromTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .input(10, "x"),
-            .input(20, "y"),
-            .input(30, "z"),
+            (010, .input("x")),
+            (020, .input("y")),
+            (030, .input("z")),
         ])
         
         let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .input(15, "a"),
-            .input(25, "b"),
-            .input(35, "c"),
+            (015, .input("a")),
+            (025, .input("b")),
+            (035, .input("c")),
         ])
         
         let testableSubscriber = testScheduler.start { testablePublisher.withLatest(from: testablePublisherOther)  }
         
-        let expected: [SignalEvent<Signal<String, Never>>] = [
-            .init(200, .subscription),
-            .init(220, .input("a")),
-            .init(230, .input("b")),
-            .init(900, .completion(.finished)),
+        let expected: TestSequence<String, Never> = [
+            (200, .subscription),
+            (220, .input("a")),
+            (230, .input("b")),
+            (900, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.events)
+        XCTAssertEqual(expected, testableSubscriber.sequence)
     }
     
     func testMatchesLimitedSubscriberDemand() {
@@ -69,15 +69,15 @@ final class WithLatestFromTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .input(10, "x"),
-            .input(20, "y"),
-            .input(30, "z"),
+            (010, .input("x")),
+            (020, .input("y")),
+            (030, .input("z")),
         ])
         
         let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .input(0, "a"),
-            .input(1, "b"),
-            .input(2, "c"),
+            (000, .input("a")),
+            (001, .input("b")),
+            (002, .input("c")),
         ])
         
         var configuration = TestScheduler.Configuration.default
@@ -85,13 +85,13 @@ final class WithLatestFromTests: XCTestCase {
         
         let testableSubscriber = testScheduler.start(configuration: configuration) { testablePublisher.withLatest(from: testablePublisherOther)  }
         
-        let expected: [SignalEvent<Signal<String, Never>>] = [
-            .init(200, .subscription),
-            .init(210, .input("c")),
-            .init(900, .completion(.finished)),
+        let expected: TestSequence<String, Never> = [
+            (200, .subscription),
+            (210, .input("c")),
+            (900, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.events)
+        XCTAssertEqual(expected, testableSubscriber.sequence)
     }
     
     func testCancelsUpstreamSubscriptions() {

@@ -38,10 +38,10 @@ final class DematerializeTests: XCTestCase {
                 .assertNoDematerializationFailure()
         }
         
-        XCTAssertEqual([
-            .init(200, .subscription),
-            .init(200, .completion(.finished)),
-        ], results1.events)
+        XCTAssertEqual(results1.sequence, [
+            (200, .subscription),
+            (200, .completion(.finished)),
+        ])
     }
     
     func testDematerializesError() {
@@ -59,10 +59,10 @@ final class DematerializeTests: XCTestCase {
                 .assertNoDematerializationFailure()
         }
         
-        XCTAssertEqual([
-            .init(200, .subscription),
-            .init(200, .completion(.failure(.error))),
-        ], results1.events)
+        XCTAssertEqual(results1.sequence, [
+            (200, .subscription),
+            (200, .completion(.failure(.error))),
+        ])
     }
     
     func testDematerializesJust1() {
@@ -79,10 +79,10 @@ final class DematerializeTests: XCTestCase {
                 .assertNoDematerializationFailure()
         }
         
-        XCTAssertEqual([
-            .init(200, .subscription),
-            .init(200, .input(1)),
-            .init(200, .completion(.finished)),
-        ], results1.events)
+        XCTAssertEqual(results1.sequence, [
+            (200, .subscription),
+            (200, .input(1)),
+            (200, .completion(.finished)),
+        ])
     }
 }

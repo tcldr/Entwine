@@ -124,13 +124,13 @@ final class TestSchedulerTests: XCTestCase {
         
         subject.resume()
         
-        let expected: [SignalEvent<Signal<Int, Never>>] = [
-            .init(100, .subscription),
-            .init(110, .input(0)),
-            .init(310, .input(2)),
+        let expected: TestSequence<Int, Never> = [
+            (100, .subscription),
+            (110, .input(0)),
+            (310, .input(2)),
         ]
         
-        XCTAssertEqual(expected, results.events)
+        XCTAssertEqual(expected, results.sequence)
     }
     
     func testFiresEventsScheduledBeforeStartCalled() {
@@ -145,14 +145,14 @@ final class TestSchedulerTests: XCTestCase {
         
         let testableSubscriber = subject.start { publisher1 }
         
-        let expected: [SignalEvent<Signal<Int, Never>>] = [
-            .init(200, .subscription),
-            .init(300, .input(0)),
-            .init(400, .input(1)),
-            .init(500, .input(2)),
+        let expected: TestSequence<Int, Never> = [
+            (200, .subscription),
+            (300, .input(0)),
+            (400, .input(1)),
+            (500, .input(2)),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.events)
+        XCTAssertEqual(expected, testableSubscriber.sequence)
     }
     
     func testTrampolinesImmediatelyScheduledTasks() {
@@ -176,14 +176,14 @@ final class TestSchedulerTests: XCTestCase {
         
         subject.resume()
         
-        let expected: [SignalEvent<Signal<Int, Never>>] = [
-            .init(100, .subscription),
-            .init(200, .input(0)),
-            .init(200, .input(1)),
-            .init(200, .input(2)),
+        let expected: TestSequence<Int, Never> = [
+            (100, .subscription),
+            (200, .input(0)),
+            (200, .input(1)),
+            (200, .input(2)),
         ]
         
-        XCTAssertEqual(expected, results.events)
+        XCTAssertEqual(expected, results.sequence)
     }
 
     static var allTests = [

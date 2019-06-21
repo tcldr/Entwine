@@ -14,19 +14,19 @@ final class TestablePublisherTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
-            .input(  0, .init()),
-            .input(200, .init()),
-            .input(400, .init()),
+            (  0, .input(.init())),
+            (200, .input(.init())),
+            (400, .input(.init())),
         ])
         
         let testableSubscriber = testScheduler.start { testablePublisher }
         
-        XCTAssertEqual(testableSubscriber.events, [
-            .init(200, .subscription),
-            .init(200, .input(.init())),
-            .init(400, .input(.init())),
-            .init(600, .input(.init())),
-            .init(900, .completion(.finished)),
+        XCTAssertEqual(testableSubscriber.sequence, [
+            (200, .subscription),
+            (200, .input(.init())),
+            (400, .input(.init())),
+            (600, .input(.init())),
+            (900, .completion(.finished)),
         ])
     }
     
@@ -35,18 +35,18 @@ final class TestablePublisherTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableHotPublisher([
-            .input(  0, .init()),
-            .input(200, .init()),
-            .input(400, .init()),
+            (  0, .input(.init())),
+            (200, .input(.init())),
+            (400, .input(.init())),
         ])
         
         let testableSubscriber = testScheduler.start { testablePublisher }
         
-        XCTAssertEqual(testableSubscriber.events, [
-            .init(200, .subscription),
-            .init(200, .input(.init())),
-            .init(400, .input(.init())),
-            .init(900, .completion(.finished)),
+        XCTAssertEqual(testableSubscriber.sequence, [
+            (200, .subscription),
+            (200, .input(.init())),
+            (400, .input(.init())),
+            (900, .completion(.finished)),
         ])
     }
     

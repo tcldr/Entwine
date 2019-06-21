@@ -44,17 +44,17 @@ final class TrampolineSchedulerTests: XCTestCase {
         
         testScheduler.resume()
         
-        let expected: [SignalEvent<Signal<String, Never>>] = [
-            .init(100, .subscription),
-            .init(200, .input("1a")),
-            .init(200, .input("1b")),
-            .init(200, .input("2a")),
-            .init(200, .input("2b")),
-            .init(200, .input("3a")),
-            .init(200, .input("3b")),
+        let expected: TestSequence<String, Never> = [
+            (100, .subscription),
+            (200, .input("1a")),
+            (200, .input("1b")),
+            (200, .input("2a")),
+            (200, .input("2b")),
+            (200, .input("3a")),
+            (200, .input("3b")),
         ]
         
-        XCTAssertEqual(expected, results.events)
+        XCTAssertEqual(expected, results.sequence)
     }
     
     func testSchedulerPerformsAsFIFOQueue() {
@@ -78,14 +78,14 @@ final class TrampolineSchedulerTests: XCTestCase {
         
         testScheduler.resume()
         
-        let expected: [SignalEvent<Signal<String, Never>>] = [
-            .init(100, .subscription),
-            .init(200, .input("outerAction: A")),
-            .init(200, .input("outerAction: B")),
-            .init(200, .input("innerAction1")),
-            .init(200, .input("innerAction2")),
+        let expected: TestSequence<String, Never> = [
+            (100, .subscription),
+            (200, .input("outerAction: A")),
+            (200, .input("outerAction: B")),
+            (200, .input("innerAction1")),
+            (200, .input("innerAction2")),
         ]
         
-        XCTAssertEqual(expected, results.events)
+        XCTAssertEqual(expected, results.sequence)
     }
 }

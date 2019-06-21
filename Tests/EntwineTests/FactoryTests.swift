@@ -21,9 +21,9 @@ final class FactoryTests: XCTestCase {
         
         let testableSubscriber = testScheduler.start { sut }
         
-        XCTAssertEqual(testableSubscriber.events, [
-            .subscription(200),
-            .completion(900, .finished)
+        XCTAssertEqual(testableSubscriber.sequence, [
+            (200, .subscription),
+            (900, .completion(.finished)),
         ])
     }
     
@@ -38,9 +38,9 @@ final class FactoryTests: XCTestCase {
         
         let testableSubscriber = testScheduler.start { sut }
         
-        XCTAssertEqual(testableSubscriber.events, [
-            .subscription(200),
-            .completion(200, .finished)
+        XCTAssertEqual(testableSubscriber.sequence, [
+            (200, .subscription),
+            (200, .completion(.finished)),
         ])
     }
     
@@ -56,10 +56,10 @@ final class FactoryTests: XCTestCase {
         
         let testableSubscriber = testScheduler.start { sut }
         
-        XCTAssertEqual(testableSubscriber.events, [
-            .subscription(200),
-            .input(200, 0),
-            .completion(200, .finished)
+        XCTAssertEqual(testableSubscriber.sequence, [
+            (200, .subscription),
+            (200, .input(0)),
+            (200, .completion(.finished)),
         ])
     }
     
@@ -79,12 +79,12 @@ final class FactoryTests: XCTestCase {
         
         let testableSubscriber = testScheduler.start { sut }
         
-        XCTAssertEqual(testableSubscriber.events, [
-            .subscription(200),
-            .input(210, 0),
-            .input(220, 1),
-            .input(230, 2),
-            .completion(300, .finished)
+        XCTAssertEqual(testableSubscriber.sequence, [
+            (200, .subscription),
+            (210, .input(0)),
+            (220, .input(1)),
+            (230, .input(2)),
+            (300, .completion(.finished))
         ])
     }
 }

@@ -17,7 +17,9 @@ public struct TestableSubscriberOptions {
 
 public final class TestableSubscriber<Input, Failure: Error> {
     
-    public internal(set) var events = [SignalEvent<Signal<Input, Failure>>]()
+    public typealias Sequence = TestSequence<Input, Failure>
+    
+    public internal(set) var sequence = TestSequence<Input, Failure>()
     public internal(set) var demands = [DemandLedgerRow<VirtualTime>]()
     
     private let scheduler: TestScheduler
@@ -25,6 +27,7 @@ public final class TestableSubscriber<Input, Failure: Error> {
     private var subscription: Subscription?
     private var demandBalance = Subscribers.Demand.none
     private var replenishmentToken: Cancellable?
+    
     
     init(scheduler: TestScheduler, options: TestableSubscriberOptions = .default) {
         self.scheduler = scheduler
@@ -102,7 +105,7 @@ extension TestableSubscriber: Subscriber {
         self.demandBalance = .none
         self.subscription = subscription
         
-        events.append(.init(scheduler.now, .subscription))
+        sequence.append((scheduler.now, .subscription))
         
         issueDemandCredit(options.initialDemand)
         delayedReplenishDemandIfNeeded()
@@ -110,7 +113,7 @@ extension TestableSubscriber: Subscriber {
     
     public func receive(_ input: Input) -> Subscribers.Demand {
         
-        events.append(.init(scheduler.now, .input(input)))
+        sequence.append((scheduler.now, .input(input)))
         
         debitDemand(.max(1))
         delayedReplenishDemandIfNeeded()
@@ -119,7 +122,7 @@ extension TestableSubscriber: Subscriber {
     }
     
     public func receive(completion: Subscribers.Completion<Failure>) {
-        events.append(.init(scheduler.now, .completion(completion)))
+        sequence.append((scheduler.now, .completion(completion)))
         subscription = nil
     }    
 }
