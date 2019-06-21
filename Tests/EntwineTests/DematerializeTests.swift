@@ -28,7 +28,7 @@ final class DematerializeTests: XCTestCase {
     func testDematerializesEmpty() {
         
         let materializedElements: [Signal<Int, Never>] = [
-            .subscribe,
+            .subscription,
             .completion(.finished)
         ]
         
@@ -38,12 +38,10 @@ final class DematerializeTests: XCTestCase {
                 .assertNoDematerializationFailure()
         }
         
-        let expected1: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        XCTAssertEqual([
+            .init(200, .subscription),
             .init(200, .completion(.finished)),
-        ]
-        
-        XCTAssertEqual(expected1, results1.events)
+        ], results1.events)
     }
     
     func testDematerializesError() {
@@ -51,7 +49,7 @@ final class DematerializeTests: XCTestCase {
         enum MaterializedError: Error { case error }
         
         let materializedElements: [Signal<Int, MaterializedError>] = [
-            .subscribe,
+            .subscription,
             .completion(.failure(.error))
         ]
         
@@ -61,18 +59,16 @@ final class DematerializeTests: XCTestCase {
                 .assertNoDematerializationFailure()
         }
         
-        let expected1: [TestableSubscriberEvent<Int, MaterializedError>] = [
-            .init(200, .subscribe),
+        XCTAssertEqual([
+            .init(200, .subscription),
             .init(200, .completion(.failure(.error))),
-        ]
-        
-        XCTAssertEqual(expected1, results1.events)
+        ], results1.events)
     }
     
     func testDematerializesJust1() {
         
         let materializedElements: [Signal<Int, Never>] = [
-            .subscribe,
+            .subscription,
             .input(1),
             .completion(.finished)
         ]
@@ -83,12 +79,10 @@ final class DematerializeTests: XCTestCase {
                 .assertNoDematerializationFailure()
         }
         
-        let expected1: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        XCTAssertEqual([
+            .init(200, .subscription),
             .init(200, .input(1)),
             .init(200, .completion(.finished)),
-        ]
-        
-        XCTAssertEqual(expected1, results1.events)
+        ], results1.events)
     }
 }

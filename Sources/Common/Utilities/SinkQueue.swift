@@ -19,6 +19,10 @@ class SinkQueue<Sink: Subscriber> {
         self.sink = sink
     }
     
+    deinit {
+        expediteCompletion(.finished)
+    }
+    
     func requestDemand(_ demand: Subscribers.Demand) -> Subscribers.Demand {
         demandRequested += demand
         return processDemand()

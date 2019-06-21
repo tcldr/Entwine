@@ -36,8 +36,8 @@ final class ReplaySubjectTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Int, Never>>] = [
+            .init(200, .subscription),
             .init(300, .input(1)),
         ]
         
@@ -54,8 +54,8 @@ final class ReplaySubjectTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Int, Never>>] = [
+            .init(200, .subscription),
             .init(200, .input(0)),
         ]
         
@@ -73,8 +73,8 @@ final class ReplaySubjectTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Int, Never>>] = [
+            .init(200, .subscription),
             .init(200, .input(1)),
         ]
         
@@ -91,8 +91,8 @@ final class ReplaySubjectTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Int, Never>>] = [
+            .init(200, .subscription),
             .init(200, .completion(.finished)),
         ]
         
@@ -110,8 +110,8 @@ final class ReplaySubjectTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Int, Never>>] = [
+            .init(200, .subscription),
             .init(300, .completion(.finished)),
         ]
         
@@ -130,8 +130,8 @@ final class ReplaySubjectTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected1: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        let expected1: [SignalEvent<Signal<Int, Never>>] = [
+            .init(200, .subscription),
             .init(300, .completion(.finished)),
         ]
         
@@ -155,16 +155,16 @@ final class ReplaySubjectTests: XCTestCase {
 
         scheduler.resume()
         
-        let expected1: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        let expected1: [SignalEvent<Signal<Int, Never>>] = [
+            .init(200, .subscription),
             .init(300, .input(0)),
             .init(400, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected1, results1.events)
         
-        let expected2: [TestableSubscriberEvent<Int, Never>] = [
-            .init(500, .subscribe),
+        let expected2: [SignalEvent<Signal<Int, Never>>] = [
+            .init(500, .subscription),
             .init(500, .completion(.finished)),
         ]
         
@@ -234,8 +234,8 @@ final class ReplaySubjectTests: XCTestCase {
         
         scheduler.resume()
         
-        let expected1: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        let expected1: [SignalEvent<Signal<Int, Never>>] = [
+            .init(200, .subscription),
             .init(300, .input(1)),
             .init(400, .completion(.finished)),
         ]
@@ -257,8 +257,8 @@ final class ReplaySubjectTests: XCTestCase {
         
         scheduler.resume()
         
-        let expected1: [TestableSubscriberEvent<Int, Never>] = [
-            .init(300, .subscribe),
+        let expected1: [SignalEvent<Signal<Int, Never>>] = [
+            .init(300, .subscription),
             .init(300, .input(1)),
             .init(400, .input(2)),
             .init(500, .completion(.finished)),
@@ -284,8 +284,8 @@ final class ReplaySubjectTests: XCTestCase {
         
         scheduler.resume()
         
-        let expected1: [TestableSubscriberEvent<Int, Never>] = [
-            .init(500, .subscribe),
+        let expected1: [SignalEvent<Signal<Int, Never>>] = [
+            .init(500, .subscription),
             .init(500, .input(2)),
             .init(500, .input(3)),
             .init(600, .input(4)),
@@ -316,8 +316,8 @@ final class ReplaySubjectTests: XCTestCase {
         
         scheduler.resume()
         
-        let expected1: [TestableSubscriberEvent<Int, Never>] = [
-            .init(300, .subscribe),
+        let expected1: [SignalEvent<Signal<Int, Never>>] = [
+            .init(300, .subscription),
             .init(300, .input(1)),
             .init(400, .input(2)),
             .init(500, .completion(.finished)),
@@ -340,8 +340,8 @@ final class ReplaySubjectTests: XCTestCase {
         
         scheduler.resume()
         
-        let expected1: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        let expected1: [SignalEvent<Signal<Int, Never>>] = [
+            .init(200, .subscription),
             .init(300, .completion(.finished)),
         ]
         

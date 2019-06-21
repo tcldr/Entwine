@@ -19,15 +19,15 @@ final class TestableSubscriberTests: XCTestCase {
             
             // Won't be delivered
             
-            .init(time: 100, .init()),
-            .init(time: 200, .init()),
-            .init(time: 300, .init()),
+            .input(100, .init()),
+            .input(200, .init()),
+            .input(300, .init()),
         ])
         
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         
-        let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Token, Never>>] = [
+            .init(200, .subscription),
             .init(900, .completion(.finished)),
         ]
         
@@ -56,15 +56,15 @@ final class TestableSubscriberTests: XCTestCase {
             // to be replenished 100 in the future – at 300. When the demand is finally requested
             // the buffered values are delivered immediately.
             
-            .init(time: 10, .init()),
-            .init(time: 20, .init()),
-            .init(time: 30, .init()),
+            .input(10, .init()),
+            .input(20, .init()),
+            .input(30, .init()),
         ])
         
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         
-        let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Token, Never>>] = [
+            .init(200, .subscription),
             .init(300, .input(.init())),
             .init(300, .input(.init())),
             .init(300, .input(.init())),
@@ -95,19 +95,19 @@ final class TestableSubscriberTests: XCTestCase {
             
             // the first two fit within the initial demand limit and will fire as normal
             
-            .init(time: 10, .init()),
-            .init(time: 20, .init()),
+            .input(10, .init()),
+            .input(20, .init()),
             
             // Subsequent elements will be buffered until demand is replenished at 120. (last element time + .demandReplenishDelay)
             
-            .init(time: 30, .init()), // will be delivered as soon as demand replenished at 120
-            .init(time: 140, .init()), // will be delivered as scheduled as there should be remaining demand capacity of 1
+            .input(30, .init()), // will be delivered as soon as demand replenished at 120
+            .input(140, .init()), // will be delivered as scheduled as there should be remaining demand capacity of 1
         ])
         
         let testableSubscriber = testScheduler.start(configuration: testConfiguration) { testablePublisher }
         
-        let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Token, Never>>] = [
+            .init(200, .subscription),
             .init(210, .input(.init())),
             .init(220, .input(.init())),
             .init(320, .input(.init())),
@@ -182,14 +182,14 @@ final class TestableSubscriberTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
-            .init(time: 0, .init()),
+            .input(0, .init()),
         ])
         
         var testableSubscriber: TestableSubscriber<Token, Never>! = testScheduler.start { testablePublisher }
         weak var weakTestableSubscriber = testableSubscriber
         
-        let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Token, Never>>] = [
+            .init(200, .subscription),
             .init(200, .input(.init())),
             .init(900, .completion(.finished)),
         ]
@@ -209,7 +209,7 @@ final class TestableSubscriberTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
-            .init(time: 100, .init()),
+            .input(100, .init()),
         ])
         
         var testableSubscriber: TestableSubscriber<Token, Never>!
@@ -223,8 +223,8 @@ final class TestableSubscriberTests: XCTestCase {
         
         testScheduler.resume()
         
-        let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Token, Never>>] = [
+            .init(200, .subscription),
             .init(300, .input(.init())),
             .init(400, .completion(.finished)),
         ]
@@ -253,8 +253,8 @@ final class TestableSubscriberTests: XCTestCase {
         
         scheduler.resume()
         
-        let expected: [TestableSubscriberEvent<Int, Never>] = [
-            .init(100, .subscribe),
+        let expected: [SignalEvent<Signal<Int, Never>>] = [
+            .init(100, .subscription),
             .init(110, .input(0)),
             .init(310, .input(2)),
         ]

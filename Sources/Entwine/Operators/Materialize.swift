@@ -78,7 +78,7 @@ extension Publishers {
         // that the subscription has begun
         func receive(subscription: Subscription) {
             self.upstreamSubscription = subscription
-            let demand = queue.enqueue(.subscribe)
+            let demand = queue.enqueue(.subscription)
             guard demand > .none else { return }
             subscription.request(demand)
         }

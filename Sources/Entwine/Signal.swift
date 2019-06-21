@@ -10,7 +10,7 @@ import Combine
 // MARK: - Signal value definition
 
 public enum Signal <Input, Failure: Error> {
-    case subscribe
+    case subscription
     case input(Input)
     case completion(Subscribers.Completion<Failure>)
 }
@@ -21,7 +21,7 @@ extension Signal: Equatable where Input: Equatable, Failure: Equatable {
     
     public static func ==(lhs: Signal<Input, Failure>, rhs: Signal<Input, Failure>) -> Bool {
         switch (lhs, rhs) {
-        case (.subscribe, .subscribe):
+        case (.subscription, .subscription):
             return true
         case (.input(let lhsInput), .input(let rhsInput)):
             return (lhsInput == rhsInput)
@@ -49,10 +49,15 @@ public protocol SignalConvertible {
     associatedtype Input
     associatedtype Failure: Error
     
+    init(_ signal: Signal<Input, Failure>)
     var signal: Signal<Input, Failure> { get }
 }
 
 extension Signal: SignalConvertible {
+    
+    public init(_ signal: Signal<Input, Failure>) {
+        self = signal
+    }
     
     public var signal: Signal<Input, Failure> {
         return self

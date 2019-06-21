@@ -53,11 +53,13 @@ public class TestScheduler {
         return subscriber
     }
     
-    public func createTestableHotPublisher<Value, Failure: Error>(_ events: [TestablePublisherEvent<Value>]) -> TestablePublisher<Value, Failure> {
+    
+    
+    public func createTestableHotPublisher<Value, Failure: Error>(_ events: [SignalEvent<Signal<Value, Failure>>]) -> TestablePublisher<Value, Failure> {
         return TestablePublisher(testScheduler: self, behavior: .hot, recordedEvents: events)
     }
     
-    public func createTestableColdPublisher<Value, Failure: Error>(_ events: [TestablePublisherEvent<Value>]) -> TestablePublisher<Value, Failure> {
+    public func createTestableColdPublisher<Value, Failure: Error>(_ events: [SignalEvent<Signal<Value, Failure>>]) -> TestablePublisher<Value, Failure> {
         return TestablePublisher(testScheduler: self, behavior: .cold, recordedEvents: events)
     }
     

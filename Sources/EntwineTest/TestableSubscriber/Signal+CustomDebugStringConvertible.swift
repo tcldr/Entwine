@@ -12,7 +12,7 @@ import Entwine
 extension Signal: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
-        case .subscribe:
+        case .subscription:
             return ".subscribe"
         case .input(let input):
             return ".input(\(input))"

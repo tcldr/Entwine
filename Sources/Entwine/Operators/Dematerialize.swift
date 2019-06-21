@@ -102,7 +102,7 @@ extension Publishers {
         func receive(_ input: Input) -> Subscribers.Demand {
             
             switch input.signal {
-            case .subscribe:
+            case .subscription:
                 guard currentMaterializationSubject == nil else {
                     queue.expediteCompletion(.failure(.outOfSequence))
                     cancelUpstreamSubscription()

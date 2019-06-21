@@ -124,8 +124,8 @@ final class TestSchedulerTests: XCTestCase {
         
         subject.resume()
         
-        let expected: [TestableSubscriberEvent<Int, Never>] = [
-            .init(100, .subscribe),
+        let expected: [SignalEvent<Signal<Int, Never>>] = [
+            .init(100, .subscription),
             .init(110, .input(0)),
             .init(310, .input(2)),
         ]
@@ -145,8 +145,8 @@ final class TestSchedulerTests: XCTestCase {
         
         let testableSubscriber = subject.start { publisher1 }
         
-        let expected: [TestableSubscriberEvent<Int, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<Int, Never>>] = [
+            .init(200, .subscription),
             .init(300, .input(0)),
             .init(400, .input(1)),
             .init(500, .input(2)),
@@ -176,8 +176,8 @@ final class TestSchedulerTests: XCTestCase {
         
         subject.resume()
         
-        let expected: [TestableSubscriberEvent<Int, Never>] = [
-            .init(100, .subscribe),
+        let expected: [SignalEvent<Signal<Int, Never>>] = [
+            .init(100, .subscription),
             .init(200, .input(0)),
             .init(200, .input(1)),
             .init(200, .input(2)),

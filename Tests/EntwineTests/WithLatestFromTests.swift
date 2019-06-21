@@ -12,25 +12,25 @@ final class WithLatestFromTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .init(time: 10, "x"),
-            .init(time: 20, "y"),
-            .init(time: 30, "z"),
+            .input(10, "x"),
+            .input(20, "y"),
+            .input(30, "z"),
         ])
         
         let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .init(time: 1, "a"),
-            .init(time: 2, "b"),
-            .init(time: 3, "c"),
+            .input(1, "a"),
+            .input(2, "b"),
+            .input(3, "c"),
         ])
         
         let testableSubscriber = testScheduler.start { testablePublisher.withLatest(from: testablePublisherOther)  }
         
-        let expected: [TestableSubscriberEvent<String, Never>] = [
-            .init(200, .subscribe),
-            .init(210, .input("c")),
-            .init(220, .input("c")),
-            .init(230, .input("c")),
-            .init(900, .completion(.finished)),
+        let expected: [SignalEvent<Signal<String, Never>>] = [
+            .subscription(200),
+            .input(210, "c"),
+            .input(220, "c"),
+            .input(230, "c"),
+            .completion(900, .finished),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.events)
@@ -41,21 +41,21 @@ final class WithLatestFromTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .init(time: 10, "x"),
-            .init(time: 20, "y"),
-            .init(time: 30, "z"),
+            .input(10, "x"),
+            .input(20, "y"),
+            .input(30, "z"),
         ])
         
         let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .init(time: 15, "a"),
-            .init(time: 25, "b"),
-            .init(time: 35, "c"),
+            .input(15, "a"),
+            .input(25, "b"),
+            .input(35, "c"),
         ])
         
         let testableSubscriber = testScheduler.start { testablePublisher.withLatest(from: testablePublisherOther)  }
         
-        let expected: [TestableSubscriberEvent<String, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<String, Never>>] = [
+            .init(200, .subscription),
             .init(220, .input("a")),
             .init(230, .input("b")),
             .init(900, .completion(.finished)),
@@ -69,15 +69,15 @@ final class WithLatestFromTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .init(time: 10, "x"),
-            .init(time: 20, "y"),
-            .init(time: 30, "z"),
+            .input(10, "x"),
+            .input(20, "y"),
+            .input(30, "z"),
         ])
         
         let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
-            .init(time: 0, "a"),
-            .init(time: 1, "b"),
-            .init(time: 2, "c"),
+            .input(0, "a"),
+            .input(1, "b"),
+            .input(2, "c"),
         ])
         
         var configuration = TestScheduler.Configuration.default
@@ -85,8 +85,8 @@ final class WithLatestFromTests: XCTestCase {
         
         let testableSubscriber = testScheduler.start(configuration: configuration) { testablePublisher.withLatest(from: testablePublisherOther)  }
         
-        let expected: [TestableSubscriberEvent<String, Never>] = [
-            .init(200, .subscribe),
+        let expected: [SignalEvent<Signal<String, Never>>] = [
+            .init(200, .subscription),
             .init(210, .input("c")),
             .init(900, .completion(.finished)),
         ]

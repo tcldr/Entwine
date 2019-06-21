@@ -29,9 +29,9 @@ final class MaterializeTests: XCTestCase {
         
         let results1 = scheduler.start { Publishers.Empty<Int, Never>().materialize() }
         
-        let expected1: [TestableSubscriberEvent<Signal<Int, Never>, Never>] = [
-            .init(200, .subscribe),
-            .init(200, .input(.subscribe)),
+        let expected1: [SignalEvent<Signal<Signal<Int, Never>, Never>>] = [
+            .init(200, .subscription),
+            .init(200, .input(.subscription)),
             .init(200, .input(.completion(.finished))),
             .init(200, .completion(.finished)),
         ]
@@ -45,9 +45,9 @@ final class MaterializeTests: XCTestCase {
         
         let results1 = scheduler.start { Publishers.Fail<Int, MaterializedError>(error: .error).materialize() }
         
-        let expected1: [TestableSubscriberEvent<Signal<Int, MaterializedError>, Never>] = [
-            .init(200, .subscribe),
-            .init(200, .input(.subscribe)),
+        let expected1: [SignalEvent<Signal<Signal<Int, MaterializedError>, Never>>] = [
+            .init(200, .subscription),
+            .init(200, .input(.subscription)),
             .init(200, .input(.completion(.failure(.error)))),
             .init(200, .completion(.finished)),
         ]
@@ -59,9 +59,9 @@ final class MaterializeTests: XCTestCase {
         
         let results1 = scheduler.start { Publishers.Just<Int>(1).materialize() }
         
-        let expected1: [TestableSubscriberEvent<Signal<Int, Never>, Never>] = [
-            .init(200, .subscribe),
-            .init(200, .input(.subscribe)),
+        let expected1: [SignalEvent<Signal<Signal<Int, Never>, Never>>] = [
+            .init(200, .subscription),
+            .init(200, .input(.subscription)),
             .init(200, .input(.input(1))),
             .init(200, .input(.completion(.finished))),
             .init(200, .completion(.finished)),

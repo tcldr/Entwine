@@ -7,39 +7,26 @@ import Foundation
 
 public enum TestablePublisherBehavior { case hot, cold }
 
-// MARK: - Event value definition
-
-public struct TestablePublisherEvent <Element> {
-    
-    public init(time: VirtualTime, _ value: Element) {
-        self.time = time
-        self.value = value
-    }
-    
-    public let time: VirtualTime
-    public let value: Element
-}
-
 // MARK: - Publisher definition
 
 public struct TestablePublisher<Output, Failure: Error>: Publisher {
     
+    typealias Event = SignalEvent<Signal<Output, Failure>>
+    
     private let testScheduler: TestScheduler
     private let behavior: TestablePublisherBehavior
-    private let recordedEvents: [TestablePublisherEvent<Output>]
+    private let recordedEvents: [Event]
     
-    init(testScheduler: TestScheduler, behavior: TestablePublisherBehavior, recordedEvents: [TestablePublisherEvent<Output>]) {
+    init(testScheduler: TestScheduler, behavior: TestablePublisherBehavior, recordedEvents: [Event]) {
         self.testScheduler = testScheduler
         self.recordedEvents = recordedEvents
         self.behavior = behavior
     }
     
     public func receive<S: Subscriber>(subscriber: S) where S.Failure == Failure, S.Input == Output {
-        subscriber.receive(subscription: createSubscription(subscriber: subscriber))
-    }
-    
-    func createSubscription<S: Subscriber>(subscriber: S) -> Subscription where S.Failure == Failure, S.Input == Output {
-        TestablePublisherSubscription(sink: subscriber, testScheduler: testScheduler, behavior: behavior, recordedEvents: recordedEvents)
+        subscriber.receive(subscription:
+            TestablePublisherSubscription(
+                sink: subscriber, testScheduler: testScheduler, behavior: behavior, recordedEvents: recordedEvents))
     }
 }
 
@@ -47,21 +34,36 @@ public struct TestablePublisher<Output, Failure: Error>: Publisher {
 
 fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscription {
     
+    typealias Event = SignalEvent<Signal<Sink.Input, Sink.Failure>>
+    
     private let linkedList = LinkedList<Int>.empty
     private let queue: SinkQueue<Sink>
     private var cancellables = [AnyCancellable]()
     
-    init(sink: Sink, testScheduler: TestScheduler, behavior: TestablePublisherBehavior, recordedEvents: [TestablePublisherEvent<Sink.Input>]) {
+    init(sink: Sink, testScheduler: TestScheduler, behavior: TestablePublisherBehavior, recordedEvents: [Event]) {
         
         self.queue = SinkQueue(sink: sink)
         
         recordedEvents.forEach { recordedEvent in
+            
             guard behavior == .cold || testScheduler.now <= recordedEvent.time else { return }
             let due = behavior == .cold ? testScheduler.now + recordedEvent.time : recordedEvent.time
-            let cancellable = testScheduler.schedule(after: due, interval: 0) { [unowned self] in
-                _ = self.queue.enqueue(recordedEvent.value)
+            
+            switch recordedEvent.signal {
+            case .subscription:
+                assertionFailure("WARNING: Subscribe events are ignored. \(recordedEvent)")
+                break
+            case .input(let value):
+                let cancellable = testScheduler.schedule(after: due, interval: 0) { [unowned self] in
+                    _ = self.queue.enqueue(value)
+                }
+                cancellables.append(AnyCancellable { cancellable.cancel() })
+            case .completion(let completion):
+                let cancellable = testScheduler.schedule(after: due, interval: 0) { [unowned self] in
+                    self.queue.expediteCompletion(completion)
+                }
+                cancellables.append(AnyCancellable { cancellable.cancel() })
             }
-            cancellables.append(AnyCancellable { cancellable.cancel() })
         }
     }
     

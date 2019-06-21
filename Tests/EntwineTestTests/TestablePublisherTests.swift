@@ -14,22 +14,20 @@ final class TestablePublisherTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
-            .init(time:   0, .init()),
-            .init(time: 200, .init()),
-            .init(time: 400, .init()),
+            .input(  0, .init()),
+            .input(200, .init()),
+            .input(400, .init()),
         ])
         
         let testableSubscriber = testScheduler.start { testablePublisher }
         
-        let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .init(200, .subscribe),
+        XCTAssertEqual(testableSubscriber.events, [
+            .init(200, .subscription),
             .init(200, .input(.init())),
             .init(400, .input(.init())),
             .init(600, .input(.init())),
             .init(900, .completion(.finished)),
-        ]
-        
-        XCTAssertEqual(expected, testableSubscriber.events)
+        ])
     }
     
     func testHotObservableProducesExpectedValues() {
@@ -37,21 +35,19 @@ final class TestablePublisherTests: XCTestCase {
         let testScheduler = TestScheduler(initialClock: 0)
         
         let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableHotPublisher([
-            .init(time:   0, .init()),
-            .init(time: 200, .init()),
-            .init(time: 400, .init()),
+            .input(  0, .init()),
+            .input(200, .init()),
+            .input(400, .init()),
         ])
         
         let testableSubscriber = testScheduler.start { testablePublisher }
         
-        let expected: [TestableSubscriberEvent<Token, Never>] = [
-            .init(200, .subscribe),
+        XCTAssertEqual(testableSubscriber.events, [
+            .init(200, .subscription),
             .init(200, .input(.init())),
             .init(400, .input(.init())),
             .init(900, .completion(.finished)),
-        ]
-        
-        XCTAssertEqual(expected, testableSubscriber.events)
+        ])
     }
     
     static var allTests = [

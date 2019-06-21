@@ -44,8 +44,8 @@ final class TrampolineSchedulerTests: XCTestCase {
         
         testScheduler.resume()
         
-        let expected: [TestableSubscriberEvent<String, Never>] = [
-            .init(100, .subscribe),
+        let expected: [SignalEvent<Signal<String, Never>>] = [
+            .init(100, .subscription),
             .init(200, .input("1a")),
             .init(200, .input("1b")),
             .init(200, .input("2a")),
@@ -78,8 +78,8 @@ final class TrampolineSchedulerTests: XCTestCase {
         
         testScheduler.resume()
         
-        let expected: [TestableSubscriberEvent<String, Never>] = [
-            .init(100, .subscribe),
+        let expected: [SignalEvent<Signal<String, Never>>] = [
+            .init(100, .subscription),
             .init(200, .input("outerAction: A")),
             .init(200, .input("outerAction: B")),
             .init(200, .input("innerAction1")),

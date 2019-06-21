@@ -1,5 +1,6 @@
 
 import Combine
+import Entwine
 
 // MARK: - TestableSubscriberOptions value definition
 
@@ -16,7 +17,7 @@ public struct TestableSubscriberOptions {
 
 public final class TestableSubscriber<Input, Failure: Error> {
     
-    public internal(set) var events = [TestableSubscriberEvent<Input, Failure>]()
+    public internal(set) var events = [SignalEvent<Signal<Input, Failure>>]()
     public internal(set) var demands = [DemandLedgerRow<VirtualTime>]()
     
     private let scheduler: TestScheduler
@@ -101,7 +102,7 @@ extension TestableSubscriber: Subscriber {
         self.demandBalance = .none
         self.subscription = subscription
         
-        events.append(.init(scheduler.now, .subscribe))
+        events.append(.init(scheduler.now, .subscription))
         
         issueDemandCredit(options.initialDemand)
         delayedReplenishDemandIfNeeded()
