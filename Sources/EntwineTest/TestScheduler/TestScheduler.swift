@@ -22,6 +22,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+//  Based on RxSwift's `TestScheduler`
+//  Copyright © 2015 Krunoslav Zaher All rights reserved.
+//  https://github.com/ReactiveX/RxSwift
+
 import Entwine
 import Combine
 
