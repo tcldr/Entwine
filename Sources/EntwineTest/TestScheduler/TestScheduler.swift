@@ -1,3 +1,26 @@
+//
+//  Entwine
+//  https://github.com/tcldr/Entwine
+//
+//  Copyright © 2019 Tristan Celder. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import Entwine
 import Combine
@@ -100,24 +123,18 @@ extension TestScheduler: Scheduler {
     public typealias SchedulerTimeType = VirtualTime
     public typealias SchedulerOptions = Never
     
-    /// Returns this scheduler's definition of the current moment in time.
     public var now: VirtualTime { currentTime }
     
-    /// Returns the minimum tolerance allowed by the scheduler.
     public var minimumTolerance: VirtualTimeInterval { 1 }
     
-    /// Performs the action at the next possible opportunity.
     public func schedule(options: Never?, _ action: @escaping () -> Void) {
         schedulerQueue.push(TestSchedulerTask(id: nextTaskId(), time: currentTime, action: action))
     }
     
-    /// Performs the action at some time after the specified date.
     public func schedule(after date: VirtualTime, tolerance: VirtualTimeInterval, options: Never?, _ action: @escaping () -> Void) {
         schedulerQueue.push(TestSchedulerTask(id: nextTaskId(), time: date, action: action))
     }
     
-    /// Performs the action at some time after the specified date, at the specified
-    /// frequency, optionally taking into account tolerance if possible.
     public func schedule(after date: VirtualTime, interval: VirtualTimeInterval, tolerance: VirtualTimeInterval, options: Never?, _ action: @escaping () -> Void) -> Cancellable {
         let task = TestSchedulerTask(id: nextTaskId(), time: date, action: action)
         schedulerQueue.push(task)
