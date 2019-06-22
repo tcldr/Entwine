@@ -34,13 +34,13 @@ final class WithLatestFromTests: XCTestCase {
         
         let testScheduler = TestScheduler(initialClock: 0)
         
-        let testablePublisher: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisher: TestablePublisher<String, Never> = testScheduler.createRelativeTestablePublisher([
             (010, .input("x")),
             (020, .input("y")),
             (030, .input("z")),
         ])
         
-        let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createRelativeTestablePublisher([
             (001, .input("a")),
             (002, .input("b")),
             (003, .input("c")),
@@ -63,13 +63,13 @@ final class WithLatestFromTests: XCTestCase {
         
         let testScheduler = TestScheduler(initialClock: 0)
         
-        let testablePublisher: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisher: TestablePublisher<String, Never> = testScheduler.createRelativeTestablePublisher([
             (010, .input("x")),
             (020, .input("y")),
             (030, .input("z")),
         ])
         
-        let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createRelativeTestablePublisher([
             (015, .input("a")),
             (025, .input("b")),
             (035, .input("c")),
@@ -91,13 +91,13 @@ final class WithLatestFromTests: XCTestCase {
         
         let testScheduler = TestScheduler(initialClock: 0)
         
-        let testablePublisher: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisher: TestablePublisher<String, Never> = testScheduler.createRelativeTestablePublisher([
             (010, .input("x")),
             (020, .input("y")),
             (030, .input("z")),
         ])
         
-        let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisherOther: TestablePublisher<String, Never> = testScheduler.createRelativeTestablePublisher([
             (000, .input("a")),
             (001, .input("b")),
             (002, .input("c")),

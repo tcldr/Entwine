@@ -31,17 +31,25 @@ import Combine
 
 // MARK: - TestScheduler definition
 
+
+/// A `Scheduler` thats uses `VirtualTime` to schedule its tasks.
+///
+/// A special, non thread-safe scheduler for testing operators that require a scheduler without introducing
+/// real concurrency. Faciliates a recreatable sequence of tasks executed within 'virtual time'.
+///
 public class TestScheduler {
     
+    /// Configuration values for  a`TestScheduler` test run.
     public struct Configuration {
-        public var pausedOnStart = false
         /// Absolute time when to create tested observable sequence.
+        public var pausedOnStart = false
+        ///  Absolute `VirtualTime`when to create tested observable sequence.
         public var created: VirtualTime = 100
-        /// Absolute time when to subscribe to tested observable sequence.
+        /// Absolute `VirtualTime` when to subscribe to tested observable sequence.
         public var subscribed: VirtualTime = 200
-        /// Absolute time when to cancel a subscription to an observable sequence.
+        /// Absolute `VirtualTime` when to cancel a subscription to an observable sequence.
         public var cancelled: VirtualTime = 900
-        
+        /// Options for the generated `TestableSubscriber`
         public var subscriberOptions = TestableSubscriberOptions.default
         
         public static let `default` = Configuration()
@@ -56,6 +64,20 @@ public class TestScheduler {
         self.currentTime = initialClock
     }
     
+    /// Schedules the creation and subscription of an arbitrary `Publisher` to a `TestableSubscriber`, and
+    /// finally the subscription's subsequent cancellation.
+    ///
+    /// The default `Configuration`:
+    /// - Creates the publisher (executes the supplied publisher factory) at `100`
+    /// - Subscribes to the publisher at `200`
+    /// - Cancels the subscription at `1000`
+    /// - Starts the scheduler immediately.
+    /// - Uses `TestableSubscriberOptions.default` for the subscriber configuration.
+    ///
+    /// - Parameters:
+    ///   - configuration: The parameters of the test subscription including scheduling details
+    ///   - create: A factory function that returns the publisher to be subscribed to
+    /// - Returns: A `TestableSubscriber` that contains, or is scheduled to contain, the output of the publisher subscription.
     public func start<P: Publisher>(configuration: Configuration = .default, create: @escaping () -> P) -> TestableSubscriber<P.Output, P.Failure> {
         
         var subscriber = createTestableSubscriber(P.Output.self, P.Failure.self, options: configuration.subscriberOptions)
@@ -80,20 +102,47 @@ public class TestScheduler {
         return subscriber
     }
     
-    
-    
-    public func createTestableHotPublisher<Value, Failure: Error>(_ sequence: TestSequence<Value, Failure>) -> TestablePublisher<Value, Failure> {
+    /// Creates a `TestablePublisher` and schedules the supplied `TestSequence` to occur
+    /// in absolute time. Sequence elements with virtual times in the 'past' will be ignored.
+    ///
+    /// n.b. This method will produce an assertion failure if the supplied `TestSequence` includes
+    /// a `Signal.subscription` element.
+    ///
+    /// Subscription time is dictated by the subscriber and can not be predetermined by the publisher.
+    ///
+    /// - Parameter sequence: The sequence of values the publisher should produce
+    /// - Returns: A `TestablePublisher` loaded with the supplied `TestSequence`.
+    public func createAbsoluteTestablePublisher<Value, Failure: Error>(_ sequence: TestSequence<Value, Failure>) -> TestablePublisher<Value, Failure> {
         return TestablePublisher(testScheduler: self, behavior: .hot, testSequence: sequence)
     }
     
-    public func createTestableColdPublisher<Value, Failure: Error>(_ sequence: TestSequence<Value, Failure>) -> TestablePublisher<Value, Failure> {
+    /// Creates a `TestablePublisher` and schedules the supplied `TestSequence` to occur
+    /// in relative time at the point of subscription.
+    ///
+    /// n.b. This method will produce an assertion failure if the supplied `TestSequence` includes
+    /// a `Signal.subscription` element.
+    ///
+    /// Subscription time is dictated by the subscriber and can not be predetermined by the publisher.
+    ///
+    /// - Parameter sequence: The sequence of values the publisher should produce
+    /// - Returns: A `TestablePublisher` loaded with the supplied `TestSequence`.
+    public func createRelativeTestablePublisher<Value, Failure: Error>(_ sequence: TestSequence<Value, Failure>) -> TestablePublisher<Value, Failure> {
         return TestablePublisher(testScheduler: self, behavior: .cold, testSequence: sequence)
     }
     
+    
+    /// Produces a `TestableSubscriber` pre-populated with the scheduler.
+    ///
+    /// - Parameter inputType: The `Input` associated type for the produced `Subscriber`
+    /// - Parameter failureType: The `Failure` associated type for the produced `Subscriber`
+    /// - Parameter options: Behavior options for the produced `Subscriber`
+    /// - Returns: A configured `TestableSubscriber`.
     public func createTestableSubscriber<Input, Failure>(_ inputType: Input.Type, _ failureType: Failure.Type, options: TestableSubscriberOptions = .default) -> TestableSubscriber<Input, Failure> {
         return TestableSubscriber(scheduler: self, options: options)
     }
     
+    /// Performs all the actions in the scheduler's queue, in time order followed by submission order, until no
+    /// more actions remain.
     public func resume() {
         while let next = findNext() {
             if next.time > currentTime {

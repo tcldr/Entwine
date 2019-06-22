@@ -63,14 +63,14 @@ fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscri
         
         self.queue = SinkQueue(sink: sink)
         
-        testSequence.events.forEach { recordedEvent in
+        testSequence.forEach { (time, signal) in
             
-            guard behavior == .cold || testScheduler.now <= recordedEvent.time else { return }
-            let due = behavior == .cold ? testScheduler.now + recordedEvent.time : recordedEvent.time
+            guard behavior == .cold || testScheduler.now <= time else { return }
+            let due = behavior == .cold ? testScheduler.now + time : time
             
-            switch recordedEvent.signal {
+            switch signal {
             case .subscription:
-                assertionFailure("Illegal input. `.subscription` events will be ignored. \(recordedEvent)")
+                assertionFailure("Illegal input. A `.subscription` event scheduled at \(time) will be ignored. Only a Subscriber can initiate a Subscription.")
                 break
             case .input(let value):
                 let cancellable = testScheduler.schedule(after: due, interval: 0) { [unowned self] in

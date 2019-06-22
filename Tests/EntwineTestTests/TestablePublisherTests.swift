@@ -36,7 +36,7 @@ final class TestablePublisherTests: XCTestCase {
         
         let testScheduler = TestScheduler(initialClock: 0)
         
-        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createRelativeTestablePublisher([
             (  0, .input(.init())),
             (200, .input(.init())),
             (400, .input(.init())),
@@ -57,7 +57,7 @@ final class TestablePublisherTests: XCTestCase {
         
         let testScheduler = TestScheduler(initialClock: 0)
         
-        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableHotPublisher([
+        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createAbsoluteTestablePublisher([
             (  0, .input(.init())),
             (200, .input(.init())),
             (400, .input(.init())),

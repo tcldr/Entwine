@@ -26,6 +26,7 @@ import Combine
 
 // MARK: - VirtualTime value definition
 
+/// Unit of virtual time consumed by the `TestScheduler`
 public struct VirtualTime: Hashable {
     
     internal var _time: Int

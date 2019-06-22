@@ -38,7 +38,7 @@ final class TestableSubscriberTests: XCTestCase {
         var testConfiguration = TestScheduler.Configuration.default
         testConfiguration.subscriberOptions.initialDemand = .none
         
-        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createRelativeTestablePublisher([
             
             // Won't be delivered
             
@@ -70,7 +70,7 @@ final class TestableSubscriberTests: XCTestCase {
         testConfiguration.subscriberOptions.initialDemand = .none
         testConfiguration.subscriberOptions.subsequentDemand = .unlimited
         
-        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createRelativeTestablePublisher([
             
             // Will all be deliverd at once when demand is replenished at (subscribe time + .demandReplenishDelay).
             
@@ -114,7 +114,7 @@ final class TestableSubscriberTests: XCTestCase {
         testConfiguration.subscriberOptions.initialDemand = .max(2)
         testConfiguration.subscriberOptions.subsequentDemand = .max(2)
         
-        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createRelativeTestablePublisher([
             
             // the first two fit within the initial demand limit and will fire as normal
             
@@ -204,7 +204,7 @@ final class TestableSubscriberTests: XCTestCase {
         
         let testScheduler = TestScheduler(initialClock: 0)
         
-        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createRelativeTestablePublisher([
             (0, .input(.init())),
         ])
         
@@ -231,7 +231,7 @@ final class TestableSubscriberTests: XCTestCase {
         
         let testScheduler = TestScheduler(initialClock: 0)
         
-        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createTestableColdPublisher([
+        let testablePublisher: TestablePublisher<Token, Never> = testScheduler.createRelativeTestablePublisher([
             (100, .input(.init())),
         ])
         

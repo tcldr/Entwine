@@ -26,6 +26,7 @@ import Combine
 
 // MARK: - VirtualTimeInterval value definition
 
+/// Unit of relative virtual time consumed by the `TestScheduler`
 public struct VirtualTimeInterval {
     
     internal var _duration: Int

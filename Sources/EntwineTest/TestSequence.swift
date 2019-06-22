@@ -30,10 +30,6 @@ public struct TestSequence <Input, Failure: Error> {
     
     private var contents: [Element]
     
-    public var events: [TestEvent<Signal<Input, Failure>>] {
-        map { TestEvent($0.0, $0.1) }
-    }
-    
     public init<S: Sequence>(_ elements: S) where S.Element == Element {
         self.contents = Array(elements)
     }
@@ -97,6 +93,11 @@ extension TestSequence: ExpressibleByArrayLiteral {
 // MARK: - Equatable conformance
 
 extension TestSequence: Equatable where Input: Equatable, Failure: Equatable {
+    
+    private var events: [TestEvent<Signal<Input, Failure>>] {
+        map { TestEvent($0.0, $0.1) }
+    }
+    
     public static func == (lhs: TestSequence<Input, Failure>, rhs: TestSequence<Input, Failure>) -> Bool {
         lhs.events == rhs.events
     }
