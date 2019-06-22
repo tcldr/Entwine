@@ -20,7 +20,7 @@ public final class TestableSubscriber<Input, Failure: Error> {
     public typealias Sequence = TestSequence<Input, Failure>
     
     public internal(set) var sequence = TestSequence<Input, Failure>()
-    public internal(set) var demands = [DemandLedgerRow<VirtualTime>]()
+    public internal(set) var demands = DemandLedger<VirtualTime>()
     
     private let scheduler: TestScheduler
     private let options: TestableSubscriberOptions
@@ -41,7 +41,7 @@ public final class TestableSubscriber<Input, Failure: Error> {
     func issueDemandCredit(_ demand: Subscribers.Demand) {
         
         demandBalance += demand
-        demands.append(.init(scheduler.now, .credit(amount: demand), balance: demandBalance))
+        demands.append((scheduler.now, demandBalance, .credit(amount: demand)))
         
         subscription?.request(demand)
     }
@@ -51,7 +51,7 @@ public final class TestableSubscriber<Input, Failure: Error> {
         let authorized = (demandBalance > .none)
         
         demandBalance -= demand
-        demands.append(.init(scheduler.now, .debit(authorized: authorized), balance: demandBalance))
+        demands.append((scheduler.now, demandBalance, .debit(authorized: authorized)))
         
         if !authorized {
             signalNegativeBalance()

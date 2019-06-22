@@ -33,8 +33,8 @@ final class TestableSubscriberTests: XCTestCase {
         
         XCTAssertEqual(expected, testableSubscriber.sequence)
         
-        let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
-            .init(200, .credit(amount: .none), balance: .none)
+        let expectedDemandLedger: DemandLedger<VirtualTime> = [
+            (200, .none, .credit(amount: .none))
         ]
         
         XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
@@ -73,12 +73,12 @@ final class TestableSubscriberTests: XCTestCase {
         
         XCTAssertEqual(expected, testableSubscriber.sequence)
         
-        let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
-            .init(200, .credit(amount: .none),      balance: .none),
-            .init(300, .credit(amount: .unlimited), balance: .unlimited),
-            .init(300, .debit(authorized: true),    balance: .unlimited),
-            .init(300, .debit(authorized: true),    balance: .unlimited),
-            .init(300, .debit(authorized: true),    balance: .unlimited),
+        let expectedDemandLedger: DemandLedger<VirtualTime> = [
+            (200, .none,      .credit(amount: .none)),
+            (300, .unlimited, .credit(amount: .unlimited)),
+            (300, .unlimited, .debit(authorized: true)),
+            (300, .unlimited, .debit(authorized: true)),
+            (300, .unlimited, .debit(authorized: true)),
         ]
         
         XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
@@ -117,14 +117,14 @@ final class TestableSubscriberTests: XCTestCase {
         
         XCTAssertEqual(expected, testableSubscriber.sequence)
         
-        let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
-            .init(200, .credit(amount: .max(2)), balance: .max(2)),
-            .init(210, .debit(authorized: true), balance: .max(1)),
-            .init(220, .debit(authorized: true), balance: .none),
-            .init(320, .credit(amount: .max(2)), balance: .max(2)),
-            .init(320, .debit(authorized: true), balance: .max(1)),
-            .init(340, .debit(authorized: true), balance: .none),
-            .init(440, .credit(amount: .max(2)), balance: .max(2)),
+        let expectedDemandLedger: DemandLedger<VirtualTime> = [
+            (200, .max(2), .credit(amount: .max(2))),
+            (210, .max(1), .debit(authorized: true)),
+            (220, .none,   .debit(authorized: true)),
+            (320, .max(2), .credit(amount: .max(2))),
+            (320, .max(1), .debit(authorized: true)),
+            (340, .none,   .debit(authorized: true)),
+            (440, .max(2), .credit(amount: .max(2))),
         ]
         
         XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
@@ -167,11 +167,11 @@ final class TestableSubscriberTests: XCTestCase {
         XCTAssert(didSignalNegativeBalance)
         
         
-        let expectedDemandLedger: [DemandLedgerRow<VirtualTime>] = [
-            .init(200, .credit(amount: .max(2)),  balance: .max(2)),
-            .init(200, .debit(authorized: true),  balance: .max(1)),
-            .init(200, .debit(authorized: true),  balance: .none),
-            .init(200, .debit(authorized: false), balance: .max(-1)),
+        let expectedDemandLedger: DemandLedger<VirtualTime> = [
+            (200, .max( 2), .credit(amount: .max(2))),
+            (200, .max( 1), .debit(authorized: true)),
+            (200, .none,    .debit(authorized: true)),
+            (200, .max(-1), .debit(authorized: false)),
         ]
         
         XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)

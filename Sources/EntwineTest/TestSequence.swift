@@ -7,6 +7,8 @@
 
 import Entwine
 
+// MARK: - TestSequence definition
+
 public struct TestSequence <Input, Failure: Error> {
     
     private var contents: [Element]
@@ -24,6 +26,8 @@ public struct TestSequence <Input, Failure: Error> {
     }
 }
 
+// MARK: - Sequence conformance
+
 extension TestSequence: Sequence {
     
     public typealias Iterator = IndexingIterator<[Element]>
@@ -33,6 +37,8 @@ extension TestSequence: Sequence {
         contents.makeIterator()
     }
 }
+
+// MARK: - RangeReplaceableCollection conformance
 
 extension TestSequence: RangeReplaceableCollection {
     
@@ -60,6 +66,8 @@ extension TestSequence: RangeReplaceableCollection {
     }
 }
 
+// MARK: - ExpressibleByArrayLiteral conformance
+
 extension TestSequence: ExpressibleByArrayLiteral {
     
     public typealias ArrayLiteralElement = Element
@@ -68,6 +76,8 @@ extension TestSequence: ExpressibleByArrayLiteral {
         self.init(elements)
     }
 }
+
+// MARK: - Equatable conformance
 
 extension TestSequence: Equatable where Input: Equatable, Failure: Equatable {
     public static func == (lhs: TestSequence<Input, Failure>, rhs: TestSequence<Input, Failure>) -> Bool {
