@@ -26,6 +26,8 @@ import Combine
 
 extension Publishers {
     
+    /// Wraps all the elements as well as the subscription and completion events of an upstream publisher
+    /// into a stream of `Signal` elements
     public struct Materialize<Upstream: Publisher>: Publisher {
         
         public typealias Output = Signal<Upstream.Output, Upstream.Failure>
@@ -33,7 +35,7 @@ extension Publishers {
         
         private let upstream: Upstream
         
-        public init(upstream: Upstream) {
+        init(upstream: Upstream) {
             self.upstream = upstream
         }
         
@@ -132,6 +134,11 @@ extension Publishers {
 
 public extension Publisher {
     
+    /// Wraps each element from the upstream publisher, as well as its subscription and completion events,
+    /// into `Signal` values.
+    ///
+    /// - Returns: A publisher that wraps each element from the upstream publisher, as well as its
+    /// subscription and completion events, into `Signal` values.
     func materialize() -> Publishers.Materialize<Self> {
         Publishers.Materialize(upstream: self)
     }

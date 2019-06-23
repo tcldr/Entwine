@@ -24,8 +24,14 @@
 
 import Combine
 
+/// Represents an error for a dematerialized sequence
+///
+/// Consumers of publishers with a `Failure` of this type can opt-in to force unwrapping
+/// the error using the `assertNoDematerializationFailure()` operator
 public enum DematerializationError<SourceError: Error>: Error {
+    /// Sequencing error during dematerialization. e.g. an `.input` arriving after a `.completion`
     case outOfSequence
+    /// A wrapped error of the represented material sequence
     case sourceError(SourceError)
 }
 
@@ -33,13 +39,28 @@ extension DematerializationError: Equatable where SourceError: Equatable {}
 
 extension Publishers {
     
+    /// Converts a materialized publisher of `Signal`s into the represented sequence. Fails on a malformed
+    /// source sequence.
+    ///
+    /// Use this operator to convert a stream of `Signal` values from an upstream publisher into
+    /// its materially represented publisher type. Malformed sequences will fail with a
+    /// `DematerializationError`.
+    ///
+    /// For each element:
+    /// - `.subscription` elements are ignored
+    /// - `.input(_)` elements are unwrapped and forwarded to the subscriber
+    /// - `.completion(_)` elements are forwarded within the `DematerializationError` wrapper
+    ///
+    /// If the integrity of the upstream sequence can be guaranteed, applying the `assertNoDematerializationFailure()`
+    /// operator to this publisher will force unwrap any errors and produce a publisher with a `Failure`
+    /// type that matches the materially represented original sequence.
     public struct Dematerialize<Upstream: Publisher>: Publisher where Upstream.Output: SignalConvertible {
         
         public typealias Failure = DematerializationError<Upstream.Output.Failure>
         public typealias Output = AnyPublisher<Upstream.Output.Input, Failure>
         
         private let upstream: Upstream
-        
+
         init(upstream: Upstream) {
             self.upstream = upstream
         }
@@ -182,39 +203,68 @@ extension Publishers {
     }
 }
 
-public extension Publisher where Output: SignalConvertible, Failure == Never {
+extension Publisher where Output: SignalConvertible, Failure == Never {
     
-    func dematerializedPublisherSequence() -> Publishers.Dematerialize<Self> {
+    private func dematerializedValuesPublisherSequence() -> Publishers.Dematerialize<Self> {
         Publishers.Dematerialize(upstream: self)
     }
     
-    func dematerialize() -> Publishers.FlatMap<AnyPublisher<Self.Output.Input, DematerializationError<Self.Output.Failure>>, Publishers.First<Publishers.Dematerialize<Self>>> {
-        return dematerializedPublisherSequence().first().flatMap { $0 }
+    /// Converts a materialized upstream publisher of `Signal`s into the represented sequence. Fails on
+    /// a malformed source sequence.
+    ///
+    /// Use this operator to convert a stream of `Signal` values from an upstream publisher into
+    /// its materially represented publisher type. Malformed sequences will fail with a
+    /// `DematerializationError`.
+    ///
+    /// For each element:
+    /// - `.subscription` elements are ignored
+    /// - `.input(_)` elements are unwrapped and forwarded to the subscriber
+    /// - `.completion(_)` elements are forwarded within the `DematerializationError` wrapper
+    ///
+    /// If the integrity of the upstream sequence can be guaranteed, use the `assertNoDematerializationFailure()`
+    /// operator immediately following this one to force unwrap any errors and produce a publisher with a `Failure`
+    /// type that matches the materially represented original sequence.
+    ///
+    /// - Returns: A publisher that materializes an upstream publisher of `Signal`s into the represented
+    /// sequence.
+    public func dematerialize() -> Publishers.FlatMap<AnyPublisher<Self.Output.Input, DematerializationError<Self.Output.Failure>>, Publishers.First<Publishers.Dematerialize<Self>>> {
+        return dematerializedValuesPublisherSequence().first().flatMap { $0 }
     }
 }
 
-public extension Publisher where Failure: DematerializationErrorConvertible {
+extension Publisher where Failure: DematerializationErrorConvertible {
     
-    func assertNoDematerializationFailure() -> Publishers.MapError<Self, Self.Failure.SourceError> {
+    /// Force unwraps the errors of a dematerialized publisher to return a publisher that matches that of
+    /// the materially represented original sequence
+    ///
+    /// When using the `dematerialize()` operator the publisher returned has a `Failure` type of
+    /// `DematerializationError` to account for the possibility of a malformed `Signal` sequence.
+    ///
+    /// If the integrity of the upstream sequence can be guaranteed, use this operator to force unwrap the
+    /// errors to produce a publisher with a `Failure` type that matches the materially represented original
+    /// sequence.
+    ///
+    /// - Returns: A publisher with a `Failure` type that matches that of the materially represented original
+    /// sequence
+    func assertNoDematerializationFailure() -> Publishers.MapError<Self, Failure.SourceError> {
         return mapError { error -> Failure.SourceError in
             guard case .sourceError(let e) = error.dematerializationError else {
-                preconditionFailure("Unhandled dematerialization error: \(error.dematerializationError)")
+                preconditionFailure("Unhandled dematerialization error: \(error)")
             }
             return e
         }
     }
 }
 
+/// A type which can be converted into a `DematerializationError`
 public protocol DematerializationErrorConvertible {
     
     associatedtype SourceError: Error
     
+    /// The type represented as a `DematerializationError`
     var dematerializationError: DematerializationError<SourceError> { get }
 }
 
 extension DematerializationError: DematerializationErrorConvertible {
-    
-    public var dematerializationError: DematerializationError<SourceError> {
-        return self
-    }
+    public var dematerializationError: DematerializationError<SourceError> { self }
 }

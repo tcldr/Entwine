@@ -24,6 +24,12 @@
 
 import Combine
 
+/// A subject that maintains a buffer of its latest values for replay to new subscribers and passes
+/// through subsequent elements and completion
+///
+/// The subject passes through elements and completion states unchanged and in addition
+/// replays the latest elements to any new subscribers. Use this subject when you want subscribers
+/// to receive the most recent previous elements in addition to all future elements.
 public final class ReplaySubject<Output, Failure: Error> {
     
     typealias Sink = AnySubscriber<Output, Failure>
@@ -41,6 +47,10 @@ public final class ReplaySubject<Output, Failure: Error> {
         return subscriptions.count
     }
     
+    /// - Parameter maxBufferSize: The number of elements that should be buffered for
+    /// replay to new subscribers
+    /// - Returns: A subject that maintains a buffer of its recent values for replay to new subscribers
+    ///  and passes through subsequent values and completion
     public init(maxBufferSize: Int) {
         self.replayValues = .init(maxBufferSize: maxBufferSize)
     }

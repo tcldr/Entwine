@@ -26,6 +26,7 @@ import Combine
 
 extension Publishers {
     
+    /// A publisher that combines the latest value from another publisher with each value from an upstream publisher
     public struct WithLatestFrom<Upstream: Publisher, Other: Publisher, Output>: Publisher where Upstream.Failure == Other.Failure {
         
         public typealias Failure = Upstream.Failure
@@ -60,8 +61,6 @@ extension Publishers {
         let downstream: Downstream
         let otherSink: WithLatestFromOtherSink<Other>
         let transform: (Upstream.Output, Other.Output) -> Downstream.Input
-        
-        var idle = true
         
         init(downstream: Downstream, otherSink: WithLatestFromOtherSink<Other>, transform: @escaping (Input, Other.Output) -> Downstream.Input) {
             self.downstream = downstream
@@ -133,10 +132,24 @@ extension Publishers {
 
 public extension Publisher {
     
+    /// Subscribes to an additional publisher and invokes a closure upon receiving output from this
+    /// publisher.
+    ///
+    /// - Parameter other: Another publisher to combibe with this one
+    /// - Parameter transform: A closure that receives each value produced by this
+    /// publisher and the latest value from another publisher and returns a new value to publish
+    /// - Returns: A publisher that combines the latest value from another publisher with each
+    /// value from this publisher
     func withLatest<T, P: Publisher>(from other: P, transform: @escaping (Output, P.Output) -> T) -> Publishers.WithLatestFrom<Self, P, T> where P.Failure == Failure {
         Publishers.WithLatestFrom(upstream: self, other: other, transform: transform)
     }
     
+    /// Subscribes to an additional publisher and produces its latest value each time this publisher
+    /// produces a value.
+    ///
+    /// - Parameter other: Another publisher to gather latest values from
+    /// - Returns: A publisher that produces the latest value from another publisher each time
+    /// this publisher produces an element
     func withLatest<P: Publisher>(from other: P) -> Publishers.WithLatestFrom<Self, P, P.Output> where P.Failure == Failure {
         withLatest(from: other, transform: { _, b in b })
     }

@@ -28,10 +28,13 @@ import Foundation
 
 // MARK: - Behavior value definition
 
-public enum TestablePublisherBehavior { case hot, cold }
+enum TestablePublisherBehavior { case absolute, relative }
 
 // MARK: - Publisher definition
 
+/// A `Publisher` that produces the elements provided in a `TestSequence`.
+///
+/// Initializable using the factory methods on `TestScheduler`
 public struct TestablePublisher<Output, Failure: Error>: Publisher {
     
     private let testScheduler: TestScheduler
@@ -65,8 +68,8 @@ fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscri
         
         testSequence.forEach { (time, signal) in
             
-            guard behavior == .cold || testScheduler.now <= time else { return }
-            let due = behavior == .cold ? testScheduler.now + time : time
+            guard behavior == .relative || testScheduler.now <= time else { return }
+            let due = behavior == .relative ? testScheduler.now + time : time
             
             switch signal {
             case .subscription:

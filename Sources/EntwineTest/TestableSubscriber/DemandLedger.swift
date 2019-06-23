@@ -26,8 +26,16 @@ import Combine
 
 // MARK: - TestSequence definition
 
+/// A sequence of `Subscribers.Demand` transactions.
+///
+/// `DemandLedger`'s can be compared to see if they match expectations.
 public struct DemandLedger<Time: Strideable> where Time.Stride : SchedulerTimeIntervalConvertible {
     
+    /// The kind of transcation for a `DemandLedger`
+    ///
+    /// - `.credit(amount:)`: The raise in authorized demand issued by a `Subscriber`.
+    /// - `.debit(authorized:)`: The consumption of credit by an upstream `Publisher`. The debit is only considered authorised if the overall
+    /// credit is greater or equal to the total debit over the lifetime of a subscription. A `debit` always has an implicit amount of `1`.
     public enum Transaction<Time: Strideable>: Equatable where Time.Stride : SchedulerTimeIntervalConvertible {
         case credit(amount: Subscribers.Demand)
         case debit(authorized: Bool)
@@ -35,10 +43,14 @@ public struct DemandLedger<Time: Strideable> where Time.Stride : SchedulerTimeIn
     
     private var contents: [Element]
     
+    
+    /// Initializes a pre-populated `DemandLedger`
+    /// - Parameter elements: A sequence of elements of the format `(VirtualTime, Subscribers.Demand, Transaction<Time>)`
     public init<S: Sequence>(_ elements: S) where S.Element == Element {
         self.contents = Array(elements)
     }
     
+    /// Initializes an empty `DemandLedger`
     public init() {
         self.contents = [Element]()
     }

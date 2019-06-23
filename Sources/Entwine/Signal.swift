@@ -26,9 +26,21 @@ import Combine
 
 // MARK: - Signal value definition
 
+/// A materialized representation of a `Publisher`s output.
+///
+/// Upon a call to subscribe, a legal `Publisher` produces signals in strictly the following order:
+/// - Exactly one 'subscription' signal.
+/// - Followed by zero or more 'input' signals.
+/// - Terminated finally by a single 'completion' signal.
 public enum Signal <Input, Failure: Error> {
+    /// Sent by a `Publisher` to a `Subscriber` in acknowledgment of the `Subscriber`'s
+    /// subscription request.
     case subscription
+    /// The payload of a subscription. Zero to many `.input(_)` signals may be produced
+    /// during the lifetime of a `Subscriber`'s subscription to a `Publisher`.
     case input(Input)
+    /// The final signal sent to a `Subscriber` during a subscription to a `Publisher`.
+    /// Indicates termination of the stream as well as the reason.
     case completion(Subscribers.Completion<Failure>)
 }
 
@@ -61,12 +73,16 @@ extension Signal: Equatable where Input: Equatable, Failure: Equatable {
     }
 }
 
+/// A type that can be converted into a `Signal`
 public protocol SignalConvertible {
     
+    /// The `Input` type of the produced `Signal`
     associatedtype Input
+    /// The `Failure` type of the produced `Signal`
     associatedtype Failure: Error
     
     init(_ signal: Signal<Input, Failure>)
+    /// The converted `Signal`
     var signal: Signal<Input, Failure> { get }
 }
 

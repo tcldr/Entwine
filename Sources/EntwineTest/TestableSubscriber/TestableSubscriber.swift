@@ -27,22 +27,41 @@ import Entwine
 
 // MARK: - TestableSubscriberOptions value definition
 
+/// Options for the defining the behavior of a `TestableSubscriber` throughout its lifetime
 public struct TestableSubscriberOptions {
+    /// The demand that will be signalled to the upstream `Publisher` upon subscription
     public var initialDemand = Subscribers.Demand.unlimited
+    /// The demand that will be signalled to the upstream `Publisher` when the initial
+    /// demand is depleted
     public var subsequentDemand = Subscribers.Demand.none
+    /// When demand has been depleted, the delay in virtual time before additional demand
+    /// (amount determined by `.subsequentDemand) is signalled to the upstream publisher.
     public var demandReplenishmentDelay: VirtualTimeInterval = 100
+    /// An action to perform when a publisher produces a greater number of elements than
+    /// the subscriber has signalled demand for. The default is an assertion failure.
     public var negativeBalanceHandler: (() -> Void)? = nil
-
+    
+    /// Pre-populated `TestableSubscriber` options:
+    ///
+    /// The defaults are:
+    /// - `initialDemand`: `.unlimited`
+    /// - `subsequentDemand`: `.none`
+    /// - `demandReplenishmentDelay`: `100`
+    /// - `negativeBalanceHandler`: `nil`
     public static let `default` = TestableSubscriberOptions()
 }
 
 // MARK: - TestableSubscriber definition
 
+/// A subscriber that keeps a time-stamped log of the events that occur during the lifetime of a subscription to an arbitrary publisher.
 public final class TestableSubscriber<Input, Failure: Error> {
     
     public typealias Sequence = TestSequence<Input, Failure>
     
+    /// A time-stamped log of `Signal`s produced during the lifetime of a subscription to a publisher.
     public internal(set) var sequence = TestSequence<Input, Failure>()
+    /// A time-stamped account of `Subscribers.Demand`s issued upstream, and incoming elements
+    /// downstream, during the lifetime of a subscription to a publisher.
     public internal(set) var demands = DemandLedger<VirtualTime>()
     
     private let scheduler: TestScheduler

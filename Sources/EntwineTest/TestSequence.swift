@@ -26,14 +26,17 @@ import Entwine
 
 // MARK: - TestSequence definition
 
+/// A collection of time-stamped `Signal`s
 public struct TestSequence <Input, Failure: Error> {
     
     private var contents: [Element]
     
+    /// Initializes the `TestSequence` with a series of tuples of the format `(VirtualTime, Signal<Input, Failure>)`
     public init<S: Sequence>(_ elements: S) where S.Element == Element {
         self.contents = Array(elements)
     }
     
+    /// Initializes an empty `TestSequence` 
     public init() {
         self.contents = [Element]()
     }

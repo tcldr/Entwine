@@ -29,6 +29,8 @@ import Foundation
 
 /// A scheduler for performing trampolined actions.
 ///
+/// This scheduler will queue scheduled actions immediately on the current thread performing them in a first in, first out order.
+///
 /// You can only use this scheduler for immediate actions. If you attempt to schedule
 /// actions after a specific date, the scheduler produces a fatal error.
 public final class TrampolineScheduler {

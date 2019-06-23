@@ -26,6 +26,20 @@ import Combine
 
 extension Publishers {
     
+    /// Creates a simple `Publisher` inline from a provided closure
+    ///
+    /// This `Publisher`can be used to turn any arbitrary source of values (such as a timer or a user authorization
+    /// request) into a new `Publisher` sequence.
+    ///
+    /// From within the scope of the closure passed into the initializer, it is possible to call the methods of the
+    /// `Dispatcher` object – which is passed in as a parameter – to send values down stream.
+    ///
+    /// - Warning: Developers should be aware that a `Dispatcher` has an unbounded buffer that stores values
+    /// yet to be requested by the downstream `Subscriber`.
+    ///
+    /// When creating a `Publisher` from a source with an unbounded rate of production that cannot be influenced,
+    /// developers should consider following this operator with a `Publishers.Buffer` operator to prevent a
+    /// strain on resources
     public struct Factory<Output, Failure: Error>: Publisher {
         
         let subscription: (Dispatcher<Output, Failure>) -> AnyCancellable
