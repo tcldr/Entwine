@@ -1,0 +1,15 @@
+module: EntwineTest
+title: Testing suite for Apple’s Combine Framework
+theme: fullwidth 
+skip_undocumented: true
+readme: ./Entwine/README.md
+hide_documentation_coverage: true
+output: EntwineTestDocs
+xcodebuild_arguments:
+  - -workspace
+  - ./Entwine/.swiftpm/xcode/package.xcworkspace
+  - -scheme
+  - EntwineTest
+author: Tristan Celder
+author_url: https://github.com/tcldr
+github_url: https://github.com/tcldr

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Entwine  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="Entwine  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          Accessories for Apple’s Combine Framework
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/tcldr">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">Entwine Reference</a>
+      <img class="carat" src="img/carat.png" />
+      Entwine  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/ReplaySubject.html">ReplaySubject</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/TrampolineScheduler.html">TrampolineScheduler</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/DematerializationError.html">DematerializationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Signal.html">Signal</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Publisher.html">Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Publishers.html">Publishers</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Publishers/Dematerialize.html">– Dematerialize</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Publishers/Materialize.html">– Materialize</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Publishers/WithLatestFrom.html">– WithLatestFrom</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Publishers/Factory.html">– Factory</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/DematerializationErrorConvertible.html">DematerializationErrorConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/SignalConvertible.html">SignalConvertible</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            
+            <h1 id='entwine' class='heading'>Entwine</h1>
+
+<p>Accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
+<h2 id='about' class='heading'>About</h2>
+
+<p>Entwine consists of three libraries to be used in conjuction with Apple&rsquo;s Combine framework:</p>
+
+<ul>
+<li>The <a href="https://github.com/tcldr/Entwine"><em>Entwine</em></a> package includes additional operators, subjects and utilities for working with Combine sequences,
+including: a <code><a href="Classes/ReplaySubject.html">ReplaySubject</a></code>, a <code>withLatest(from:)</code> operator and a <code><a href="Extensions/Publishers/Factory.html">Publishers.Factory</a></code> for rapidly defining
+publishers inline from any source.</li>
+<li>The <a href="https://github.com/tcldr/Entwine"><em>EntwineTest</em></a> package consists of tools for verifying expected behavior of Combine sequences, including:
+a <code>TestScheduler</code> that uses virtual time, a <code>TestablePublisher</code> that schedules a user-defined sequence of
+elements in absolute or relative time, and a <code>TestableSubscriber</code> that record a time-stamped list of events that can
+be compared against expected behavior.</li>
+<li>The <a href="https://github.com/tcldr/Entwine"><em>EntwineRx</em></a> library is a small library that contains bridging operators from RxSwift to Combine and vice versa
+and makes <em>RxSwift</em> and <em>Combine</em> work together seamlessly.<br></li>
+</ul>
+<h2 id='documentation' class='heading'>Documentation</h2>
+
+<p>Documentation for each package is available at:</p>
+
+<ul>
+<li><a href="https://github.com/tcldr/Entwine">Entwine Documentation</a> (Operators, Publishers and Accessories)</li>
+<li><a href="https://github.com/tcldr/Entwine">EntwineTest Documentation</a> (Tools for testing Combine sequence behavior)</li>
+<li><a href="https://github.com/tcldr/Entwine">EntwineRx Documentation</a> (Bridging operators for RxSwift)</li>
+</ul>
+<h2 id='quick-start' class='heading'>Quick start</h2>
+<h3 id='make-publishers-from-any-source' class='heading'>Make publishers from any source</h3>
+
+<p>Use the <code><a href="Extensions/Publishers/Factory.html">Publishers.Factory</a></code> publisher from the <em>Entwine</em> package to effortlessly create a publisher that
+meets Combine&rsquo;s backpressure requirements from any source.</p>
+
+<p><em>Inline publisher creation for PhotoKit authorization status:</em></p>
+<pre class="highlight swift"><code>
+<span class="kd">import</span> <span class="kt">Entwine</span>
+
+<span class="k">let</span> <span class="nv">photoKitAuthorizationStatus</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Factory</span> <span class="p">{</span> <span class="n">dispatcher</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="nv">status</span> <span class="o">=</span> <span class="kt">PHPhotoLibrary</span><span class="o">.</span><span class="nf">authorizationStatus</span><span class="p">()</span> 
+    <span class="k">switch</span> <span class="n">status</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nv">notDetermined</span><span class="p">:</span>
+        <span class="kt">PHPhotoLibrary</span><span class="o">.</span><span class="n">requestAuthorization</span> <span class="p">{</span> <span class="n">newStatus</span> <span class="k">in</span>
+            <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="n">newStatus</span><span class="p">)</span>
+            <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forwardCompletion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="k">case</span> <span class="o">.</span><span class="n">restricted</span><span class="p">,</span> <span class="o">.</span><span class="n">denied</span><span class="p">,</span> <span class="o">.</span><span class="nv">authorized</span><span class="p">:</span>
+        <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="o">.</span><span class="n">authorized</span><span class="p">)</span>
+        <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forwardCompletion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='test-their-behavior' class='heading'>Test their behavior</h3>
+
+<p><em>Testing Combine&rsquo;s `map(</em>:)` operator_</p>
+<pre class="highlight swift"><code>
+<span class="kd">import</span> <span class="kt">XCTest</span>
+<span class="kd">import</span> <span class="kt">EntwineTest</span>
+
+<span class="kd">func</span> <span class="nf">testMap</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="nv">testScheduler</span> <span class="o">=</span> <span class="kt">TestScheduler</span><span class="p">(</span><span class="nv">initialClock</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1">// creates a publisher that will schedule it's elements relatively, at the point of subscription</span>
+    <span class="k">let</span> <span class="nv">testablePublisher</span><span class="p">:</span> <span class="kt">TestablePublisher</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">testScheduler</span><span class="o">.</span><span class="nf">createRelativeTestablePublisher</span><span class="p">([</span>
+        <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"a"</span><span class="p">)),</span>
+        <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"b"</span><span class="p">)),</span>
+        <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"c"</span><span class="p">)),</span>
+    <span class="p">])</span>
+
+    <span class="k">let</span> <span class="nv">subjectUnderTest</span> <span class="o">=</span> <span class="n">testablePublisher</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">uppercased</span><span class="p">()</span> <span class="p">}</span>
+
+    <span class="c1">// schedules a subscription at 200, to be cancelled at 900</span>
+    <span class="k">let</span> <span class="nv">results</span> <span class="o">=</span> <span class="n">testScheduler</span><span class="o">.</span><span class="n">start</span> <span class="p">{</span> <span class="n">subjectUnderTest</span> <span class="p">}</span>
+
+    <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">sequence</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="o">.</span><span class="n">subscription</span><span class="p">),</span>           <span class="c1">// subscribed at 200</span>
+        <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"A"</span><span class="p">)),</span>             <span class="c1">// received uppercased input @ 100 + subscription time</span>
+        <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"B"</span><span class="p">)),</span>             <span class="c1">// received uppercased input @ 200 + subscription time</span>
+        <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"C"</span><span class="p">)),</span>             <span class="c1">// received uppercased input @ 300 + subscription time</span>
+        <span class="p">(</span><span class="mi">900</span><span class="p">,</span> <span class="o">.</span><span class="nf">completion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)),</span>  <span class="c1">// subscription cancelled</span>
+    <span class="p">])</span>
+<span class="p">}</span>
+
+
+</code></pre>
+<h3 id='use-your-rxswift-models-with-swiftui' class='heading'>Use your RxSwift models with SwiftUI</h3>
+
+<p><em>Example to be provided</em></p>
+<h2 id='requirements' class='heading'>Requirements</h2>
+
+<p>Entwine sits on top of Apple&rsquo;s Combine framework and therefore requires <em>Xcode 11</em> and is has minimum deployment targets of <em>macOS 10.15</em>, <em>iOS 13</em>, <em>tvOS 13</em> or <em>watchOS 6</em>.</p>
+<h2 id='installation' class='heading'>Installation</h2>
+
+<p>Entwine is delivered via a Swift Package and can be installed either as a dependency to another Swift Package by adding it to the dependencies section of a <code>Package.swift</code>  file
+or to an Xcode 11 project by via the <code>File -&gt; Swift Packages -&gt; Add package dependency...</code> menu in Xcode 11. </p>
+<h2 id='acknowledgements' class='heading'>Acknowledgements</h2>
+
+<p><em>EntwineTest</em> is influenced by <a href="https://github.com/ReactiveX/RxSwift">RxSwift&rsquo;s</a> &lsquo;RxTest&rsquo; package. </p>
+<h2 id='license' class='heading'>License</h2>
+
+<p>This project is released under the <a href="https://github.com/tcldr/Entwine/license">MIT license</a></p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-23)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

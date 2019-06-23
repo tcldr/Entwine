@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dematerialize Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+    <script src="../../js/lunr.min.js" defer></script>
+    <script src="../../js/typeahead.jquery.js" defer></script>
+    <script src="../../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Struct/Dematerialize" class="dashAnchor"></a>
+
+    <a title="Dematerialize Structure Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../../index.html">
+          Accessories for Apple’s Combine Framework
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/tcldr">
+            <img class="header-icon" src="../../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../../index.html">Entwine Reference</a>
+      <img class="carat" src="../../img/carat.png" />
+      Dematerialize Structure Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/ReplaySubject.html">ReplaySubject</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/TrampolineScheduler.html">TrampolineScheduler</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/DematerializationError.html">DematerializationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/Signal.html">Signal</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/Publisher.html">Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/Publishers.html">Publishers</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/Publishers/Dematerialize.html">– Dematerialize</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/Publishers/Materialize.html">– Materialize</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/Publishers/WithLatestFrom.html">– WithLatestFrom</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/Publishers/Factory.html">– Factory</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/DematerializationErrorConvertible.html">DematerializationErrorConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/SignalConvertible.html">SignalConvertible</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>Dematerialize</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Dematerialize</span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Upstream</span> <span class="p">:</span> <span class="kt">Publisher</span><span class="p">,</span> <span class="kt">Upstream</span><span class="o">.</span><span class="kt">Output</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/SignalConvertible.html">SignalConvertible</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Converts a materialized publisher of <code><a href="../../Enums/Signal.html">Signal</a></code>s into the represented sequence. Fails on a malformed
+source sequence.</p>
+
+<p>Use this operator to convert a stream of <code><a href="../../Enums/Signal.html">Signal</a></code> values from an upstream publisher into
+its materially represented publisher type. Malformed sequences will fail with a
+<code><a href="../../Enums/DematerializationError.html">DematerializationError</a></code>.</p>
+
+<p>For each element:</p>
+
+<ul>
+<li><code>.subscription</code> elements are ignored</li>
+<li><code>.input(_)</code> elements are unwrapped and forwarded to the subscriber</li>
+<li><code>.completion(_)</code> elements are forwarded within the <code><a href="../../Enums/DematerializationError.html">DematerializationError</a></code> wrapper</li>
+</ul>
+
+<p>If the integrity of the upstream sequence can be guaranteed, applying the <code>assertNoDematerializationFailure()</code>
+operator to this publisher will force unwrap any errors and produce a publisher with a <code>Failure</code>
+type that matches the materially represented original sequence.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP7FailureQa"></a>
+                    <a name="//apple_ref/swift/Alias/Failure" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7FailureQa">Failure</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Failure</span> <span class="o">=</span> <span class="kt"><a href="../../Enums/DematerializationError.html">DematerializationError</a></span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP6OutputQa">Output</a></span><span class="o">.</span><span class="kt">Failure</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP6OutputQa"></a>
+                    <a name="//apple_ref/swift/Alias/Output" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP6OutputQa">Output</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Output</span> <span class="o">=</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">.</span><span class="kt">Output</span><span class="o">.</span><span class="kt">Input</span><span class="p">,</span> <span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF"></a>
+                    <a name="//apple_ref/swift/Method/receive(subscriber:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF">receive(subscriber:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">receive</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="k">where</span> <span class="kt">S</span> <span class="p">:</span> <span class="kt">Subscriber</span><span class="p">,</span> <span class="kt">S</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span> <span class="o">==</span> <span class="kt"><a href="../../Enums/DematerializationError.html">DematerializationError</a></span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP6OutputQa">Output</a></span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Input</span> <span class="o">==</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP6OutputQa">Output</a></span><span class="o">.</span><span class="kt">Input</span><span class="p">,</span> <span class="kt"><a href="../../Enums/DematerializationError.html">DematerializationError</a></span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP6OutputQa">Output</a></span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span><span class="o">&gt;&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-23)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

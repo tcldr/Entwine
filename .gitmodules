@@ -1,0 +1,3 @@
+[submodule "Entwine"]
+	path = Entwine
+	url = https://github.com/tcldr/Entwine.git

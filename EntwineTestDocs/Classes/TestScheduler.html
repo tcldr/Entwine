@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TestScheduler Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/TestScheduler" class="dashAnchor"></a>
+
+    <a title="TestScheduler Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          Testing suite for Apple’s Combine Framework
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/tcldr">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">EntwineTest Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      TestScheduler Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TestScheduler.html">TestScheduler</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TestScheduler/Configuration.html">– Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TestableSubscriber.html">TestableSubscriber</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Signal.html">Signal</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DemandLedger.html">DemandLedger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DemandLedger/Transaction.html">– Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TestSequence.html">TestSequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TestablePublisher.html">TestablePublisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TestableSubscriberOptions.html">TestableSubscriberOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/VirtualTime.html">VirtualTime</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/VirtualTimeInterval.html">VirtualTimeInterval</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>TestScheduler</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">TestScheduler</span></code></pre>
+
+                </div>
+              </div>
+            <p>A <code>Scheduler</code> thats uses <code><a href="../Structs/VirtualTime.html">VirtualTime</a></code> to schedule its tasks.</p>
+
+<p>A special, non thread-safe scheduler for testing operators that require a scheduler without introducing
+real concurrency. Faciliates a recreatable sequence of tasks executed within &lsquo;virtual time&rsquo;.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11EntwineTest0B9SchedulerC13ConfigurationV"></a>
+                    <a name="//apple_ref/swift/Struct/Configuration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11EntwineTest0B9SchedulerC13ConfigurationV">Configuration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Configuration values for  a<code><a href="../Classes/TestScheduler.html">TestScheduler</a></code> test run.</p>
+
+                        <a href="../Classes/TestScheduler/Configuration.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Configuration</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11EntwineTest0B9SchedulerC12initialClockAcA11VirtualTimeV_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(initialClock:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11EntwineTest0B9SchedulerC12initialClockAcA11VirtualTimeV_tcfc">init(initialClock:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialises the scheduler with the given commencement time</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">initialClock</span><span class="p">:</span> <span class="kt"><a href="../Structs/VirtualTime.html">VirtualTime</a></span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11EntwineTest0B9SchedulerC5start13configuration6createAA18TestableSubscriberCy6OutputQz7FailureQzGAC13ConfigurationV_xyct7Combine9PublisherRzlF"></a>
+                    <a name="//apple_ref/swift/Method/start(configuration:create:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11EntwineTest0B9SchedulerC5start13configuration6createAA18TestableSubscriberCy6OutputQz7FailureQzGAC13ConfigurationV_xyct7Combine9PublisherRzlF">start(configuration:create:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Schedules the creation and subscription of an arbitrary <code>Publisher</code> to a <code><a href="../Classes/TestableSubscriber.html">TestableSubscriber</a></code>, and
+finally the subscription&rsquo;s subsequent cancellation.</p>
+
+<p>The default <code><a href="../Classes/TestScheduler/Configuration.html">Configuration</a></code>:</p>
+
+<ul>
+<li>Creates the publisher (executes the supplied publisher factory) at <code>100</code></li>
+<li>Subscribes to the publisher at <code>200</code></li>
+<li>Cancels the subscription at <code>900</code></li>
+<li>Starts the scheduler immediately.</li>
+<li><p>Uses <code><a href="../Structs/TestableSubscriberOptions.html#/s:11EntwineTest25TestableSubscriberOptionsV7defaultACvpZ">TestableSubscriberOptions.default</a></code> for the subscriber configuration.</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">start</span><span class="o">&lt;</span><span class="kt">P</span><span class="p">:</span> <span class="kt">Publisher</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Classes/TestScheduler/Configuration.html">Configuration</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">create</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">P</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/TestableSubscriber.html">TestableSubscriber</a></span><span class="o">&lt;</span><span class="kt">P</span><span class="o">.</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">P</span><span class="o">.</span><span class="kt">Failure</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configuration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The parameters of the test subscription including scheduling details</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>create</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A factory function that returns the publisher to be subscribed to</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Classes/TestableSubscriber.html">TestableSubscriber</a></code> that contains, or is scheduled to contain, the output of the publisher subscription.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11EntwineTest0B9SchedulerC31createAbsoluteTestablePublisheryAA0fG0Vyxq_GAA0B8SequenceVyxq_Gs5ErrorR_r0_lF"></a>
+                    <a name="//apple_ref/swift/Method/createAbsoluteTestablePublisher(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11EntwineTest0B9SchedulerC31createAbsoluteTestablePublisheryAA0fG0Vyxq_GAA0B8SequenceVyxq_Gs5ErrorR_r0_lF">createAbsoluteTestablePublisher(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialises a <code><a href="../Structs/TestablePublisher.html">TestablePublisher</a></code> with events scheduled in absolute time.</p>
+
+<p>Creates a <code><a href="../Structs/TestablePublisher.html">TestablePublisher</a></code> and schedules the supplied <code><a href="../Structs/TestSequence.html">TestSequence</a></code> to occur in
+absolute time. Sequence elements with virtual times in the &lsquo;past&rsquo; will be ignored.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>This method will produce an assertion failure if the supplied <code><a href="../Structs/TestSequence.html">TestSequence</a></code> includes
+a <code>Signal.subscription</code> element. Subscription time is dictated by the subscriber and can not be
+predetermined by the publisher.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">createAbsoluteTestablePublisher</span><span class="o">&lt;</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">sequence</span><span class="p">:</span> <span class="kt"><a href="../Structs/TestSequence.html">TestSequence</a></span><span class="o">&lt;</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TestablePublisher.html">TestablePublisher</a></span><span class="o">&lt;</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Failure</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sequence</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The sequence of values the publisher should produce</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Structs/TestablePublisher.html">TestablePublisher</a></code> loaded with the supplied <code><a href="../Structs/TestSequence.html">TestSequence</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11EntwineTest0B9SchedulerC31createRelativeTestablePublisheryAA0fG0Vyxq_GAA0B8SequenceVyxq_Gs5ErrorR_r0_lF"></a>
+                    <a name="//apple_ref/swift/Method/createRelativeTestablePublisher(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11EntwineTest0B9SchedulerC31createRelativeTestablePublisheryAA0fG0Vyxq_GAA0B8SequenceVyxq_Gs5ErrorR_r0_lF">createRelativeTestablePublisher(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialises a <code><a href="../Structs/TestablePublisher.html">TestablePublisher</a></code> with events scheduled in relative time.</p>
+
+<p>Creates a <code><a href="../Structs/TestablePublisher.html">TestablePublisher</a></code> and schedules the supplied <code><a href="../Structs/TestSequence.html">TestSequence</a></code> to occur in
+absolute time.</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>This method will produce an assertion failure if the supplied <code><a href="../Structs/TestSequence.html">TestSequence</a></code> includes
+a <code>Signal.subscription</code> element. Subscription time is dictated by the subscriber and can not be
+predetermined by the publisher.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">createRelativeTestablePublisher</span><span class="o">&lt;</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">sequence</span><span class="p">:</span> <span class="kt"><a href="../Structs/TestSequence.html">TestSequence</a></span><span class="o">&lt;</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/TestablePublisher.html">TestablePublisher</a></span><span class="o">&lt;</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Failure</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sequence</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The sequence of values the publisher should produce</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Structs/TestablePublisher.html">TestablePublisher</a></code> loaded with the supplied <code><a href="../Structs/TestSequence.html">TestSequence</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11EntwineTest0B9SchedulerC24createTestableSubscriber__7optionsAA0eF0Cyxq_Gxm_q_mAA0eF7OptionsVts5ErrorR_r0_lF"></a>
+                    <a name="//apple_ref/swift/Method/createTestableSubscriber(_:_:options:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11EntwineTest0B9SchedulerC24createTestableSubscriber__7optionsAA0eF0Cyxq_Gxm_q_mAA0eF7OptionsVts5ErrorR_r0_lF">createTestableSubscriber(_:_:options:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a <code><a href="../Classes/TestableSubscriber.html">TestableSubscriber</a></code> pre-populated with the scheduler.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">createTestableSubscriber</span><span class="o">&lt;</span><span class="kt">Input</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">inputType</span><span class="p">:</span> <span class="kt">Input</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span> <span class="n">_</span> <span class="nv">failureType</span><span class="p">:</span> <span class="kt">Failure</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Structs/TestableSubscriberOptions.html">TestableSubscriberOptions</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/TestableSubscriber.html">TestableSubscriber</a></span><span class="o">&lt;</span><span class="kt">Input</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Failure</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inputType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>Input</code> associated type for the produced <code>Subscriber</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>failureType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>Failure</code> associated type for the produced <code>Subscriber</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Behavior options for the produced <code>Subscriber</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A configured <code><a href="../Classes/TestableSubscriber.html">TestableSubscriber</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11EntwineTest0B9SchedulerC6resumeyyF"></a>
+                    <a name="//apple_ref/swift/Method/resume()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11EntwineTest0B9SchedulerC6resumeyyF">resume()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs all the actions in the scheduler&rsquo;s queue, in time order followed by submission order, until no
+more actions remain.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">resume</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/TestScheduler%20Scheduler%20conformance"></a>
+                <a name="//apple_ref/swift/Section/TestScheduler Scheduler conformance" class="dashAnchor"></a>
+                <a href="#/TestScheduler%20Scheduler%20conformance">
+                  <h3 class="section-name">TestScheduler Scheduler conformance</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9SchedulerP0B8TimeTypeQa"></a>
+                    <a name="//apple_ref/swift/Alias/SchedulerTimeType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9SchedulerP0B8TimeTypeQa">SchedulerTimeType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SchedulerTimeType</span> <span class="o">=</span> <span class="kt"><a href="../Structs/VirtualTime.html">VirtualTime</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9SchedulerP0B7OptionsQa"></a>
+                    <a name="//apple_ref/swift/Alias/SchedulerOptions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9SchedulerP0B7OptionsQa">SchedulerOptions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SchedulerOptions</span> <span class="o">=</span> <span class="kt">Never</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9SchedulerP3now0B8TimeTypeQzvp"></a>
+                    <a name="//apple_ref/swift/Property/now" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9SchedulerP3now0B8TimeTypeQzvp">now</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">now</span><span class="p">:</span> <span class="kt"><a href="../Structs/VirtualTime.html">VirtualTime</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9SchedulerP16minimumTolerance0B8TimeType_6StrideQZvp"></a>
+                    <a name="//apple_ref/swift/Property/minimumTolerance" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9SchedulerP16minimumTolerance0B8TimeType_6StrideQZvp">minimumTolerance</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">minimumTolerance</span><span class="p">:</span> <span class="kt"><a href="../Structs/VirtualTimeInterval.html">VirtualTimeInterval</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9SchedulerP8schedule7options_y0B7OptionsQzSg_yyctF"></a>
+                    <a name="//apple_ref/swift/Method/schedule(options:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9SchedulerP8schedule7options_y0B7OptionsQzSg_yyctF">schedule(options:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">schedule</span><span class="p">(</span><span class="nv">options</span><span class="p">:</span> <span class="kt">Never</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9SchedulerP8schedule5after9tolerance7options_y0B8TimeTypeQz_AH_6StrideQZ0B7OptionsQzSgyyctF"></a>
+                    <a name="//apple_ref/swift/Method/schedule(after:tolerance:options:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9SchedulerP8schedule5after9tolerance7options_y0B8TimeTypeQz_AH_6StrideQZ0B7OptionsQzSgyyctF">schedule(after:tolerance:options:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">schedule</span><span class="p">(</span><span class="n">after</span> <span class="nv">date</span><span class="p">:</span> <span class="kt"><a href="../Structs/VirtualTime.html">VirtualTime</a></span><span class="p">,</span> <span class="nv">tolerance</span><span class="p">:</span> <span class="kt"><a href="../Structs/VirtualTimeInterval.html">VirtualTimeInterval</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt">Never</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9SchedulerP8schedule5after8interval9tolerance7options_AA11Cancellable_p0B8TimeTypeQz_AJ_6StrideQZAM0B7OptionsQzSgyyctF"></a>
+                    <a name="//apple_ref/swift/Method/schedule(after:interval:tolerance:options:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9SchedulerP8schedule5after8interval9tolerance7options_AA11Cancellable_p0B8TimeTypeQz_AJ_6StrideQZAM0B7OptionsQzSgyyctF">schedule(after:interval:tolerance:options:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">schedule</span><span class="p">(</span><span class="n">after</span> <span class="nv">date</span><span class="p">:</span> <span class="kt"><a href="../Structs/VirtualTime.html">VirtualTime</a></span><span class="p">,</span> <span class="nv">interval</span><span class="p">:</span> <span class="kt"><a href="../Structs/VirtualTimeInterval.html">VirtualTimeInterval</a></span><span class="p">,</span> <span class="nv">tolerance</span><span class="p">:</span> <span class="kt"><a href="../Structs/VirtualTimeInterval.html">VirtualTimeInterval</a></span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt">Never</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Cancellable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-23)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

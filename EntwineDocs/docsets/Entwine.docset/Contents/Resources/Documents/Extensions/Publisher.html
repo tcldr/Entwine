@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Publisher Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Extension/Publisher" class="dashAnchor"></a>
+
+    <a title="Publisher Extension Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          Accessories for Apple’s Combine Framework
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/tcldr">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">Entwine Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      Publisher Extension Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ReplaySubject.html">ReplaySubject</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TrampolineScheduler.html">TrampolineScheduler</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DematerializationError.html">DematerializationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Signal.html">Signal</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publisher.html">Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers.html">Publishers</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers/Dematerialize.html">– Dematerialize</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers/Materialize.html">– Materialize</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers/WithLatestFrom.html">– WithLatestFrom</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers/Factory.html">– Factory</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DematerializationErrorConvertible.html">DematerializationErrorConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SignalConvertible.html">SignalConvertible</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>Publisher</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)</span>
+<span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SignalConvertible.html">SignalConvertible</a></span><span class="p">,</span> <span class="kt">Failure</span> <span class="o">==</span> <span class="kt">Never</span></code></pre>
+
+                </div>
+              </div>
+            
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP7Entwines5NeverO7FailureRtzAD17SignalConvertible6OutputRpzrlE13dematerializeAA10PublishersO7FlatMapVy_AA03AnyB0VyAJ_5InputQZAD22DematerializationErrorOyAJ_AGQZGGAN5FirstVy_AnDE13DematerializeVy_xGGGyF"></a>
+                    <a name="//apple_ref/swift/Method/dematerialize()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7Entwines5NeverO7FailureRtzAD17SignalConvertible6OutputRpzrlE13dematerializeAA10PublishersO7FlatMapVy_AA03AnyB0VyAJ_5InputQZAD22DematerializationErrorOyAJ_AGQZGGAN5FirstVy_AnDE13DematerializeVy_xGGGyF">dematerialize()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Converts a materialized upstream publisher of <code><a href="../Enums/Signal.html">Signal</a></code>s into the represented sequence. Fails on
+a malformed source sequence.</p>
+
+<p>Use this operator to convert a stream of <code><a href="../Enums/Signal.html">Signal</a></code> values from an upstream publisher into
+its materially represented publisher type. Malformed sequences will fail with a
+<code><a href="../Enums/DematerializationError.html">DematerializationError</a></code>.</p>
+
+<p>For each element:</p>
+
+<ul>
+<li><code>.subscription</code> elements are ignored</li>
+<li><code>.input(_)</code> elements are unwrapped and forwarded to the subscriber</li>
+<li><code>.completion(_)</code> elements are forwarded within the <code><a href="../Enums/DematerializationError.html">DematerializationError</a></code> wrapper</li>
+</ul>
+
+<p>If the integrity of the upstream sequence can be guaranteed, use the <code>assertNoDematerializationFailure()</code>
+operator immediately following this one to force unwrap any errors and produce a publisher with a <code>Failure</code>
+type that matches the materially represented original sequence.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dematerialize</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">FlatMap</span><span class="o">&lt;</span><span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="o">.</span><span class="kt">Input</span><span class="p">,</span> <span class="kt"><a href="../Enums/DematerializationError.html">DematerializationError</a></span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="o">.</span><span class="kt">Failure</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">First</span><span class="o">&lt;</span><span class="kt">Publishers</span><span class="o">.</span><span class="kt">Dematerialize</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">&gt;&gt;&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher that materializes an upstream publisher of <code><a href="../Enums/Signal.html">Signal</a></code>s into the represented
+sequence.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP7EntwineE11materializeAA10PublishersOADE11MaterializeVy_xGyF"></a>
+                    <a name="//apple_ref/swift/Method/materialize()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE11materializeAA10PublishersOADE11MaterializeVy_xGyF">materialize()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Wraps each element from the upstream publisher, as well as its subscription and completion events,
+into <code><a href="../Enums/Signal.html">Signal</a></code> values.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">materialize</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Materialize</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher that wraps each element from the upstream publisher, as well as its
+subscription and completion events, into <code><a href="../Enums/Signal.html">Signal</a></code> values.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP7EntwineE5share6replayAA10PublishersO11AutoconnectCy_AH9MulticastCy_xAD13ReplaySubjectCy6OutputQz7FailureQzGGGSi_tF"></a>
+                    <a name="//apple_ref/swift/Method/share(replay:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE5share6replayAA10PublishersO11AutoconnectCy_AH9MulticastCy_xAD13ReplaySubjectCy6OutputQz7FailureQzGGGSi_tF">share(replay:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a publisher as a class instance that replays previous values to new subscribers</p>
+
+<p>The downstream subscriber receives elements and completion states unchanged from the
+previous subscriber, and in addition replays the latest elements received from the upstream
+subscriber to any new subscribers. Use this operator when you want new subscribers to
+receive the most recently produced values immediately upon subscription.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">share</span><span class="p">(</span><span class="n">replay</span> <span class="nv">maxBufferSize</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Autoconnect</span><span class="o">&lt;</span><span class="kt">Publishers</span><span class="o">.</span><span class="kt">Multicast</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt"><a href="../Classes/ReplaySubject.html">ReplaySubject</a></span><span class="o">&lt;</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;&gt;&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>maxBufferSize</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The number of elements that should be buffered for
+replay to new subscribers</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A class instance that republishes its upstream publisher and maintains a
+buffer of its latest values for replay to new subscribers</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP7EntwineE10withLatest4from9transformAA10PublishersOADE04WithE4FromVy_xqd_0_qd__Gqd_0__qd__6OutputQz_AMQyd_0_tctAaBRd_0_7FailureQyd_0_APRtzr0_lF"></a>
+                    <a name="//apple_ref/swift/Method/withLatest(from:transform:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE10withLatest4from9transformAA10PublishersOADE04WithE4FromVy_xqd_0_qd__Gqd_0__qd__6OutputQz_AMQyd_0_tctAaBRd_0_7FailureQyd_0_APRtzr0_lF">withLatest(from:transform:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subscribes to an additional publisher and invokes a closure upon receiving output from this
+publisher.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">withLatest</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt">P</span><span class="p">:</span> <span class="kt">Publisher</span><span class="o">&gt;</span><span class="p">(</span><span class="n">from</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">P</span><span class="p">,</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">P</span><span class="o">.</span><span class="kt">Output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">WithLatestFrom</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">P</span><span class="p">,</span> <span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">P</span><span class="o">.</span><span class="kt">Failure</span> <span class="o">==</span> <span class="kt">Failure</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>other</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Another publisher to combibe with this one</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transform</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure that receives each value produced by this
+publisher and the latest value from another publisher and returns a new value to publish</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher that combines the latest value from another publisher with each
+value from this publisher</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP7EntwineE10withLatest4fromAA10PublishersOADE04WithE4FromVy_xqd__6OutputQyd__Gqd___tAaBRd__7FailureQyd__ANRtzlF"></a>
+                    <a name="//apple_ref/swift/Method/withLatest(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE10withLatest4fromAA10PublishersOADE04WithE4FromVy_xqd__6OutputQyd__Gqd___tAaBRd__7FailureQyd__ANRtzlF">withLatest(from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subscribes to an additional publisher and produces its latest value each time this publisher
+produces a value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">withLatest</span><span class="o">&lt;</span><span class="kt">P</span><span class="o">&gt;</span><span class="p">(</span><span class="n">from</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">P</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">WithLatestFrom</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">P</span><span class="p">,</span> <span class="kt">P</span><span class="o">.</span><span class="kt">Output</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">P</span> <span class="p">:</span> <span class="kt">Publisher</span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Failure</span> <span class="o">==</span> <span class="kt">P</span><span class="o">.</span><span class="kt">Failure</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>other</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Another publisher to gather latest values from</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher that produces the latest value from another publisher each time
+this publisher produces an element</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-23)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

@@ -1,0 +1,68 @@
+{
+  "warnings": [
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Dematerialize.swift",
+      "line": 262,
+      "symbol": "DematerializationErrorConvertible.SourceError",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/ReplaySubject.swift",
+      "line": 149,
+      "symbol": "ReplaySubject.createUnbounded()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/ReplaySubject.swift",
+      "line": 153,
+      "symbol": "ReplaySubject.create(bufferSize:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/WithLatestFrom.swift",
+      "line": 38,
+      "symbol": "Publishers.WithLatestFrom.init(upstream:other:transform:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Publishers/Factory.swift",
+      "line": 47,
+      "symbol": "Publishers.Factory.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Publishers/Factory.swift",
+      "line": 87,
+      "symbol": "Dispatcher",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Schedulers/TrampolineScheduler.swift",
+      "line": 38,
+      "symbol": "TrampolineScheduler.shared",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Signal.swift",
+      "line": 84,
+      "symbol": "SignalConvertible.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Signal.swift",
+      "line": 91,
+      "symbol": "Signal.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs"
+}
