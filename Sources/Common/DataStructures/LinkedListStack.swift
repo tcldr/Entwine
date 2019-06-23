@@ -82,7 +82,7 @@ extension LinkedListStack: ExpressibleByArrayLiteral {
 
 // MARK: - LinkedListNode definition
 
-public indirect enum LinkedList<Element> {
+indirect enum LinkedList<Element> {
     case value(Element, tail: LinkedList<Element>)
     case empty
 }
