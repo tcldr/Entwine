@@ -7,7 +7,7 @@ hide_documentation_coverage: true
 output: EntwineDocs
 xcodebuild_arguments:
   - -workspace
-  - ./Entwine/.swiftpm/xcode/package.xcworkspace
+  - Entwine/.swiftpm/xcode/package.xcworkspace
   - -scheme
   - Entwine
 author: Tristan Celder
