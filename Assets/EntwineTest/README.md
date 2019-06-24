@@ -205,7 +205,7 @@ import PackageDescription
 let package = Package(
     ...
     dependencies: [
-        .package(url: "http://github.com/tcldr/EntwineTest.git", .upToNextMajor(from: "0.1.0")),
+        .package(url: "http://github.com/tcldr/EntwineTest.git", .upToNextMinor(from: "0.1.0")),
     ],
     ...
     targets: [.testTarget(name: "MyTestTarget", dependencies: ["EntwineTest"]),
@@ -218,7 +218,7 @@ let package = Package(
 ### As part of an Xcode 11 or greater project:
 1. Select the `File -> Swift Packages -> Add package dependency...` menu item.
 2. Enter the repository url `https://github.com/tcldr/Entwine` and tap next.
-3. Select 'version, 'up to next major', enter `0.1.0`, hit next.
+3. Select 'version, 'up to next minor', enter `0.1.0`, hit next.
 4. Select the _EntwineTest_ library and specify the test target you wish to use it with.
 
 

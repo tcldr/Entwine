@@ -10,12 +10,21 @@ Accessories for [Apple's Combine Framework](https://developer.apple.com/document
 Entwine consists of three libraries (over two repositories) to be used in conjuction with Apple's Combine framework:
 - The [_Entwine Utilities library_](https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md) includes additional operators, subjects and utilities for working with Combine sequences.
 The package currently includes a `ReplaySubject`, a `withLatest(from:)` operator and a `Publishers.Factory` for rapidly defining publishers inline from any source.
+
+    **[View the README for the Entwine Utilities Library](https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md)**
+    
 - The [_EntwineTest library_](https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md) consists of tools for verifying expected behavior of Combine sequences. It houses
 a `TestScheduler` that uses virtual time, a `TestablePublisher` that schedules a user-defined sequence of
-elements in absolute or relative time, and a `TestableSubscriber` that record a time-stamped list of events that can
-be compared against expected behavior.
+elements in absolute or relative time, and a `TestableSubscriber` that record a time-stamped list of events that can be compared against expected behavior.
+
+    **[View the README for the EntwineTest Library](https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md)**
+
 - The [_EntwineRx library_](https://github.com/tcldr/EntwineRx/blob/master/README.md) is a small library maintained under a [separate repository](https://github.com/tcldr/EntwineRx) that contains bridging operators from RxSwift to Combine and vice versa
 making _RxSwift_ and _Combine_ work together seamlessly.
+
+    **[View the README for the EntwineRx Library](https://github.com/tcldr/EntwineRx)**
+
+
 
 _Note: EntwineRx is maintained as a separate Swift package to minimize the SPM dependency graph_.
 
