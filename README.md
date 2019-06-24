@@ -1,29 +1,31 @@
-# Entwine
+
+
+# [Entwine](https://github.com/tcldr/Entwine)
 
 Accessories for [Apple's Combine Framework](https://developer.apple.com/documentation/combine).
 
-## About
-Entwine consists of three libraries to be used in conjuction with Apple's Combine framework:
-- The [_Entwine_](https://github.com/tcldr/Entwine) package includes additional operators, subjects and utilities for working with Combine sequences,
-including: a `ReplaySubject`, a `withLatest(from:)` operator and a `Publishers.Factory` for rapidly defining
-publishers inline from any source.
-- The [_EntwineTest_](https://github.com/tcldr/Entwine) package consists of tools for verifying expected behavior of Combine sequences, including:
+---
+
+### ABOUT
+Entwine consists of three libraries (over two repositories) to be used in conjuction with Apple's Combine framework:
+- The [_Entwine Utilities library_](https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md) includes additional operators, subjects and utilities for working with Combine sequences.
+The package currently includes a `ReplaySubject`, a `withLatest(from:)` operator and a `Publishers.Factory` for rapidly defining publishers inline from any source.
+- The [_EntwineTest library_](https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md) consists of tools for verifying expected behavior of Combine sequences. It houses
 a `TestScheduler` that uses virtual time, a `TestablePublisher` that schedules a user-defined sequence of
 elements in absolute or relative time, and a `TestableSubscriber` that record a time-stamped list of events that can
 be compared against expected behavior.
-- The [_EntwineRx_](https://github.com/tcldr/Entwine) library is a small library that contains bridging operators from RxSwift to Combine and vice versa
-and makes _RxSwift_ and _Combine_ work together seamlessly.  
+- The [_EntwineRx library_](https://github.com/tcldr/EntwineRx/blob/master/README.md) is a small library maintained under a [separate repository](https://github.com/tcldr/EntwineRx) that contains bridging operators from RxSwift to Combine and vice versa
+making _RxSwift_ and _Combine_ work together seamlessly.
 
-## Documentation
-Documentation for each package is available at:
-- [Entwine Documentation](https://github.com/tcldr/Entwine) (Operators, Publishers and Accessories)
-- [EntwineTest Documentation](https://github.com/tcldr/Entwine) (Tools for testing Combine sequence behavior)
-- [EntwineRx Documentation](https://github.com/tcldr/Entwine) (Bridging operators for RxSwift)
+_Note: EntwineRx is maintained as a separate Swift package to minimize the SPM dependency graph_.
 
-## Quick start
-### Make publishers from any source
-Use the `Publishers.Factory` publisher from the _Entwine_ package to effortlessly create a publisher that
-meets Combine's backpressure requirements from any source.
+
+---
+
+### QUICK START GUIDE
+## Make publishers from any source
+Use the [`Publishers.Factory`](https://tcldr.github.io/Entwine/EntwineDocs/Extensions/Publishers/Factory.html) publisher from the _Entwine_ package to effortlessly create a publisher that
+meets Combine's backpressure requirements from any source. [Find out more about the _Entwine Utilities_ library.](https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md)
 
 _Inline publisher creation for PhotoKit authorization status:_
 ```swift
@@ -44,8 +46,11 @@ let photoKitAuthorizationStatus = Publishers.Factory { dispatcher in
     }
 }
 ```
-### Test their behavior
-_Testing Combine's `map(_:)` operator_
+## Test publisher behavior
+Use the `TestScheduler`, `TestablePublisher` and `TestableSubscriber` to simulate _Combine_ sequences and test against expected output. [Find out more about the _EntwineTest_ library](https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md)
+
+_Testing Combine's `map(_:)` operator:_
+
 ```swift
 
 import XCTest
@@ -75,20 +80,37 @@ func testMap() {
         (900, .completion(.finished)),  // subscription cancelled
     ])
 }
-
-
 ```
-### Use your RxSwift models with SwiftUI
-_Example to be provided_
 
-## Requirements
+## Use your _RxSwift_ view models with _SwiftUI_
+First, make sure you add the [_EntwineRx Swift Package_](https://github.com/tcldr/EntwineRx) (located in an external repo) as a dependency to your project.
+
+_Example coming soon_
+
+---
+
+### REQUIREMENTS
 Entwine sits on top of Apple's Combine framework and therefore requires _Xcode 11_ and is has minimum deployment targets of _macOS 10.15_, _iOS 13_, _tvOS 13_ or _watchOS 6_.
 
-## Installation
+---
+
+### INSTALLATION
 Entwine is delivered via a Swift Package and can be installed either as a dependency to another Swift Package by adding it to the dependencies section of a `Package.swift`  file
 or to an Xcode 11 project by via the `File -> Swift Packages -> Add package dependency...` menu in Xcode 11. 
-## Acknowledgements
-_EntwineTest_ is influenced by [RxSwift's](https://github.com/ReactiveX/RxSwift) 'RxTest' package. 
-## License
-This project is released under the [MIT license](https://github.com/tcldr/Entwine/license)
+
+---
+
+### DOCUMENTATION
+Documentation for each package is available at:
+- [Entwine Documentation](https://tcldr.github.io/Entwine/EntwineDocs/) (Operators, Publishers and Accessories)
+- [EntwineTest Documentation](https://tcldr.github.io/Entwine/EntwineTestDocs/) (Tools for testing _Combine_ sequence behavior)
+- [EntwineRx Documentation](https://tcldr.github.io/Entwine/EntwineRxDocs/) (Bridging operators for _RxSwift_)
+
+---
+
+### COPYRIGHT AND LICENSE
+
+This project is released under the [MIT license](https://github.com/tcldr/Entwine/blob/master/LICENSE)
+
+---
 
