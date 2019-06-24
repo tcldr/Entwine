@@ -114,31 +114,13 @@
             
             <h1 id='entwine-utilities' class='heading'>Entwine Utilities</h1>
 
-<p>Part of <a href="https://github.com/tcldr">Entwine</a> – A collection of accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
-
-<hr>
-<h3 id='about-a-href-https-github-com-tcldr-entwine-a' class='heading'>ABOUT <a href="https://github.com/tcldr">ENTWINE</a></h3>
-
-<p>Entwine consists of three libraries (over two repositories) to be used in conjuction with Apple&rsquo;s Combine framework:</p>
-
-<ul>
-<li>The <a href="https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md"><em>Entwine Utilities library</em></a> includes additional operators, subjects and utilities for working with Combine sequences.
-The package currently includes a <code><a href="Classes/ReplaySubject.html">ReplaySubject</a></code>, a <code>withLatest(from:)</code> operator and a <code><a href="Extensions/Publishers/Factory.html">Publishers.Factory</a></code> for rapidly defining publishers inline from any source.</li>
-<li>The <a href="https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md"><em>EntwineTest library</em></a> consists of tools for verifying expected behavior of Combine sequences. It houses
-a <code>TestScheduler</code> that uses virtual time, a <code>TestablePublisher</code> that schedules a user-defined sequence of
-elements in absolute or relative time, and a <code>TestableSubscriber</code> that record a time-stamped list of events that can
-be compared against expected behavior.</li>
-<li>The <a href="https://github.com/tcldr/EntwineRx/blob/master/README.md"><em>EntwineRx library</em></a> is a small library maintained under a <a href="https://github.com/tcldr/EntwineRx">separate repository</a> that contains bridging operators from RxSwift to Combine and vice versa
-making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
-</ul>
-
-<p><em>Note: EntwineRx is maintained as a separate Swift package to minimize the SPM dependency graph</em>.</p>
+<p>Part of <a href="https://github.com/tcldr/Entwine">Entwine</a> – A collection of accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
 
 <hr>
 <h3 id='contents' class='heading'>CONTENTS</h3>
 
 <ul>
-<li><a href="#about-entwine-utilities">About Enwtine Utilities</a></li>
+<li><a href="#about">About</a></li>
 <li><a href="#getting-started">Getting Started</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#documentation">Documentation</a></li>
@@ -146,7 +128,7 @@ making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
 </ul>
 
 <hr>
-<h3 id='about-entwine-utilities' class='heading'>ABOUT ENTWINE UTILITIES</h3>
+<h3 id='about' class='heading'>ABOUT</h3>
 
 <p><em>Entwine Utilities</em> are a collection of operators, tools and extensions to make working with <em>Combine</em> even more productive.</p>
 
@@ -190,17 +172,6 @@ making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
 </code></pre>
 
 <p>Each operator, subject and utility is documented with examples. check out the <a href="https://tcldr.github.io/Enwtine/EntwineDocs">full documentation.</a></p>
-
-<p>Here&rsquo;s a link to a few of them to get you started:</p>
-
-<ul>
-<li>ReplaySubject</li>
-<li>share(replay:)</li>
-<li>withLatest(from:)</li>
-<li>materialize()</li>
-<li>dematerialize()</li>
-<li>Publishers.Factory</li>
-</ul>
 
 <hr>
 <h3 id='installation' class='heading'>INSTALLATION</h3>

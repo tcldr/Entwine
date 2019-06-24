@@ -80,25 +80,7 @@
             
             <h1 id='entwinerx' class='heading'>EntwineRx</h1>
 
-<p>Part of <a href="https://github.com/tcldr">Entwine</a> – A collection of accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
-
-<hr>
-<h3 id='about-a-href-https-github-com-tcldr-entwine-a' class='heading'>ABOUT <a href="https://github.com/tcldr">ENTWINE</a></h3>
-
-<p>Entwine consists of three libraries (over two repositories) to be used in conjuction with Apple&rsquo;s Combine framework:</p>
-
-<ul>
-<li>The <a href="https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md"><em>Entwine Utilities library</em></a> includes additional operators, subjects and utilities for working with Combine sequences.
-The package currently includes a <code>ReplaySubject</code>, a <code>withLatest(from:)</code> operator and a <code>Publishers.Factory</code> for rapidly defining publishers inline from any source.</li>
-<li>The <a href="https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md"><em>EntwineTest library</em></a> consists of tools for verifying expected behavior of Combine sequences. It houses
-a <code>TestScheduler</code> that uses virtual time, a <code>TestablePublisher</code> that schedules a user-defined sequence of
-elements in absolute or relative time, and a <code>TestableSubscriber</code> that record a time-stamped list of events that can
-be compared against expected behavior.</li>
-<li>The <a href="https://github.com/tcldr/EntwineRx/blob/master/README.md"><em>EntwineRx library</em></a> is a small library maintained under a <a href="https://github.com/tcldr/EntwineRx">separate repository</a> that contains bridging operators from RxSwift to Combine and vice versa
-making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
-</ul>
-
-<p><em>Note: EntwineRx is maintained as a separate Swift package to minimize the SPM dependency graph</em>.</p>
+<p>Part of <a href="https://github.com/tcldr/Entwine">Entwine</a> – A collection of accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
 
 <hr>
 <h3 id='contents' class='heading'>CONTENTS</h3>
@@ -114,9 +96,7 @@ making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
 <hr>
 <h3 id='about-entwine-rx' class='heading'>ABOUT ENTWINE RX</h3>
 
-<p><em>EntwineRx</em> is a lightweight library of two <em>Combine</em> operators to bridge from <em>RxSwift</em> to <em>Combine</em> and back again.</p>
-
-<p>You can use <em>EntwineRx</em> to make your existing <em>RxSwift</em> view models and operators work seamlessly with any <em>Combine</em> based code you might be developing.</p>
+<p><em>EntwineRx</em> is a lightweight library of two operators to bridge from <em>RxSwift</em> to <em>Combine</em> and back again. You can use <em>EntwineRx</em> to make your existing <em>RxSwift</em> view models and operators work seamlessly with any <em>Combine</em> based code you might be developing.</p>
 
 <p>be sure to checkout the <a href="http://tcldr.github.io/Entwine/EntwineDocs">documentation</a> for the full list of operators and utilities.</p>
 
@@ -134,9 +114,9 @@ making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
 </code></pre>
 <h2 id='from-em-rxswift-em-to-em-combine-em' class='heading'>From <em>RxSwift</em> to <em>Combine</em></h2>
 
-<p>This direction requires a little more thought as we now have to account for <em>Combine</em>&rsquo;s requirement that any publisher obeys <a href="#backpressure-and-combine">strict back pressure requirements</a>.</p>
+<p>This direction requires a little more thought as we now have to account for <em>Combine</em>&rsquo;s requirement that any publisher obeys its <a href="#backpressure-and-combine">strict back pressure requirements</a>.</p>
 
-<p>As <em>RxSwift</em> has no such restriction we have to give some guidance for how we would like any unrequested elements from our <code>Observable</code> stream to be handled. We do this by introducing a element buffer to store our elements until they&rsquo;re requested by a subscriber.</p>
+<p>As <em>RxSwift</em> has no such restriction we have to give some guidance for how we would like any unrequested elements from our <code>Observable</code> stream to be handled. We do this by introducing an element buffer to store our elements until they&rsquo;re requested by a subscriber.</p>
 
 <p>We must then decide:</p>
 
@@ -149,20 +129,23 @@ making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
 
 <p>In this case we can safely set a low buffer count, and fail if we enter a situation that is unexpected. (If failing is not an option, you can also choose to drop any new elements or drop the buffer&rsquo;s oldest elements.)</p>
 
-<p>So what number? At least one, and one is often enough. A sequence would require a buffer size of at least the count of the sequence.</p>
+<p>So what number? At least one. And one is often enough. A sequence would require a buffer size of at least the count of the sequence.</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Combine</span>
 <span class="kd">import</span> <span class="kt">RxSwift</span>
 <span class="kd">import</span> <span class="kt">EntwineRx</span>
 
 <span class="c1">// both `.just(_)` and `from(_)` deliver their elements immediately upon subscription – we need a buffer!</span>
-<span class="k">let</span> <span class="nv">combinePublisher1</span> <span class="o">=</span> <span class="kt">Observable</span><span class="o">.</span><span class="nf">just</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="nf">bridgeToCombine</span><span class="p">(</span><span class="nv">bufferSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">whenFull</span><span class="p">:</span> <span class="o">.</span><span class="n">fail</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">combinePublisher2</span> <span class="o">=</span> <span class="kt">Observable</span><span class="o">.</span><span class="nf">from</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,])</span><span class="o">.</span><span class="nf">bridgeToCombine</span><span class="p">(</span><span class="nv">bufferSize</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nv">whenFull</span><span class="p">:</span> <span class="o">.</span><span class="n">fail</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">combinePublisher1</span> <span class="o">=</span> <span class="kt">Observable</span><span class="o">.</span><span class="nf">just</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">bridgeToCombine</span><span class="p">(</span><span class="nv">bufferSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">whenFull</span><span class="p">:</span> <span class="o">.</span><span class="n">fail</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">combinePublisher2</span> <span class="o">=</span> <span class="kt">Observable</span><span class="o">.</span><span class="nf">from</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,])</span>
+    <span class="o">.</span><span class="nf">bridgeToCombine</span><span class="p">(</span><span class="nv">bufferSize</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nv">whenFull</span><span class="p">:</span> <span class="o">.</span><span class="n">fail</span><span class="p">)</span>
 
 </code></pre>
 
-<p>If the buffer <em>does</em> overflow the publisher will complete with an <code>RxBridgeFailure.bufferOverflow</code> message.</p>
+<p>If the buffer <em>does</em> overflow the publisher will complete with an <code>RxBridgeFailure.bufferOverflow</code> failure. From here you can decide how you wish to recover.</p>
 
-<p>From here you can decide how you wish to recover – or if you&rsquo;re feeling especially self-assured you can chain the <code>.assertBridgeBufferNeverOverflows()</code> operator. Be warned though – as the name suggests this will cause an assertion failure if your hypothesis proves incorrect.</p>
+<p>If you&rsquo;re feeling especially self-assured you can chain the <code>.assertBridgeBufferNeverOverflows()</code> operator after the bridge operator. Be warned though – as the name suggests this will cause an assertion failure if your hypothesis proves incorrect.</p>
 
 <hr>
 <h3 id='backpressure-and-em-combine-em' class='heading'>BACKPRESSURE AND <em>COMBINE</em></h3>
@@ -171,7 +154,7 @@ making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
 
 <p>This behavior can result in a scenario where unconsumed elements are building up in the buffer of some publisher faster than they can be processed by a downstream subscriber. This can very quickly consume system resources causing performance degradation – and ultimately out-of-memory errors.</p>
 
-<p><em>Combine</em> handles the backpressure issue by only allowing a publisher to emit an element if it is has been signalled it is allowed to do so by its subscriber.</p>
+<p><em>Combine</em> handles backpressure by only allowing a publisher to emit an element if it is has been signalled by its subscriber. A subscriber can signal at any point during the lifetime of a subscription, and may decide not to signal at all. Therefore it is the responsibility of the publisher to limit its output accordingly.</p>
 
 <hr>
 <h3 id='installation' class='heading'>INSTALLATION</h3>

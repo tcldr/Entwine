@@ -1,6 +1,6 @@
 
 
-# [Entwine](https://github.com/tcldr)
+# [Entwine](https://github.com/tcldr/Entwine)
 
 Accessories for [Apple's Combine Framework](https://developer.apple.com/documentation/combine).
 
