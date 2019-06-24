@@ -32,7 +32,7 @@
       </p>
     
         <p class="header-col header-col--secondary">
-          <a class="header-link" href="https://github.com/tcldr">
+          <a class="header-link" href="https://github.com/tcldr/Entwine">
             <img class="header-icon" src="img/gh.png"/>
             View on GitHub
           </a>
@@ -128,7 +128,7 @@
 </ul>
 
 <hr>
-<h3 id='about-em-entwinetest-em' class='heading'>ABOUT <em>ENTWINETEST</em></h3>
+<h3 id='about-em-entwine-test-em' class='heading'>ABOUT <em>ENTWINE TEST</em></h3>
 
 <p><em>EntwineTest</em> packages a concise set of tools that are designed to work together to help you test your <em>Combine</em> sequences and operators.</p>
 
@@ -309,7 +309,7 @@
 <span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
     <span class="o">...</span>
     <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
-        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"http://github.com/tcldr/EntwineTest.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.1.0"</span><span class="p">)),</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"http://github.com/tcldr/EntwineTest.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMinor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.1.0"</span><span class="p">)),</span>
     <span class="p">],</span>
     <span class="o">...</span>
     <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="nf">testTarget</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"MyTestTarget"</span><span class="p">,</span> <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="s">"EntwineTest"</span><span class="p">]),</span>
@@ -325,7 +325,7 @@
 <ol>
 <li>Select the <code>File -&gt; Swift Packages -&gt; Add package dependency...</code> menu item.</li>
 <li>Enter the repository url <code>https://github.com/tcldr/Entwine</code> and tap next.</li>
-<li>Select &#39;version, &#39;up to next major&rsquo;, enter <code>0.1.0</code>, hit next.</li>
+<li>Select &#39;version, &#39;up to next minor&rsquo;, enter <code>0.1.0</code>, hit next.</li>
 <li>Select the <em>EntwineTest</em> library and specify the test target you wish to use it with.</li>
 </ol>
 

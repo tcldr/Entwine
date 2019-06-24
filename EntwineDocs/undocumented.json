@@ -30,16 +30,9 @@
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Publishers/Factory.swift",
-      "line": 47,
+      "line": 69,
       "symbol": "Publishers.Factory.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Publishers/Factory.swift",
-      "line": 87,
-      "symbol": "Dispatcher",
-      "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
