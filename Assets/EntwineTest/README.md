@@ -19,7 +19,7 @@ Part of [Entwine](https://github.com/tcldr/Entwine) – A collection of accessor
 
 ---
 
-### ABOUT _ENTWINETEST_
+### ABOUT _ENTWINE TEST_
 
 _EntwineTest_ packages a concise set of tools that are designed to work together to help you test your _Combine_ sequences and operators.
 

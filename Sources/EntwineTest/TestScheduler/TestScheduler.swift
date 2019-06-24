@@ -134,7 +134,7 @@ public class TestScheduler {
     }
     
     
-    /// Produces a `TestableSubscriber` pre-populated with the scheduler.
+    /// Produces a `TestableSubscriber` pre-populated with this scheduler.
     ///
     /// - Parameters:
     ///   - inputType: The `Input` associated type for the produced `Subscriber`

@@ -54,6 +54,8 @@ public struct TestableSubscriberOptions {
 // MARK: - TestableSubscriber definition
 
 /// A subscriber that keeps a time-stamped log of the events that occur during the lifetime of a subscription to an arbitrary publisher.
+///
+/// Initializable using the factory methods on `TestScheduler`
 public final class TestableSubscriber<Input, Failure: Error> {
     
     public typealias Sequence = TestSequence<Input, Failure>
