@@ -20,7 +20,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          Accessories for Apple’s Combine Framework
+          Utilities for Apple’s Combine Framework
         </a>
         
       </p>
@@ -112,107 +112,141 @@
         <section class="section">
           <div class="section-content">
             
-            <h1 id='entwine' class='heading'>Entwine</h1>
+            <h1 id='entwine-utilities' class='heading'>Entwine Utilities</h1>
 
-<p>Accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
-<h2 id='about' class='heading'>About</h2>
+<p>Part of <a href="https://github.com/tcldr">Entwine</a> – A collection of accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
 
-<p>Entwine consists of three libraries to be used in conjuction with Apple&rsquo;s Combine framework:</p>
+<hr>
+<h3 id='about-a-href-https-github-com-tcldr-entwine-a' class='heading'>ABOUT <a href="https://github.com/tcldr">ENTWINE</a></h3>
+
+<p>Entwine consists of three libraries (over two repositories) to be used in conjuction with Apple&rsquo;s Combine framework:</p>
 
 <ul>
-<li>The <a href="https://github.com/tcldr/Entwine"><em>Entwine</em></a> package includes additional operators, subjects and utilities for working with Combine sequences,
-including: a <code><a href="Classes/ReplaySubject.html">ReplaySubject</a></code>, a <code>withLatest(from:)</code> operator and a <code><a href="Extensions/Publishers/Factory.html">Publishers.Factory</a></code> for rapidly defining
-publishers inline from any source.</li>
-<li>The <a href="https://github.com/tcldr/Entwine"><em>EntwineTest</em></a> package consists of tools for verifying expected behavior of Combine sequences, including:
+<li>The <a href="https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md"><em>Entwine Utilities library</em></a> includes additional operators, subjects and utilities for working with Combine sequences.
+The package currently includes a <code><a href="Classes/ReplaySubject.html">ReplaySubject</a></code>, a <code>withLatest(from:)</code> operator and a <code><a href="Extensions/Publishers/Factory.html">Publishers.Factory</a></code> for rapidly defining publishers inline from any source.</li>
+<li>The <a href="https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md"><em>EntwineTest library</em></a> consists of tools for verifying expected behavior of Combine sequences. It houses
 a <code>TestScheduler</code> that uses virtual time, a <code>TestablePublisher</code> that schedules a user-defined sequence of
 elements in absolute or relative time, and a <code>TestableSubscriber</code> that record a time-stamped list of events that can
 be compared against expected behavior.</li>
-<li>The <a href="https://github.com/tcldr/Entwine"><em>EntwineRx</em></a> library is a small library that contains bridging operators from RxSwift to Combine and vice versa
-and makes <em>RxSwift</em> and <em>Combine</em> work together seamlessly.<br></li>
+<li>The <a href="https://github.com/tcldr/EntwineRx/blob/master/README.md"><em>EntwineRx library</em></a> is a small library maintained under a <a href="https://github.com/tcldr/EntwineRx">separate repository</a> that contains bridging operators from RxSwift to Combine and vice versa
+making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
 </ul>
-<h2 id='documentation' class='heading'>Documentation</h2>
 
-<p>Documentation for each package is available at:</p>
+<p><em>Note: EntwineRx is maintained as a separate Swift package to minimize the SPM dependency graph</em>.</p>
+
+<hr>
+<h3 id='contents' class='heading'>CONTENTS</h3>
 
 <ul>
-<li><a href="https://github.com/tcldr/Entwine">Entwine Documentation</a> (Operators, Publishers and Accessories)</li>
-<li><a href="https://github.com/tcldr/Entwine">EntwineTest Documentation</a> (Tools for testing Combine sequence behavior)</li>
-<li><a href="https://github.com/tcldr/Entwine">EntwineRx Documentation</a> (Bridging operators for RxSwift)</li>
+<li><a href="#about-entwine-utilities">About Enwtine Utilities</a></li>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#copyright-and-license">Copyright and License</a></li>
 </ul>
-<h2 id='quick-start' class='heading'>Quick start</h2>
-<h3 id='make-publishers-from-any-source' class='heading'>Make publishers from any source</h3>
 
-<p>Use the <code><a href="Extensions/Publishers/Factory.html">Publishers.Factory</a></code> publisher from the <em>Entwine</em> package to effortlessly create a publisher that
-meets Combine&rsquo;s backpressure requirements from any source.</p>
+<hr>
+<h3 id='about-entwine-utilities' class='heading'>ABOUT ENTWINE UTILITIES</h3>
 
-<p><em>Inline publisher creation for PhotoKit authorization status:</em></p>
+<p><em>Entwine Utilities</em> are a collection of operators, tools and extensions to make working with <em>Combine</em> even more productive.</p>
+
+<ul>
+<li>The <code><a href="Classes/ReplaySubject.html">ReplaySubject</a></code> makes it simple for subscribers to receive the most recent values immediately upon subscription.</li>
+<li>The <code>withLatest(from:)</code> operator enables state to be taken alongside UI events.</li>
+<li><code><a href="Extensions/Publishers/Factory.html">Publishers.Factory</a></code> makes creating publishers fast and simple – they can even be created inline!</li>
+<li><code>CancellableBag</code> helps to gather all your cancellable in a single place and helps to make your publisher chain declarations even clearer.</li>
+</ul>
+
+<p>be sure to checkout the <a href="http://tcldr.github.io/Entwine/EntwineDocs">documentation</a> for the full list of operators and utilities.</p>
+
+<hr>
+<h3 id='getting-started' class='heading'>GETTING STARTED</h3>
+
+<p>Ensure to <code>import Entwine</code> in each file you wish to the utilities with.</p>
+
+<p>The operators can then be used as part of your usual publisher chain declaration:</p>
 <pre class="highlight swift"><code>
+<span class="kd">import</span> <span class="kt">Combine</span>
 <span class="kd">import</span> <span class="kt">Entwine</span>
 
-<span class="k">let</span> <span class="nv">photoKitAuthorizationStatus</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Factory</span> <span class="p">{</span> <span class="n">dispatcher</span> <span class="k">in</span>
-    <span class="k">let</span> <span class="nv">status</span> <span class="o">=</span> <span class="kt">PHPhotoLibrary</span><span class="o">.</span><span class="nf">authorizationStatus</span><span class="p">()</span> 
-    <span class="k">switch</span> <span class="n">status</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="o">.</span><span class="nv">notDetermined</span><span class="p">:</span>
-        <span class="kt">PHPhotoLibrary</span><span class="o">.</span><span class="n">requestAuthorization</span> <span class="p">{</span> <span class="n">newStatus</span> <span class="k">in</span>
-            <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="n">newStatus</span><span class="p">)</span>
-            <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forwardCompletion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="k">case</span> <span class="o">.</span><span class="n">restricted</span><span class="p">,</span> <span class="o">.</span><span class="n">denied</span><span class="p">,</span> <span class="o">.</span><span class="nv">authorized</span><span class="p">:</span>
-        <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="o">.</span><span class="n">authorized</span><span class="p">)</span>
-        <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forwardCompletion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)</span>
+<span class="kd">class</span> <span class="kt">MyClass</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="nv">myEntwineCancellationBag</span> <span class="o">=</span> <span class="kt">CancellationBag</span><span class="p">()</span>
+
+    <span class="o">...</span>
+
+    <span class="kd">func</span> <span class="nf">printLatestColorOnClicks</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">clicks</span><span class="p">:</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt">SomeClickPublisher</span><span class="o">.</span><span class="n">shared</span>
+        <span class="k">let</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">UIColor</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt">SomeColorSource</span><span class="o">.</span><span class="n">shared</span>
+
+        <span class="n">clicks</span><span class="o">.</span><span class="nf">withLatest</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="n">color</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">sink</span> <span class="p">{</span>
+                <span class="nf">print</span><span class="p">(</span><span class="s">"clicked when the latest color was: </span><span class="se">\(</span><span class="nv">$0</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="o">.</span><span class="nf">cancelled</span><span class="p">(</span><span class="nv">by</span><span class="p">:</span> <span class="n">myEntwineCancellationBag</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-<h3 id='test-their-behavior' class='heading'>Test their behavior</h3>
-
-<p><em>Testing Combine&rsquo;s `map(</em>:)` operator_</p>
-<pre class="highlight swift"><code>
-<span class="kd">import</span> <span class="kt">XCTest</span>
-<span class="kd">import</span> <span class="kt">EntwineTest</span>
-
-<span class="kd">func</span> <span class="nf">testMap</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="k">let</span> <span class="nv">testScheduler</span> <span class="o">=</span> <span class="kt">TestScheduler</span><span class="p">(</span><span class="nv">initialClock</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
-
-    <span class="c1">// creates a publisher that will schedule it's elements relatively, at the point of subscription</span>
-    <span class="k">let</span> <span class="nv">testablePublisher</span><span class="p">:</span> <span class="kt">TestablePublisher</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">testScheduler</span><span class="o">.</span><span class="nf">createRelativeTestablePublisher</span><span class="p">([</span>
-        <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"a"</span><span class="p">)),</span>
-        <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"b"</span><span class="p">)),</span>
-        <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"c"</span><span class="p">)),</span>
-    <span class="p">])</span>
-
-    <span class="k">let</span> <span class="nv">subjectUnderTest</span> <span class="o">=</span> <span class="n">testablePublisher</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">uppercased</span><span class="p">()</span> <span class="p">}</span>
-
-    <span class="c1">// schedules a subscription at 200, to be cancelled at 900</span>
-    <span class="k">let</span> <span class="nv">results</span> <span class="o">=</span> <span class="n">testScheduler</span><span class="o">.</span><span class="n">start</span> <span class="p">{</span> <span class="n">subjectUnderTest</span> <span class="p">}</span>
-
-    <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">sequence</span><span class="p">,</span> <span class="p">[</span>
-        <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="o">.</span><span class="n">subscription</span><span class="p">),</span>           <span class="c1">// subscribed at 200</span>
-        <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"A"</span><span class="p">)),</span>             <span class="c1">// received uppercased input @ 100 + subscription time</span>
-        <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"B"</span><span class="p">)),</span>             <span class="c1">// received uppercased input @ 200 + subscription time</span>
-        <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"C"</span><span class="p">)),</span>             <span class="c1">// received uppercased input @ 300 + subscription time</span>
-        <span class="p">(</span><span class="mi">900</span><span class="p">,</span> <span class="o">.</span><span class="nf">completion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)),</span>  <span class="c1">// subscription cancelled</span>
-    <span class="p">])</span>
-<span class="p">}</span>
-
 
 </code></pre>
-<h3 id='use-your-rxswift-models-with-swiftui' class='heading'>Use your RxSwift models with SwiftUI</h3>
 
-<p><em>Example to be provided</em></p>
-<h2 id='requirements' class='heading'>Requirements</h2>
+<p>Each operator, subject and utility is documented with examples. check out the <a href="https://tcldr.github.io/Enwtine/EntwineDocs">full documentation.</a></p>
 
-<p>Entwine sits on top of Apple&rsquo;s Combine framework and therefore requires <em>Xcode 11</em> and is has minimum deployment targets of <em>macOS 10.15</em>, <em>iOS 13</em>, <em>tvOS 13</em> or <em>watchOS 6</em>.</p>
-<h2 id='installation' class='heading'>Installation</h2>
+<p>Here&rsquo;s a link to a few of them to get you started:</p>
 
-<p>Entwine is delivered via a Swift Package and can be installed either as a dependency to another Swift Package by adding it to the dependencies section of a <code>Package.swift</code>  file
-or to an Xcode 11 project by via the <code>File -&gt; Swift Packages -&gt; Add package dependency...</code> menu in Xcode 11. </p>
-<h2 id='acknowledgements' class='heading'>Acknowledgements</h2>
+<ul>
+<li>ReplaySubject</li>
+<li>share(replay:)</li>
+<li>withLatest(from:)</li>
+<li>materialize()</li>
+<li>dematerialize()</li>
+<li>Publishers.Factory</li>
+</ul>
 
-<p><em>EntwineTest</em> is influenced by <a href="https://github.com/ReactiveX/RxSwift">RxSwift&rsquo;s</a> &lsquo;RxTest&rsquo; package. </p>
-<h2 id='license' class='heading'>License</h2>
+<hr>
+<h3 id='installation' class='heading'>INSTALLATION</h3>
+<h3 id='as-part-of-another-swift-package' class='heading'>As part of another Swift Package:</h3>
 
-<p>This project is released under the <a href="https://github.com/tcldr/Entwine/license">MIT license</a></p>
+<ol>
+<li>Include it in your <code>Package.swift</code> file as both a dependency and a dependency of your target.</li>
+</ol>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">PackageDescription</span>
+
+<span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"http://github.com/tcldr/Entwine.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.1.0"</span><span class="p">)),</span>
+    <span class="p">],</span>
+    <span class="o">...</span>
+    <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="nf">target</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"MyTarget"</span><span class="p">,</span> <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="s">"Entwine"</span><span class="p">]),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre>
+
+<ol>
+<li>Then run <code>swift package update</code> from the root directory of your SPM project. If you&rsquo;re using Xcode 11 to edit your SPM project this should happen automatically.</li>
+</ol>
+<h3 id='as-part-of-an-xcode-11-or-greater-project' class='heading'>As part of an Xcode 11 or greater project:</h3>
+
+<ol>
+<li>Select the <code>File -&gt; Swift Packages -&gt; Add package dependency...</code> menu item.</li>
+<li>Enter the repository url <code>https://github.com/tcldr/Entwine</code> and tap next.</li>
+<li>Select &lsquo;version, &#39;up to next major&rsquo;, enter <code>0.1.0</code>, hit next.</li>
+<li>Select the <em>Entwine</em> library and specify the target you wish to use it with.</li>
+</ol>
+
+<hr>
+<h3 id='documentation' class='heading'>DOCUMENTATION</h3>
+
+<p>Full documentation for <em>Entwine</em> can be found at <a href="http://tcldr.github.io/Entwine/EntwineDocs">http://tcldr.github.io/Entwine/EntwineDocs</a>.</p>
+
+<hr>
+<h3 id='copyright-and-license' class='heading'>COPYRIGHT AND LICENSE</h3>
+
+<p>Copyright 2019 © Tristan Celder</p>
+
+<p><em>Entwine</em> is made available under the <a href="http://github.com/tcldr/Entwine/blob/master/LICENSE">MIT License</a></p>
+
+<hr>
 
           </div>
         </section>
@@ -221,7 +255,7 @@ or to an Xcode 11 project by via the <code>File -&gt; Swift Packages -&gt; Add p
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-23)</p>
+      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-24)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Enumerations  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Section/Enumerations" class="dashAnchor"></a>
+
+    <a title="Enumerations  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          Bridging operators between Apple’s Combine and RxSwift
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/tcldr">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">EntwineRx Reference</a>
+      <img class="carat" src="img/carat.png" />
+      Enumerations  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums.html#/s:9EntwineRx0B23BridgeBufferingStrategyO">RxBridgeBufferingStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums.html#/s:9EntwineRx0B13BridgeFailureO">RxBridgeFailure</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/ObservableType.html">ObservableType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Publisher.html">Publisher</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>Enumerations</h1>
+            <p>The following enumerations are available globally.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9EntwineRx0B13BridgeFailureO"></a>
+                    <a name="//apple_ref/swift/Enum/RxBridgeFailure" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9EntwineRx0B13BridgeFailureO">RxBridgeFailure</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Failure</code> type of the <code>RxBridge</code> publisher.</p>
+
+<p>Either:</p>
+
+<ul>
+<li>An <code>Error</code> forwarded from a upstream <code>Observable</code>, or
+–  A notice that the publisher terminated the subscription due to the upstream <code>Observable</code> emitting at a greater
+rate than was specified when the publisher was created.</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">RxBridgeFailure</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9EntwineRx0B23BridgeBufferingStrategyO"></a>
+                    <a name="//apple_ref/swift/Enum/RxBridgeBufferingStrategy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9EntwineRx0B23BridgeBufferingStrategyO">RxBridgeBufferingStrategy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Buffering strategy options for the <code>.bridgeToCombine(bufferSize:whenFull:)</code> operator.</p>
+
+<p>When the buffer is full, for subsequent upstream elements:</p>
+
+<ul>
+<li><code>.dropNewest</code>: will discard additional elements.</li>
+<li><code>.dropOldest</code>: will purge the oldest element and append the new element to the buffer.</li>
+<li><code>.fail</code>: will complete the <code>Publisher</code> with a <code>RxBridgeFailure.bufferOverflow</code> and
+end the sequence.</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">RxBridgeBufferingStrategy</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-24)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

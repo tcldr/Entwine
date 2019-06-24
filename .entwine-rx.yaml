@@ -1,0 +1,15 @@
+module: EntwineRx
+title: Bridging operators between Apple’s Combine and RxSwift
+theme: fullwidth 
+skip_undocumented: true
+readme: ./EntwineRx/README.md
+hide_documentation_coverage: true
+output: EntwineRxDocs
+xcodebuild_arguments:
+  - -workspace
+  - EntwineRx/.swiftpm/xcode/package.xcworkspace
+  - -scheme
+  - EntwineRx
+author: Tristan Celder
+author_url: https://twitter.com/_goluxo
+github_url: https://github.com/tcldr

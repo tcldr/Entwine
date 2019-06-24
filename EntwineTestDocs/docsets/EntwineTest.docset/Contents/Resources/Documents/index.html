@@ -104,60 +104,184 @@
         <section class="section">
           <div class="section-content">
             
-            <h1 id='entwine' class='heading'>Entwine</h1>
+            <h1 id='entwine-test' class='heading'>Entwine Test</h1>
 
-<p>Accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
-<h2 id='about' class='heading'>About</h2>
+<p>Part of <a href="https://github.com/tcldr">Entwine</a> – A collection of accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
 
-<p>Entwine consists of three libraries to be used in conjuction with Apple&rsquo;s Combine framework:</p>
+<hr>
+<h3 id='about-a-href-https-github-com-tcldr-entwine-a' class='heading'>ABOUT <a href="https://github.com/tcldr">ENTWINE</a></h3>
+
+<p>Entwine consists of three libraries (over two repositories) to be used in conjuction with Apple&rsquo;s Combine framework:</p>
 
 <ul>
-<li>The <a href="https://github.com/tcldr/Entwine"><em>Entwine</em></a> package includes additional operators, subjects and utilities for working with Combine sequences,
-including: a <code>ReplaySubject</code>, a <code>withLatest(from:)</code> operator and a <code>Publishers.Factory</code> for rapidly defining
-publishers inline from any source.</li>
-<li>The <a href="https://github.com/tcldr/Entwine"><em>EntwineTest</em></a> package consists of tools for verifying expected behavior of Combine sequences, including:
+<li>The <a href="https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md"><em>Entwine Utilities library</em></a> includes additional operators, subjects and utilities for working with Combine sequences.
+The package currently includes a <code>ReplaySubject</code>, a <code>withLatest(from:)</code> operator and a <code>Publishers.Factory</code> for rapidly defining publishers inline from any source.</li>
+<li>The <a href="https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md"><em>EntwineTest library</em></a> consists of tools for verifying expected behavior of Combine sequences. It houses
 a <code><a href="Classes/TestScheduler.html">TestScheduler</a></code> that uses virtual time, a <code><a href="Structs/TestablePublisher.html">TestablePublisher</a></code> that schedules a user-defined sequence of
 elements in absolute or relative time, and a <code><a href="Classes/TestableSubscriber.html">TestableSubscriber</a></code> that record a time-stamped list of events that can
 be compared against expected behavior.</li>
-<li>The <a href="https://github.com/tcldr/Entwine"><em>EntwineRx</em></a> library is a small library that contains bridging operators from RxSwift to Combine and vice versa
-and makes <em>RxSwift</em> and <em>Combine</em> work together seamlessly.<br></li>
+<li>The <a href="https://github.com/tcldr/EntwineRx/blob/master/README.md"><em>EntwineRx library</em></a> is a small library maintained under a <a href="https://github.com/tcldr/EntwineRx">separate repository</a> that contains bridging operators from RxSwift to Combine and vice versa
+making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
 </ul>
-<h2 id='documentation' class='heading'>Documentation</h2>
 
-<p>Documentation for each package is available at:</p>
+<p><em>Note: EntwineRx is maintained as a separate Swift package to minimize the SPM dependency graph</em>.</p>
+
+<hr>
+<h3 id='contents' class='heading'>CONTENTS</h3>
 
 <ul>
-<li><a href="https://github.com/tcldr/Entwine">Entwine Documentation</a> (Operators, Publishers and Accessories)</li>
-<li><a href="https://github.com/tcldr/Entwine">EntwineTest Documentation</a> (Tools for testing Combine sequence behavior)</li>
-<li><a href="https://github.com/tcldr/Entwine">EntwineRx Documentation</a> (Bridging operators for RxSwift)</li>
+<li><a href="#about-entwinetest">About <em>EntwineTest</em></a></li>
+<li><a href="#getting-started">Getting Started</a>
+
+<ul>
+<li><a href="#testscheduler">TestScheduler</a></li>
+<li><a href="#testablepublisher">TestablePublisher</a></li>
+<li><a href="#testablesubscriber">TestableSubscriber</a></li>
+<li><a href="#putting-it-all-together">Putting it all together</a></li>
+</ul></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+<li><a href="#copyright-and-license">Copyright and License</a></li>
 </ul>
-<h2 id='quick-start' class='heading'>Quick start</h2>
-<h3 id='make-publishers-from-any-source' class='heading'>Make publishers from any source</h3>
 
-<p>Use the <code>Publishers.Factory</code> publisher from the <em>Entwine</em> package to effortlessly create a publisher that
-meets Combine&rsquo;s backpressure requirements from any source.</p>
+<hr>
+<h3 id='about-em-entwinetest-em' class='heading'>ABOUT <em>ENTWINETEST</em></h3>
 
-<p><em>Inline publisher creation for PhotoKit authorization status:</em></p>
-<pre class="highlight swift"><code>
-<span class="kd">import</span> <span class="kt">Entwine</span>
+<p><em>EntwineTest</em> packages a concise set of tools that are designed to work together to help you test your <em>Combine</em> sequences and operators.</p>
 
-<span class="k">let</span> <span class="nv">photoKitAuthorizationStatus</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Factory</span> <span class="p">{</span> <span class="n">dispatcher</span> <span class="k">in</span>
-    <span class="k">let</span> <span class="nv">status</span> <span class="o">=</span> <span class="kt">PHPhotoLibrary</span><span class="o">.</span><span class="nf">authorizationStatus</span><span class="p">()</span> 
-    <span class="k">switch</span> <span class="n">status</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="o">.</span><span class="nv">notDetermined</span><span class="p">:</span>
-        <span class="kt">PHPhotoLibrary</span><span class="o">.</span><span class="n">requestAuthorization</span> <span class="p">{</span> <span class="n">newStatus</span> <span class="k">in</span>
-            <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="n">newStatus</span><span class="p">)</span>
-            <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forwardCompletion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="k">case</span> <span class="o">.</span><span class="n">restricted</span><span class="p">,</span> <span class="o">.</span><span class="n">denied</span><span class="p">,</span> <span class="o">.</span><span class="nv">authorized</span><span class="p">:</span>
-        <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="o">.</span><span class="n">authorized</span><span class="p">)</span>
-        <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forwardCompletion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>In addition, <em>EntwineTest</em> includes tools to help you to determine whether your publishers are complying with subscriber demand requests (backpressure) so that you can ensure your publisher is behaving like a good <em>Combine</em> citizen before releasing it out in the wild.</p>
+
+<hr>
+<h3 id='getting-started' class='heading'>GETTING STARTED</h3>
+
+<p>The <em>EntwineTest</em> packages consists of three major components – together, they help you write better tests for your <em>Combine</em> sequences.</p>
+
+<p>Let&rsquo;s go through them one by one before finally seeing how they all fit together:</p>
+<h2 id='code-testscheduler-code' class='heading'><code><a href="Classes/TestScheduler.html">TestScheduler</a></code>:</h2>
+
+<p>At the heart of <em>Combine</em> is the concept of schedulers. Without them, no work gets done. Essentially they are responsible for both <em>where</em> an action is excuted (main thread, a dipatch queue, or the current thread), and <em>when</em> it is is executed (right now, after the current task has finished, five minutes from now).</p>
+
+<p>Our <code><a href="Classes/TestScheduler.html">TestScheduler</a></code> is a special kind of scheduler that uses &lsquo;virtual time&rsquo; to schedule its tasks on the current thread. Our <code><a href="Structs/VirtualTime.html">VirtualTime</a></code> is really just an <code>Int</code> and its only purpose is to prioritise the order in which tasks are done. However, for testing purposes, we pretend it is <em>actual time</em>, as it helps us to articulate the seqeunce in which we&rsquo;d like our tests to run.</p>
+
+<p>The best thing about virtual time? It&rsquo;s instantaneous! So we keep our test suites lean and fast.</p>
+
+<p>Here&rsquo;s how you might use the <code><a href="Classes/TestScheduler.html">TestScheduler</a></code> in isolation:</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">EntwineTest</span>
+
+<span class="k">let</span> <span class="nv">scheduler</span> <span class="o">=</span> <span class="kt">TestScheduler</span><span class="p">()</span>
+
+<span class="n">scheduler</span><span class="o">.</span><span class="nf">schedule</span><span class="p">(</span><span class="nv">after</span><span class="p">:</span> <span class="mi">300</span><span class="p">)</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"bosh"</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="nf">schedule</span><span class="p">(</span><span class="nv">after</span><span class="p">:</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"bash"</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="nf">schedule</span><span class="p">(</span><span class="nv">after</span><span class="p">:</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"bish"</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="n">scheduler</span><span class="o">.</span><span class="nf">resume</span><span class="p">()</span> <span class="c1">// the clock is paused until this is called</span>
+
+<span class="c1">// outputs:</span>
+<span class="c1">//  "bish"</span>
+<span class="c1">//  "bash"</span>
+<span class="c1">//  "bosh"</span>
+
 </code></pre>
-<h3 id='test-their-behavior' class='heading'>Test their behavior</h3>
 
-<p><em>Testing Combine&rsquo;s `map(</em>:)` operator_</p>
+<p>Notice that as we&rsquo;ve scheduled <q>bosh</q> to print at <code>300</code>, and <q>bish</q> to print at <code>100</code>, when we start the scheduler by calling <code>.resume()</code>, <q>bish</q> is printed first.</p>
+<h2 id='code-testablepublisher-code' class='heading'><code><a href="Structs/TestablePublisher.html">TestablePublisher</a></code>:</h2>
+
+<p>Now that we have our scheduler, we can think about how we&rsquo;re going to simulate some <em>Combine</em> sequences. If we want to simulate a sequence, we&rsquo;ll need a publisher that lets us define <em>what</em> each element a sequence should be, and <em>when</em> that element should be emitted.</p>
+
+<p>A <code><a href="Structs/TestablePublisher.html">TestablePublisher</a></code> is exactly that.</p>
+
+<p>You can generate a <code><a href="Structs/TestablePublisher.html">TestablePublisher</a></code> from two factory methods on the <code><a href="Classes/TestScheduler.html">TestScheduler</a></code>. (We do it this way instead of instantiating directly as they depend on the scheduler.)</p>
+
+<p>One, <code>createAbsoluteTestablePublisher(_:)</code>, schedules events at exactly the time specified – if the time of an event has passed at the point the publisher is subscribed to, that event won&rsquo;t be fired. </p>
+
+<p>The other, <code>createRelativeTestablePublisher(_:)</code>, schedules events at the time specified <em>plus</em> the time the publisher was subscribed to. So an event scheduled at <code>100</code> with a subscription at <code>200</code> means the event will fire at <code>300</code>.</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Combine</span>
+<span class="kd">import</span> <span class="kt">EntwineTest</span>
+
+<span class="c1">// we'll set the schedulers clock a little forward – at 200</span>
+
+<span class="k">let</span> <span class="nv">scheduler1</span> <span class="o">=</span> <span class="kt">TestScheduler</span><span class="p">(</span><span class="nv">initialClock</span><span class="p">:</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">relativeTimePublisher</span><span class="p">:</span> <span class="kt">TestablePublisher</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="nf">createRelativeTestablePublisher</span><span class="p">([</span>
+    <span class="p">(</span><span class="mo">020</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"Mi"</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mo">030</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"Fa"</span><span class="p">)),</span>
+<span class="p">])</span>
+
+<span class="k">let</span> <span class="nv">absoluteTimePublisher</span><span class="p">:</span> <span class="kt">TestablePublisher</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="nf">createAbsoluteTestablePublisher</span><span class="p">([</span>
+    <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"Do"</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mi">210</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"Re"</span><span class="p">)),</span>
+<span class="p">])</span>
+
+<span class="k">let</span> <span class="nv">relativeSubscription</span> <span class="o">=</span> <span class="n">relativeTimePublisher</span><span class="o">.</span><span class="n">sink</span> <span class="p">{</span> <span class="n">element</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"time: </span><span class="se">\(</span><span class="n">scheduler</span><span class="o">.</span><span class="n">now</span><span class="se">)</span><span class="s"> - </span><span class="se">\(</span><span class="n">element</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">absoluteSubscription</span> <span class="o">=</span> <span class="n">absoluteTimePublisher</span><span class="o">.</span><span class="n">sink</span> <span class="p">{</span> <span class="n">element</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"time: </span><span class="se">\(</span><span class="n">scheduler</span><span class="o">.</span><span class="n">now</span><span class="se">)</span><span class="s"> - </span><span class="se">\(</span><span class="n">element</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">scheduler</span><span class="o">.</span><span class="nf">resume</span><span class="p">()</span>
+
+<span class="c1">// Outputs:</span>
+<span class="c1">//    time: 200 - Do</span>
+<span class="c1">//    time: 210 - Re</span>
+<span class="c1">//    time: 220 - Mi</span>
+<span class="c1">//    time: 230 - Fa</span>
+</code></pre>
+
+<p>Notice how the events events scheduled by the relative publisher fired <em>after</em> the events scheduled by the absolute publisher. As we had set the time of our scheduler to <code>200</code> in its initializer, when we subscribed to our relative publisher with the <code>sink(_:)</code> method, our publisher took the current time and added that value to each scheduled event.</p>
+<h2 id='code-testablesubscriber-code' class='heading'><code><a href="Classes/TestableSubscriber.html">TestableSubscriber</a></code>:</h2>
+
+<p>The final piece in the jigsaw is the <code><a href="Classes/TestableSubscriber.html">TestableSubscriber</a></code>. Its role is to gather the output of a publisher so that it can be compared against some expected output. It also depends on the <code><a href="Classes/TestScheduler.html">TestScheduler</a></code>, so to get one we call <code>createTestableSubscriber(_:_:)</code> on our scheduler.</p>
+
+<p>Once we subscribe to a publisher, <code><a href="Classes/TestableSubscriber.html">TestableSubscriber</a></code> records all the events with their time of arrival and makes them available on its <code>.sequence</code> property ready for us to compare against some expected output. It also records the time the subscription began, as well as its completion (should it end). </p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Combine</span>
+<span class="kd">import</span> <span class="kt">EntwineTest</span>
+
+<span class="k">let</span> <span class="nv">scheduler</span> <span class="o">=</span> <span class="kt">TestScheduler</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">passthroughSubject</span> <span class="o">=</span> <span class="kt">PassthroughSubject</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Void</span><span class="o">&gt;</span><span class="p">()</span>
+
+<span class="n">scheduler</span><span class="o">.</span><span class="nf">schedule</span><span class="p">(</span><span class="nv">after</span><span class="p">:</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span> <span class="n">passthroughSubject</span><span class="o">.</span><span class="nf">send</span><span class="p">(</span><span class="s">"yippee"</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="nf">schedule</span><span class="p">(</span><span class="nv">after</span><span class="p">:</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span> <span class="n">passthroughSubject</span><span class="o">.</span><span class="nf">send</span><span class="p">(</span><span class="s">"ki"</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="nf">schedule</span><span class="p">(</span><span class="nv">after</span><span class="p">:</span> <span class="mi">300</span><span class="p">)</span> <span class="p">{</span> <span class="n">passthroughSubject</span><span class="o">.</span><span class="nf">send</span><span class="p">(</span><span class="s">"yay"</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">subscriber</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="nf">createTestableSubscriber</span><span class="p">(</span><span class="kt">String</span><span class="o">.</span><span class="k">self</span><span class="p">,</span> <span class="kt">Never</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
+
+<span class="n">passthroughSubject</span><span class="o">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="n">subscriber</span><span class="p">)</span>
+
+<span class="n">scheduler</span><span class="o">.</span><span class="nf">resume</span><span class="p">()</span>
+
+<span class="k">let</span> <span class="nv">expected</span> <span class="o">=</span> <span class="kt">TestSequence</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="k">Self</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mo">000</span><span class="p">,</span> <span class="o">.</span><span class="n">subscription</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"yippee"</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"ki"</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"yay"</span><span class="p">)),</span>
+<span class="p">]</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="s">"sequences match: </span><span class="se">\(</span><span class="n">expected</span> <span class="o">=</span> <span class="n">subscriber</span><span class="o">.</span><span class="n">sequence</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c1">// outputs:</span>
+<span class="c1">//  sequences match: true</span>
+</code></pre>
+<h2 id='putting-it-all-together' class='heading'>Putting it all together</h2>
+
+<p>Now that we have our <code><a href="Classes/TestScheduler.html">TestScheduler</a></code>, <code>TestPublisher</code>, and <code>TestSubscriber</code> let&rsquo;s put them together to test our operators and sequences.</p>
+
+<p>But first, there&rsquo;s one additional method that you should be aware of. That&rsquo;s the <code>start(_:)</code> method on <code><a href="Classes/TestScheduler.html">TestScheduler</a></code>.</p>
+
+<p>The <code>start(_:)</code> method accepts a closure that produces any publisher and then:</p>
+
+<ol>
+<li>Schedules the creation of the publisher (invocation of the passed closure) at <code>100</code></li>
+<li>Schedules the subscription of the publisher to a <code><a href="Classes/TestableSubscriber.html">TestableSubscriber</a></code> at <code>200</code></li>
+<li>Schedules the cancellation of the subscription at <code>900</code></li>
+<li>Resumes the scheduler clock</li>
+</ol>
+
+<p><em>These are all configurable by using the `start(configuration:</em>:)` method. See the docs for more info._</p>
+
+<p>With that knowledge in place, let&rsquo;s test <em>Combine</em>&lsquo;s map operator. (I&rsquo;m sure it&rsquo;s fine – but just in case.)</p>
 <pre class="highlight swift"><code>
 <span class="kd">import</span> <span class="kt">XCTest</span>
 <span class="kd">import</span> <span class="kt">EntwineTest</span>
@@ -173,9 +297,10 @@ meets Combine&rsquo;s backpressure requirements from any source.</p>
         <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"c"</span><span class="p">)),</span>
     <span class="p">])</span>
 
+    <span class="c1">// a publisher that maps strings to uppercase</span>
     <span class="k">let</span> <span class="nv">subjectUnderTest</span> <span class="o">=</span> <span class="n">testablePublisher</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">uppercased</span><span class="p">()</span> <span class="p">}</span>
 
-    <span class="c1">// schedules a subscription at 200, to be cancelled at 900</span>
+    <span class="c1">// uses the method described above (schedules a subscription at 200, to be cancelled at 900)</span>
     <span class="k">let</span> <span class="nv">results</span> <span class="o">=</span> <span class="n">testScheduler</span><span class="o">.</span><span class="n">start</span> <span class="p">{</span> <span class="n">subjectUnderTest</span> <span class="p">}</span>
 
     <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">sequence</span><span class="p">,</span> <span class="p">[</span>
@@ -186,25 +311,60 @@ meets Combine&rsquo;s backpressure requirements from any source.</p>
         <span class="p">(</span><span class="mi">900</span><span class="p">,</span> <span class="o">.</span><span class="nf">completion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)),</span>  <span class="c1">// subscription cancelled</span>
     <span class="p">])</span>
 <span class="p">}</span>
-
-
 </code></pre>
-<h3 id='use-your-rxswift-models-with-swiftui' class='heading'>Use your RxSwift models with SwiftUI</h3>
 
-<p><em>Example to be provided</em></p>
-<h2 id='requirements' class='heading'>Requirements</h2>
+<p>Hopefully this should be everything you need to get you started with testing your <em>Combine</em> sequences. Don&rsquo;t forget that further information can be found <a href="http://tcldr.github.io/Entwine/EntwineTestDocs">in the docs</a>.</p>
 
-<p>Entwine sits on top of Apple&rsquo;s Combine framework and therefore requires <em>Xcode 11</em> and is has minimum deployment targets of <em>macOS 10.15</em>, <em>iOS 13</em>, <em>tvOS 13</em> or <em>watchOS 6</em>.</p>
-<h2 id='installation' class='heading'>Installation</h2>
+<hr>
+<h3 id='installation' class='heading'>INSTALLATION</h3>
+<h3 id='as-part-of-another-swift-package' class='heading'>As part of another Swift Package:</h3>
 
-<p>Entwine is delivered via a Swift Package and can be installed either as a dependency to another Swift Package by adding it to the dependencies section of a <code>Package.swift</code>  file
-or to an Xcode 11 project by via the <code>File -&gt; Swift Packages -&gt; Add package dependency...</code> menu in Xcode 11. </p>
-<h2 id='acknowledgements' class='heading'>Acknowledgements</h2>
+<ol>
+<li>Include it in your <code>Package.swift</code> file as both a dependency and a dependency of your test target.</li>
+</ol>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">PackageDescription</span>
 
-<p><em>EntwineTest</em> is influenced by <a href="https://github.com/ReactiveX/RxSwift">RxSwift&rsquo;s</a> &lsquo;RxTest&rsquo; package. </p>
-<h2 id='license' class='heading'>License</h2>
+<span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"http://github.com/tcldr/EntwineTest.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.1.0"</span><span class="p">)),</span>
+    <span class="p">],</span>
+    <span class="o">...</span>
+    <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="nf">testTarget</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"MyTestTarget"</span><span class="p">,</span> <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="s">"EntwineTest"</span><span class="p">]),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre>
 
-<p>This project is released under the <a href="https://github.com/tcldr/Entwine/license">MIT license</a></p>
+<ol>
+<li>Then run <code>swift package update</code> from the root directory of your SPM project. If you&rsquo;re using Xcode 11 to edit your SPM project this should happen automatically.</li>
+</ol>
+<h3 id='as-part-of-an-xcode-11-or-greater-project' class='heading'>As part of an Xcode 11 or greater project:</h3>
+
+<ol>
+<li>Select the <code>File -&gt; Swift Packages -&gt; Add package dependency...</code> menu item.</li>
+<li>Enter the repository url <code>https://github.com/tcldr/Entwine</code> and tap next.</li>
+<li>Select &#39;version, &#39;up to next major&rsquo;, enter <code>0.1.0</code>, hit next.</li>
+<li>Select the <em>EntwineTest</em> library and specify the test target you wish to use it with.</li>
+</ol>
+
+<hr>
+<h3 id='documentation' class='heading'>DOCUMENTATION</h3>
+
+<p>Full documentation for <em>EntwineTest</em> can be found at <a href="http://tcldr.github.io/Entwine/EntwineTestDocs">http://tcldr.github.io/Entwine/EntwineTestDocs</a>.</p>
+
+<hr>
+<h3 id='acknowledgements' class='heading'>ACKNOWLEDGEMENTS</h3>
+
+<p><em>EntwineTest</em> is inspired by the great work done in the <em>RxTest</em> library by the contributors to <a href="https://github.com/ReactiveX/RxSwift"><em>RxSwift</em></a>.</p>
+
+<hr>
+<h3 id='copyright-and-license' class='heading'>COPYRIGHT AND LICENSE</h3>
+
+<p>Copyright 2019 © Tristan Celder</p>
+
+<p><em>EntwineTest</em> is made available under the <a href="http://github.com/tcldr/Entwine/blob/master/LICENSE">MIT License</a></p>
+
+<hr>
 
           </div>
         </section>
@@ -213,7 +373,7 @@ or to an Xcode 11 project by via the <code>File -&gt; Swift Packages -&gt; Add p
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-23)</p>
+      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-24)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -1,0 +1,47 @@
+{
+  "warnings": [
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/EntwineRx/Sources/EntwineRx/BridgeToCombine.swift",
+      "line": 56,
+      "symbol": "RxBridgeFailure.upstreamError(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/EntwineRx/Sources/EntwineRx/BridgeToCombine.swift",
+      "line": 57,
+      "symbol": "RxBridgeFailure.bufferOverflow",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/EntwineRx/Sources/EntwineRx/BridgeToCombine.swift",
+      "line": 69,
+      "symbol": "RxBridgeBufferingStrategy.dropNewest",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/EntwineRx/Sources/EntwineRx/BridgeToCombine.swift",
+      "line": 70,
+      "symbol": "RxBridgeBufferingStrategy.dropOldest",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/EntwineRx/Sources/EntwineRx/BridgeToCombine.swift",
+      "line": 71,
+      "symbol": "RxBridgeBufferingStrategy.fail",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/EntwineRx/Sources/EntwineRx/BridgeToCombine.swift",
+      "line": 76,
+      "symbol": "RxBridge",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs"
+}

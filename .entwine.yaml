@@ -1,8 +1,8 @@
 module: Entwine
-title: Accessories for Apple’s Combine Framework
+title: Utilities for Apple’s Combine Framework
 theme: fullwidth 
 skip_undocumented: true
-readme: ./Entwine/README.md
+readme: ./Entwine/Assets/Entwine/README.md
 hide_documentation_coverage: true
 output: EntwineDocs
 xcodebuild_arguments:
@@ -11,5 +11,5 @@ xcodebuild_arguments:
   - -scheme
   - Entwine
 author: Tristan Celder
-author_url: https://github.com/tcldr
+author_url: https://twitter.com/_goluxo
 github_url: https://github.com/tcldr

@@ -2,7 +2,7 @@ module: EntwineTest
 title: Testing suite for Apple’s Combine Framework
 theme: fullwidth 
 skip_undocumented: true
-readme: ./Entwine/README.md
+readme: ./Entwine/Assets/EntwineTest/README.md
 hide_documentation_coverage: true
 output: EntwineTestDocs
 xcodebuild_arguments:
@@ -11,5 +11,5 @@ xcodebuild_arguments:
   - -scheme
   - EntwineTest
 author: Tristan Celder
-author_url: https://github.com/tcldr
+author_url: https://twitter.com/_goluxo
 github_url: https://github.com/tcldr

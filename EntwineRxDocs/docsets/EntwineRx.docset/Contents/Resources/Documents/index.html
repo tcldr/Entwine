@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EntwineRx  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="EntwineRx  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          Bridging operators between Apple’s Combine and RxSwift
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/tcldr">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">EntwineRx Reference</a>
+      <img class="carat" src="img/carat.png" />
+      EntwineRx  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums.html#/s:9EntwineRx0B23BridgeBufferingStrategyO">RxBridgeBufferingStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums.html#/s:9EntwineRx0B13BridgeFailureO">RxBridgeFailure</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/ObservableType.html">ObservableType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Publisher.html">Publisher</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            
+            <h1 id='entwinerx' class='heading'>EntwineRx</h1>
+
+<p>Part of <a href="https://github.com/tcldr">Entwine</a> – A collection of accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
+
+<hr>
+<h3 id='about-a-href-https-github-com-tcldr-entwine-a' class='heading'>ABOUT <a href="https://github.com/tcldr">ENTWINE</a></h3>
+
+<p>Entwine consists of three libraries (over two repositories) to be used in conjuction with Apple&rsquo;s Combine framework:</p>
+
+<ul>
+<li>The <a href="https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md"><em>Entwine Utilities library</em></a> includes additional operators, subjects and utilities for working with Combine sequences.
+The package currently includes a <code>ReplaySubject</code>, a <code>withLatest(from:)</code> operator and a <code>Publishers.Factory</code> for rapidly defining publishers inline from any source.</li>
+<li>The <a href="https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md"><em>EntwineTest library</em></a> consists of tools for verifying expected behavior of Combine sequences. It houses
+a <code>TestScheduler</code> that uses virtual time, a <code>TestablePublisher</code> that schedules a user-defined sequence of
+elements in absolute or relative time, and a <code>TestableSubscriber</code> that record a time-stamped list of events that can
+be compared against expected behavior.</li>
+<li>The <a href="https://github.com/tcldr/EntwineRx/blob/master/README.md"><em>EntwineRx library</em></a> is a small library maintained under a <a href="https://github.com/tcldr/EntwineRx">separate repository</a> that contains bridging operators from RxSwift to Combine and vice versa
+making <em>RxSwift</em> and <em>Combine</em> work together seamlessly.</li>
+</ul>
+
+<p><em>Note: EntwineRx is maintained as a separate Swift package to minimize the SPM dependency graph</em>.</p>
+
+<hr>
+<h3 id='contents' class='heading'>CONTENTS</h3>
+
+<ul>
+<li><a href="#about-entwinerx">About EnwtineRx</a></li>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#copyright-and-license">Copyright and License</a></li>
+</ul>
+
+<hr>
+<h3 id='about-entwine-rx' class='heading'>ABOUT ENTWINE RX</h3>
+
+<p><em>EntwineRx</em> is a lightweight library of two <em>Combine</em> operators to bridge from <em>RxSwift</em> to <em>Combine</em> and back again.</p>
+
+<p>You can use <em>EntwineRx</em> to make your existing <em>RxSwift</em> view models and operators work seamlessly with any <em>Combine</em> based code you might be developing.</p>
+
+<p>be sure to checkout the <a href="http://tcldr.github.io/Entwine/EntwineDocs">documentation</a> for the full list of operators and utilities.</p>
+
+<hr>
+<h3 id='getting-started' class='heading'>GETTING STARTED</h3>
+<h2 id='from-em-combine-em-to-em-rxswift-em' class='heading'>From <em>Combine</em> to <em>RxSwift</em></h2>
+
+<p>The <code>bridgeToRx()</code> operator that <em>EntwineRx</em> adds to <em>Combine</em>&lsquo;s <code>Publisher</code> type means that you can bridge to <em>RxSwift</em> as simply as:</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Combine</span>
+<span class="kd">import</span> <span class="kt">RxSwift</span>
+<span class="kd">import</span> <span class="kt">EntwineRx</span>
+
+<span class="k">let</span> <span class="nv">myRxObservable</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Just</span><span class="o">&lt;</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="nf">bridgeToRx</span><span class="p">()</span>
+
+</code></pre>
+<h2 id='from-em-rxswift-em-to-em-combine-em' class='heading'>From <em>RxSwift</em> to <em>Combine</em></h2>
+
+<p>This direction requires a little more thought as we now have to account for <em>Combine</em>&rsquo;s requirement that any publisher obeys <a href="#backpressure-and-combine">strict back pressure requirements</a>.</p>
+
+<p>As <em>RxSwift</em> has no such restriction we have to give some guidance for how we would like any unrequested elements from our <code>Observable</code> stream to be handled. We do this by introducing a element buffer to store our elements until they&rsquo;re requested by a subscriber.</p>
+
+<p>We must then decide:</p>
+
+<ol>
+<li>How big that buffer should be</li>
+<li>What we should do when our buffer is full</li>
+</ol>
+
+<p>As long as we are able to reason about the source of our upstream <code>Observable</code>&rsquo;s elements, and the rate at which we expect our subscriber to consume them – this should be relatively straightforward.</p>
+
+<p>In this case we can safely set a low buffer count, and fail if we enter a situation that is unexpected. (If failing is not an option, you can also choose to drop any new elements or drop the buffer&rsquo;s oldest elements.)</p>
+
+<p>So what number? At least one, and one is often enough. A sequence would require a buffer size of at least the count of the sequence.</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Combine</span>
+<span class="kd">import</span> <span class="kt">RxSwift</span>
+<span class="kd">import</span> <span class="kt">EntwineRx</span>
+
+<span class="c1">// both `.just(_)` and `from(_)` deliver their elements immediately upon subscription – we need a buffer!</span>
+<span class="k">let</span> <span class="nv">combinePublisher1</span> <span class="o">=</span> <span class="kt">Observable</span><span class="o">.</span><span class="nf">just</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="nf">bridgeToCombine</span><span class="p">(</span><span class="nv">bufferSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">whenFull</span><span class="p">:</span> <span class="o">.</span><span class="n">fail</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">combinePublisher2</span> <span class="o">=</span> <span class="kt">Observable</span><span class="o">.</span><span class="nf">from</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,])</span><span class="o">.</span><span class="nf">bridgeToCombine</span><span class="p">(</span><span class="nv">bufferSize</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nv">whenFull</span><span class="p">:</span> <span class="o">.</span><span class="n">fail</span><span class="p">)</span>
+
+</code></pre>
+
+<p>If the buffer <em>does</em> overflow the publisher will complete with an <code>RxBridgeFailure.bufferOverflow</code> message.</p>
+
+<p>From here you can decide how you wish to recover – or if you&rsquo;re feeling especially self-assured you can chain the <code>.assertBridgeBufferNeverOverflows()</code> operator. Be warned though – as the name suggests this will cause an assertion failure if your hypothesis proves incorrect.</p>
+
+<hr>
+<h3 id='backpressure-and-em-combine-em' class='heading'>BACKPRESSURE AND <em>COMBINE</em></h3>
+
+<p>Backpressure is the situation in which a publisher is producing elements faster than a subscriber can consume.</p>
+
+<p>This behavior can result in a scenario where unconsumed elements are building up in the buffer of some publisher faster than they can be processed by a downstream subscriber. This can very quickly consume system resources causing performance degradation – and ultimately out-of-memory errors.</p>
+
+<p><em>Combine</em> handles the backpressure issue by only allowing a publisher to emit an element if it is has been signalled it is allowed to do so by its subscriber.</p>
+
+<hr>
+<h3 id='installation' class='heading'>INSTALLATION</h3>
+<h3 id='as-part-of-another-swift-package' class='heading'>As part of another Swift Package:</h3>
+
+<ol>
+<li>Include it in your <code>Package.swift</code> file as both a dependency and a dependency of your target.</li>
+</ol>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">PackageDescription</span>
+
+<span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"http://github.com/tcldr/EntwineRx.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.1.0"</span><span class="p">)),</span>
+    <span class="p">],</span>
+    <span class="o">...</span>
+    <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="nf">target</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"MyTarget"</span><span class="p">,</span> <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="s">"EntwineRx"</span><span class="p">]),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre>
+
+<ol>
+<li>Then run <code>swift package update</code> from the root directory of your SPM project. If you&rsquo;re using Xcode 11 to edit your SPM project this should happen automatically.</li>
+</ol>
+<h3 id='as-part-of-an-xcode-11-or-greater-project' class='heading'>As part of an Xcode 11 or greater project:</h3>
+
+<ol>
+<li>Select the <code>File -&gt; Swift Packages -&gt; Add package dependency...</code> menu item.</li>
+<li>Enter the repository url <code>https://github.com/tcldr/EntwineRx</code> and tap next.</li>
+<li>Select &#39;version, &#39;up to next major&rsquo;, enter <code>0.1.0</code>, hit next.</li>
+<li>Select the <em>Entwine</em> library and specify the target you wish to use it with.</li>
+</ol>
+
+<hr>
+<h3 id='documentation' class='heading'>DOCUMENTATION</h3>
+
+<p>Full documentation for <em>EntwineRx</em> can be found at <a href="http://tcldr.github.io/Entwine/EntwineRxDocs">http://tcldr.github.io/Entwine/EntwineRxDocs</a>.</p>
+
+<hr>
+<h3 id='copyright-and-license' class='heading'>COPYRIGHT AND LICENSE</h3>
+
+<p>Copyright 2019 © Tristan Celder</p>
+
+<p><em>EntwineRx</em> is made available under the <a href="http://github.com/tcldr/Entwine/blob/master/LICENSE">MIT License</a></p>
+
+<hr>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-24)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
