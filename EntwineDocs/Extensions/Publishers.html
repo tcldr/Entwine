@@ -54,6 +54,9 @@
             <a class="nav-group-name-link" href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CancellationBag.html">CancellationBag</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Dispatcher.html">Dispatcher</a>
               </li>
               <li class="nav-group-task">
@@ -78,6 +81,9 @@
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Cancellable.html">Cancellable</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Publisher.html">Publisher</a>
               </li>
@@ -269,18 +275,19 @@ request) into a new publisher sequence.</p>
 <pre class="highlight swift"><code>
 <span class="kd">import</span> <span class="kt">Entwine</span>
 
-<span class="k">let</span> <span class="nv">photoKitAuthorizationStatus</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Factory</span> <span class="p">{</span> <span class="n">dispatcher</span> <span class="k">in</span>
+<span class="k">let</span> <span class="nv">photoKitAuthorizationStatus</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Factory</span><span class="o">&lt;</span><span class="kt">PHAuthorizationStatus</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="p">{</span> <span class="n">dispatcher</span> <span class="k">in</span>
     <span class="k">let</span> <span class="nv">status</span> <span class="o">=</span> <span class="kt">PHPhotoLibrary</span><span class="o">.</span><span class="nf">authorizationStatus</span><span class="p">()</span>
+    <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
     <span class="k">switch</span> <span class="n">status</span> <span class="p">{</span>
     <span class="k">case</span> <span class="o">.</span><span class="nv">notDetermined</span><span class="p">:</span>
         <span class="kt">PHPhotoLibrary</span><span class="o">.</span><span class="n">requestAuthorization</span> <span class="p">{</span> <span class="n">newStatus</span> <span class="k">in</span>
             <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="n">newStatus</span><span class="p">)</span>
-            <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forwardCompletion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)</span>
+            <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="o">.</span><span class="n">finished</span><span class="p">)</span>
         <span class="p">}</span>
-    <span class="k">case</span> <span class="o">.</span><span class="n">restricted</span><span class="p">,</span> <span class="o">.</span><span class="n">denied</span><span class="p">,</span> <span class="o">.</span><span class="nv">authorized</span><span class="p">:</span>
-        <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="o">.</span><span class="n">authorized</span><span class="p">)</span>
-        <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forwardCompletion</span><span class="p">(</span><span class="o">.</span><span class="n">finished</span><span class="p">)</span>
+    <span class="k">default</span><span class="p">:</span>
+        <span class="n">dispatcher</span><span class="o">.</span><span class="nf">forward</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="o">.</span><span class="n">finished</span><span class="p">)</span>
     <span class="p">}</span>
+    <span class="k">return</span> <span class="kt">AnyCancellable</span> <span class="p">{}</span>
 <span class="p">}</span>
 </code></pre>
 <div class="aside aside-warning">
@@ -315,7 +322,7 @@ strain on resources</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-24)</p>
+      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-25)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

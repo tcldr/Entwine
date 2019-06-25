@@ -121,7 +121,7 @@
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestableSubscriber/TestableSubscriber.swift",
-      "line": 59,
+      "line": 61,
       "symbol": "TestableSubscriber.Sequence",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"

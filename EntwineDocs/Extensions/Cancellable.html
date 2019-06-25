@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>TestablePublisher Structure Reference</title>
+    <title>Cancellable Extension Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,14 +14,14 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/TestablePublisher" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Extension/Cancellable" class="dashAnchor"></a>
 
-    <a title="TestablePublisher Structure Reference"></a>
+    <a title="Cancellable Extension Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          Testing suite for Apple’s Combine Framework
+          Utilities for Apple’s Combine Framework
         </a>
         
       </p>
@@ -42,9 +42,9 @@
     </header>
 
     <p class="breadcrumbs">
-      <a class="breadcrumb" href="../index.html">EntwineTest Reference</a>
+      <a class="breadcrumb" href="../index.html">Entwine Reference</a>
       <img class="carat" src="../img/carat.png" />
-      TestablePublisher Structure Reference
+      Cancellable Extension Reference
     </p>
 
     <div class="content-wrapper">
@@ -54,13 +54,27 @@
             <a class="nav-group-name-link" href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/TestScheduler.html">TestScheduler</a>
+                <a class="nav-group-task-link" href="../Classes/CancellationBag.html">CancellationBag</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/TestScheduler/Configuration.html">– Configuration</a>
+                <a class="nav-group-task-link" href="../Classes/Dispatcher.html">Dispatcher</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/TestableSubscriber.html">TestableSubscriber</a>
+                <a class="nav-group-task-link" href="../Classes/ReplaySubject.html">ReplaySubject</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TrampolineScheduler.html">TrampolineScheduler</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DematerializationError.html">DematerializationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Signal.html">Signal</a>
               </li>
             </ul>
           </li>
@@ -68,33 +82,36 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/Signal.html">Signal</a>
+                <a class="nav-group-task-link" href="../Extensions/Cancellable.html">Cancellable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publisher.html">Publisher</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers.html">Publishers</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers/Dematerialize.html">– Dematerialize</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers/Materialize.html">– Materialize</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers/WithLatestFrom.html">– WithLatestFrom</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers/Factory.html">– Factory</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/DemandLedger.html">DemandLedger</a>
+                <a class="nav-group-task-link" href="../Protocols/DematerializationErrorConvertible.html">DematerializationErrorConvertible</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/DemandLedger/Transaction.html">– Transaction</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/TestSequence.html">TestSequence</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/TestablePublisher.html">TestablePublisher</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/TestableSubscriberOptions.html">TestableSubscriberOptions</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/VirtualTime.html">VirtualTime</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/VirtualTimeInterval.html">VirtualTimeInterval</a>
+                <a class="nav-group-task-link" href="../Protocols/SignalConvertible.html">SignalConvertible</a>
               </li>
             </ul>
           </li>
@@ -104,17 +121,15 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>TestablePublisher</h1>
+            <h1>Cancellable</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TestablePublisher</span><span class="o">&lt;</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Failure</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)</span>
+<span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Cancellable</span></code></pre>
 
                 </div>
               </div>
-            <p>A <code>Publisher</code> that produces the elements provided in a <code><a href="../Structs/TestSequence.html">TestSequence</a></code>.</p>
-
-<p>Initializable using the factory methods on <code><a href="../Classes/TestScheduler.html">TestScheduler</a></code></p>
-
+            
           </div>
         </section>
 
@@ -125,9 +140,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF"></a>
-                    <a name="//apple_ref/swift/Method/receive(subscriber:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF">receive(subscriber:)</a>
+                    <a name="/s:7Combine11CancellableP7EntwineE9cancelled2byyAD15CancellationBagC_tF"></a>
+                    <a name="//apple_ref/swift/Method/cancelled(by:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine11CancellableP7EntwineE9cancelled2byyAD15CancellationBagC_tF">cancelled(by:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -135,13 +150,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Adds this cancellable to the passed <code><a href="../Classes/CancellationBag.html">CancellationBag</a></code></p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">receive</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="k">where</span> <span class="kt">Output</span> <span class="o">==</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Input</span><span class="p">,</span> <span class="kt">Failure</span> <span class="o">==</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Failure</span><span class="p">,</span> <span class="kt">S</span> <span class="p">:</span> <span class="kt">Subscriber</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">cancelled</span><span class="p">(</span><span class="n">by</span> <span class="nv">cancellationBag</span><span class="p">:</span> <span class="kt"><a href="../Classes/CancellationBag.html">CancellationBag</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

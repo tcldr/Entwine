@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DematerializationErrorConvertible Protocol Reference</title>
+    <title>CancellationBag Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/DematerializationErrorConvertible" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/CancellationBag" class="dashAnchor"></a>
 
-    <a title="DematerializationErrorConvertible Protocol Reference"></a>
+    <a title="CancellationBag Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">Entwine Reference</a>
       <img class="carat" src="../img/carat.png" />
-      DematerializationErrorConvertible Protocol Reference
+      CancellationBag Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -121,14 +121,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>DematerializationErrorConvertible</h1>
+            <h1>CancellationBag</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">DematerializationErrorConvertible</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">CancellationBag</span> <span class="p">:</span> <span class="kt">Cancellable</span></code></pre>
 
                 </div>
               </div>
-            <p>A type which can be converted into a <code><a href="../Enums/DematerializationError.html">DematerializationError</a></code></p>
+            <p>A container for cancellables that will be cancelled when the bag is deallocated or cancelled itself</p>
 
           </div>
         </section>
@@ -140,9 +140,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7Entwine33DematerializationErrorConvertibleP017dematerializationC0AA0bC0Oy06SourceC0QzGvp"></a>
-                    <a name="//apple_ref/swift/Property/dematerializationError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Entwine33DematerializationErrorConvertibleP017dematerializationC0AA0bC0Oy06SourceC0QzGvp">dematerializationError</a>
+                    <a name="/s:7Entwine15CancellationBagC3addyyx7Combine11CancellableRzlF"></a>
+                    <a name="//apple_ref/swift/Method/add(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Entwine15CancellationBagC3addyyx7Combine11CancellableRzlF">add(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -150,14 +150,42 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The type represented as a <code><a href="../Enums/DematerializationError.html">DematerializationError</a></code></p>
+                        <p>Adds a cancellable to the bag which will have its <code><a href="../Classes/CancellationBag.html#/s:7Entwine15CancellationBagC6cancelyyF">.cancel()</a></code> method invoked
+when the bag is deallocated or cancelled itself</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">dematerializationError</span><span class="p">:</span> <span class="kt"><a href="../Enums/DematerializationError.html">DematerializationError</a></span><span class="o">&lt;</span><span class="kt">SourceError</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">add</span><span class="o">&lt;</span><span class="kt">C</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">cancellable</span><span class="p">:</span> <span class="kt">C</span><span class="p">)</span> <span class="k">where</span> <span class="kt">C</span> <span class="p">:</span> <span class="kt">Cancellable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Entwine15CancellationBagC6cancelyyF"></a>
+                    <a name="//apple_ref/swift/Method/cancel()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Entwine15CancellationBagC6cancelyyF">cancel()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Empties the bag and cancels each contained item</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cancel</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>

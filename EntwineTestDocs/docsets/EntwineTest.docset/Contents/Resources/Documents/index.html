@@ -183,7 +183,7 @@
 
 <span class="c1">// we'll set the schedulers clock a little forward – at 200</span>
 
-<span class="k">let</span> <span class="nv">scheduler1</span> <span class="o">=</span> <span class="kt">TestScheduler</span><span class="p">(</span><span class="nv">initialClock</span><span class="p">:</span> <span class="mi">200</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">scheduler</span> <span class="o">=</span> <span class="kt">TestScheduler</span><span class="p">(</span><span class="nv">initialClock</span><span class="p">:</span> <span class="mi">200</span><span class="p">)</span>
 
 <span class="k">let</span> <span class="nv">relativeTimePublisher</span><span class="p">:</span> <span class="kt">TestablePublisher</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="nf">createRelativeTestablePublisher</span><span class="p">([</span>
     <span class="p">(</span><span class="mo">020</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"Mi"</span><span class="p">)),</span>
@@ -222,7 +222,7 @@
 <span class="kd">import</span> <span class="kt">EntwineTest</span>
 
 <span class="k">let</span> <span class="nv">scheduler</span> <span class="o">=</span> <span class="kt">TestScheduler</span><span class="p">()</span>
-<span class="k">let</span> <span class="nv">passthroughSubject</span> <span class="o">=</span> <span class="kt">PassthroughSubject</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Void</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">passthroughSubject</span> <span class="o">=</span> <span class="kt">PassthroughSubject</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span><span class="p">()</span>
 
 <span class="n">scheduler</span><span class="o">.</span><span class="nf">schedule</span><span class="p">(</span><span class="nv">after</span><span class="p">:</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span> <span class="n">passthroughSubject</span><span class="o">.</span><span class="nf">send</span><span class="p">(</span><span class="s">"yippee"</span><span class="p">)</span> <span class="p">}</span>
 <span class="n">scheduler</span><span class="o">.</span><span class="nf">schedule</span><span class="p">(</span><span class="nv">after</span><span class="p">:</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span> <span class="n">passthroughSubject</span><span class="o">.</span><span class="nf">send</span><span class="p">(</span><span class="s">"ki"</span><span class="p">)</span> <span class="p">}</span>
@@ -234,14 +234,14 @@
 
 <span class="n">scheduler</span><span class="o">.</span><span class="nf">resume</span><span class="p">()</span>
 
-<span class="k">let</span> <span class="nv">expected</span> <span class="o">=</span> <span class="kt">TestSequence</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="k">Self</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
+<span class="k">let</span> <span class="nv">expected</span><span class="p">:</span> <span class="kt">TestSequence</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="mo">000</span><span class="p">,</span> <span class="o">.</span><span class="n">subscription</span><span class="p">),</span>
     <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"yippee"</span><span class="p">)),</span>
     <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"ki"</span><span class="p">)),</span>
     <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="o">.</span><span class="nf">input</span><span class="p">(</span><span class="s">"yay"</span><span class="p">)),</span>
 <span class="p">]</span>
 
-<span class="nf">print</span><span class="p">(</span><span class="s">"sequences match: </span><span class="se">\(</span><span class="n">expected</span> <span class="o">=</span> <span class="n">subscriber</span><span class="o">.</span><span class="n">sequence</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"sequences match: </span><span class="se">\(</span><span class="n">expected</span> <span class="o">==</span> <span class="n">subscriber</span><span class="o">.</span><span class="n">sequence</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
 
 <span class="c1">// outputs:</span>
 <span class="c1">//  sequences match: true</span>
@@ -250,9 +250,9 @@
 
 <p>Now that we have our <code><a href="Classes/TestScheduler.html">TestScheduler</a></code>, <code>TestPublisher</code>, and <code>TestSubscriber</code> let&rsquo;s put them together to test our operators and sequences.</p>
 
-<p>But first, there&rsquo;s one additional method that you should be aware of. That&rsquo;s the <code>start(_:)</code> method on <code><a href="Classes/TestScheduler.html">TestScheduler</a></code>.</p>
+<p>But first, there&rsquo;s one additional method that you should be aware of. That&rsquo;s the <code>start(create:)</code> method on <code><a href="Classes/TestScheduler.html">TestScheduler</a></code>.</p>
 
-<p>The <code>start(_:)</code> method accepts a closure that produces any publisher and then:</p>
+<p>The <code>start(create:)</code> method accepts a closure that produces any publisher and then:</p>
 
 <ol>
 <li>Schedules the creation of the publisher (invocation of the passed closure) at <code>100</code></li>
@@ -261,7 +261,7 @@
 <li>Resumes the scheduler clock</li>
 </ol>
 
-<p><em>These are all configurable by using the `start(configuration:</em>:)` method. See the docs for more info._</p>
+<p><em>These are all configurable by using the <code>start(configuration:create:)</code> method. See the docs for more info.</em></p>
 
 <p>With that knowledge in place, let&rsquo;s test <em>Combine</em>&lsquo;s map operator. (I&rsquo;m sure it&rsquo;s fine – but just in case.)</p>
 <pre class="highlight swift"><code>
@@ -302,17 +302,18 @@
 <h3 id='as-part-of-another-swift-package' class='heading'>As part of another Swift Package:</h3>
 
 <ol>
-<li>Include it in your <code>Package.swift</code> file as both a dependency and a dependency of your test target.</li>
+<li>Include it in your <code>Package.swift</code> file as both a dependency and a dependency of your target.</li>
 </ol>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">PackageDescription</span>
 
 <span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
     <span class="o">...</span>
     <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
-        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"http://github.com/tcldr/EntwineTest.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMinor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.1.0"</span><span class="p">)),</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"http://github.com/tcldr/Entwine.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.0.0"</span><span class="p">)),</span>
     <span class="p">],</span>
     <span class="o">...</span>
-    <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="nf">testTarget</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"MyTestTarget"</span><span class="p">,</span> <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="s">"EntwineTest"</span><span class="p">]),</span>
+    <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="nf">testTarget</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"MyTestTarget"</span><span class="p">,</span> <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="s">"EntwineTest"</span><span class="p">]),</span>
     <span class="p">]</span>
 <span class="p">)</span>
 </code></pre>
@@ -325,9 +326,11 @@
 <ol>
 <li>Select the <code>File -&gt; Swift Packages -&gt; Add package dependency...</code> menu item.</li>
 <li>Enter the repository url <code>https://github.com/tcldr/Entwine</code> and tap next.</li>
-<li>Select &#39;version, &#39;up to next minor&rsquo;, enter <code>0.1.0</code>, hit next.</li>
-<li>Select the <em>EntwineTest</em> library and specify the test target you wish to use it with.</li>
+<li>Select &#39;version, &#39;up to next major&rsquo;, enter <code>0.0.0</code>, hit next.</li>
+<li>Select the <em>EntwineTest</em> library and specify the target you wish to use it with.</li>
 </ol>
+
+<p><em>n.b. <em>EntwineTest</em> is pre-release software and as such the API may change prior to reaching 1.0. For finer-grained control please use <code>.upToNextMinor(from:)</code> in your SPM dependency declaration</em></p>
 
 <hr>
 <h3 id='documentation' class='heading'>DOCUMENTATION</h3>
@@ -355,7 +358,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-24)</p>
+      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-25)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

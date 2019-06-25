@@ -41,18 +41,19 @@ _Inline publisher creation for PhotoKit authorization status:_
 
 import Entwine
 
-let photoKitAuthorizationStatus = Publishers.Factory { dispatcher in
-    let status = PHPhotoLibrary.authorizationStatus() 
+let photoKitAuthorizationStatus = Publishers.Factory<PHAuthorizationStatus, Never> { dispatcher in
+    let status = PHPhotoLibrary.authorizationStatus()
+    dispatcher.forward(status)
     switch status {
     case .notDetermined:
         PHPhotoLibrary.requestAuthorization { newStatus in
             dispatcher.forward(newStatus)
-            dispatcher.forwardCompletion(.finished)
+            dispatcher.forward(completion: .finished)
         }
-    case .restricted, .denied, .authorized:
-        dispatcher.forward(.authorized)
-        dispatcher.forwardCompletion(.finished)
+    default:
+        dispatcher.forward(completion: .finished)
     }
+    return AnyCancellable {}
 }
 ```
 ## Test publisher behavior
