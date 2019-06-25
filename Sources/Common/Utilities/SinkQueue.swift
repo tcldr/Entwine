@@ -37,6 +37,7 @@ class SinkQueue<Sink: Subscriber> {
     private var demandQueued: Subscribers.Demand { .max(buffer.count) }
     
     private var completion: Subscribers.Completion<Sink.Failure>?
+    private var isActive: Bool { sink != nil && completion == nil }
     
     init(sink: Sink) {
         self.sink = sink
@@ -52,11 +53,13 @@ class SinkQueue<Sink: Subscriber> {
     }
     
     func enqueue(_ input: Sink.Input) -> Subscribers.Demand {
+        guard isActive else { return .none }
         buffer.enqueue(input)
         return processDemand()
     }
     
     func enqueue(completion: Subscribers.Completion<Sink.Failure>) -> Subscribers.Demand {
+        guard isActive else { return .none }
         self.completion = completion
         return processDemand()
     }

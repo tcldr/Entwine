@@ -79,7 +79,7 @@ import EntwineTest
 
 // we'll set the schedulers clock a little forward – at 200
 
-let scheduler1 = TestScheduler(initialClock: 200)
+let scheduler = TestScheduler(initialClock: 200)
 
 let relativeTimePublisher: TestablePublisher<String, Never> = scheduler.createRelativeTestablePublisher([
     (020, .input("Mi")),
@@ -120,7 +120,7 @@ import Combine
 import EntwineTest
 
 let scheduler = TestScheduler()
-let passthroughSubject = PassthroughSubject<String, Void>()
+let passthroughSubject = PassthroughSubject<String, Never>()
 
 scheduler.schedule(after: 100) { passthroughSubject.send("yippee") }
 scheduler.schedule(after: 200) { passthroughSubject.send("ki") }
@@ -132,14 +132,14 @@ passthroughSubject.subscribe(subscriber)
 
 scheduler.resume()
 
-let expected = TestSequence<String, Self> = [
+let expected: TestSequence<String, Never> = [
     (000, .subscription),
     (100, .input("yippee")),
     (200, .input("ki")),
     (300, .input("yay")),
 ]
 
-print("sequences match: \(expected = subscriber.sequence)")
+print("sequences match: \(expected == subscriber.sequence)")
 
 // outputs:
 //  sequences match: true

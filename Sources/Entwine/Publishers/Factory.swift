@@ -41,18 +41,19 @@ extension Publishers {
     ///
     /// import Entwine
     ///
-    /// let photoKitAuthorizationStatus = Publishers.Factory { dispatcher in
+    /// let photoKitAuthorizationStatus = Publishers.Factory<PHAuthorizationStatus, Never> { dispatcher in
     ///     let status = PHPhotoLibrary.authorizationStatus()
+    ///     dispatcher.forward(status)
     ///     switch status {
     ///     case .notDetermined:
     ///         PHPhotoLibrary.requestAuthorization { newStatus in
     ///             dispatcher.forward(newStatus)
-    ///             dispatcher.forwardCompletion(.finished)
+    ///             dispatcher.forward(completion: .finished)
     ///         }
-    ///     case .restricted, .denied, .authorized:
-    ///         dispatcher.forward(.authorized)
-    ///         dispatcher.forwardCompletion(.finished)
+    ///     default:
+    ///         dispatcher.forward(completion: .finished)
     ///     }
+    ///     return AnyCancellable {}
     /// }
     /// ```
     ///
@@ -110,6 +111,11 @@ fileprivate class FactorySubscription<Sink: Subscriber>: Subscription {
 public class Dispatcher<Input, Failure: Error> {
     
     /// Queues an element to be delivered to the subscriber
+    ///
+    /// If the subscriber has cancelled the subscription, or either the `forward(completion:)`
+    /// or  the `forwardImmediately(completion:)`method of the dispatcher has already
+    /// been called, this will be a no-op.
+    ///
     /// - Parameter input: a value to be delivered to a downstream subscriber
     public func forward(_ input: Input) {
         fatalError("Abstract class. Override in subclass.")
@@ -117,12 +123,18 @@ public class Dispatcher<Input, Failure: Error> {
     
     /// Completes the sequence once any queued elements are delivered to the subscriber
     /// - Parameter completion: a completion value to be delivered to the subscriber once
+    ///
+    /// If the subscriber has cancelled the subscription, or either the `forward(completion:)`
+    /// or  the `forwardImmediately(completion:)`method of the dispatcher has already
+    /// been called, this will be a no-op.
+    ///
     /// the remaining items in the queue have been delivered
     public func forward(completion: Subscribers.Completion<Failure>) {
         fatalError("Abstract class. Override in subclass.")
     }
     
-    /// Completes the sequence immediately regardless of any elements that are waiting to be delivered
+    /// Completes the sequence immediately regardless of any elements that are waiting to be delivered,
+    /// subsequent calls to the dispatcher will be a no-op
     /// - Parameter completion: a completion value to be delivered immediately to the subscriber
     public func forwardImmediately(completion: Subscribers.Completion<Failure>) {
         fatalError("Abstract class. Override in subclass.")
