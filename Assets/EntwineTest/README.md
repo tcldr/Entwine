@@ -148,15 +148,15 @@ print("sequences match: \(expected == subscriber.sequence)")
 ## Putting it all together
 Now that we have our `TestScheduler`, `TestPublisher`, and `TestSubscriber` let's put them together to test our operators and sequences.
 
-But first, there's one additional method that you should be aware of. That's the `start(_:)` method on `TestScheduler`.
+But first, there's one additional method that you should be aware of. That's the `start(create:)` method on `TestScheduler`.
 
-The `start(_:)` method accepts a closure that produces any publisher and then:
+The `start(create:)` method accepts a closure that produces any publisher and then:
 1. Schedules the creation of the publisher (invocation of the passed closure) at `100`
 2. Schedules the subscription of the publisher to a `TestableSubscriber` at `200`
 3. Schedules the cancellation of the subscription at `900`
 4. Resumes the scheduler clock
 
-_These are all configurable by using the `start(configuration:_:)` method. See the docs for more info._
+_These are all configurable by using the `start(configuration:create:)` method. See the docs for more info._
 
 With that knowledge in place, let's test _Combine_'s map operator. (I'm sure it's fine – but just in case.)
 
@@ -197,7 +197,7 @@ Hopefully this should be everything you need to get you started with testing you
 
 ### INSTALLATION
 ### As part of another Swift Package:
-1. Include it in your `Package.swift` file as both a dependency and a dependency of your test target.
+1. Include it in your `Package.swift` file as both a dependency and a dependency of your target.
 
 ```swift
 import PackageDescription
@@ -205,10 +205,11 @@ import PackageDescription
 let package = Package(
     ...
     dependencies: [
-        .package(url: "http://github.com/tcldr/EntwineTest.git", .upToNextMinor(from: "0.1.0")),
+        .package(url: "http://github.com/tcldr/Entwine.git", .upToNextMajor(from: "0.0.0")),
     ],
     ...
-    targets: [.testTarget(name: "MyTestTarget", dependencies: ["EntwineTest"]),
+    targets: [
+        .testTarget(name: "MyTestTarget", dependencies: ["EntwineTest"]),
     ]
 )
 ```
@@ -218,9 +219,10 @@ let package = Package(
 ### As part of an Xcode 11 or greater project:
 1. Select the `File -> Swift Packages -> Add package dependency...` menu item.
 2. Enter the repository url `https://github.com/tcldr/Entwine` and tap next.
-3. Select 'version, 'up to next minor', enter `0.1.0`, hit next.
-4. Select the _EntwineTest_ library and specify the test target you wish to use it with.
+3. Select 'version, 'up to next major', enter `0.0.0`, hit next.
+4. Select the _EntwineTest_ library and specify the target you wish to use it with.
 
+*n.b. _EntwineTest_ is pre-release software and as such the API may change prior to reaching 1.0. For finer-grained control please use `.upToNextMinor(from:)` in your SPM dependency declaration*
 
 ---
 
