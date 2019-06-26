@@ -51,7 +51,6 @@ final class TestableSubscriberTests: XCTestCase {
         
         let expected: TestSequence<Token, Never> = [
             (200, .subscription),
-            (900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.sequence)
@@ -91,7 +90,6 @@ final class TestableSubscriberTests: XCTestCase {
             (300, .input(.init())),
             (300, .input(.init())),
             (300, .input(.init())),
-            (900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.sequence)
@@ -135,7 +133,6 @@ final class TestableSubscriberTests: XCTestCase {
             (220, .input(.init())),
             (320, .input(.init())),
             (340, .input(.init())),
-            (900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.sequence)
@@ -214,7 +211,6 @@ final class TestableSubscriberTests: XCTestCase {
         let expected: TestSequence<Token, Never> = [
             (200, .subscription),
             (200, .input(.init())),
-            (900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.sequence)
@@ -249,7 +245,6 @@ final class TestableSubscriberTests: XCTestCase {
         let expected: TestSequence<Token, Never> = [
             (200, .subscription),
             (300, .input(.init())),
-            (400, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.sequence)

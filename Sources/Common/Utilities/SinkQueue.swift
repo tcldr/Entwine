@@ -43,29 +43,28 @@ class SinkQueue<Sink: Subscriber> {
         self.sink = sink
     }
     
-    deinit {
-        expediteCompletion(.finished)
-    }
-    
     func requestDemand(_ demand: Subscribers.Demand) -> Subscribers.Demand {
         demandRequested += demand
         return processDemand()
     }
     
     func enqueue(_ input: Sink.Input) -> Subscribers.Demand {
-        guard isActive else { return .none }
+        assertPreCompletion()
         buffer.enqueue(input)
         return processDemand()
     }
     
     func enqueue(completion: Subscribers.Completion<Sink.Failure>) -> Subscribers.Demand {
-        guard isActive else { return .none }
+        assertPreCompletion()
         self.completion = completion
         return processDemand()
     }
     
     func expediteCompletion(_ completion: Subscribers.Completion<Sink.Failure>) {
-        guard let sink = sink else { return }
+        guard let sink = sink else {
+            assertionFailure("Out of sequence. A completion signal has already been sent.")
+            return
+        }
         self.sink = nil
         self.buffer = .empty
         sink.receive(completion: completion)
@@ -74,9 +73,10 @@ class SinkQueue<Sink: Subscriber> {
     // Processes as much demand as requested, returns spare capacity that
     // can be forwarded to upstream subscriber/s
     func processDemand() -> Subscribers.Demand {
+        guard let sink = sink else { return .none }
         while demandProcessed < demandRequested, let next = buffer.next() {
             demandProcessed += 1
-            demandRequested += sink?.receive(next) ?? .none
+            demandRequested += sink.receive(next)
         }
         if let completion = completion, demandQueued < 1 {
             expediteCompletion(completion)
@@ -85,5 +85,9 @@ class SinkQueue<Sink: Subscriber> {
         let spareDemand = max(.none, demandRequested - demandProcessed - demandQueued - demandForwarded)
         demandForwarded += spareDemand
         return spareDemand
+    }
+    
+    func assertPreCompletion() {
+        assert(completion == nil && sink != nil, "Out of sequence. A completion signal is queued or has already been sent.")
     }
 }

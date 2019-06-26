@@ -40,7 +40,6 @@ final class FactoryTests: XCTestCase {
         
         XCTAssertEqual(testableSubscriber.sequence, [
             (200, .subscription),
-            (900, .completion(.finished)),
         ])
     }
     

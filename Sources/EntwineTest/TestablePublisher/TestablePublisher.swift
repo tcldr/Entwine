@@ -59,12 +59,12 @@ public struct TestablePublisher<Output, Failure: Error>: Publisher {
 fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscription {
     
     private let linkedList = LinkedList<Int>.empty
-    private let queue: SinkQueue<Sink>
+    private var queue: SinkQueue<Sink>?
     private var cancellables = [AnyCancellable]()
     
     init(sink: Sink, testScheduler: TestScheduler, behavior: TestablePublisherBehavior, testSequence: TestSequence<Sink.Input, Sink.Failure>) {
         
-        self.queue = SinkQueue(sink: sink)
+        let queue = SinkQueue(sink: sink)
         
         testSequence.forEach { (time, signal) in
             
@@ -76,17 +76,19 @@ fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscri
                 assertionFailure("Illegal input. A `.subscription` event scheduled at \(time) will be ignored. Only a Subscriber can initiate a Subscription.")
                 break
             case .input(let value):
-                let cancellable = testScheduler.schedule(after: due, interval: 0) { [unowned self] in
-                    _ = self.queue.enqueue(value)
+                let cancellable = testScheduler.schedule(after: due, interval: 0) {
+                    _ = queue.enqueue(value)
                 }
                 cancellables.append(AnyCancellable { cancellable.cancel() })
             case .completion(let completion):
-                let cancellable = testScheduler.schedule(after: due, interval: 0) { [unowned self] in
-                    self.queue.expediteCompletion(completion)
+                let cancellable = testScheduler.schedule(after: due, interval: 0) {
+                    queue.expediteCompletion(completion)
                 }
                 cancellables.append(AnyCancellable { cancellable.cancel() })
             }
         }
+        
+        self.queue = queue
     }
     
     deinit {
@@ -94,10 +96,10 @@ fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscri
     }
     
     func request(_ demand: Subscribers.Demand) {
-        _ = queue.requestDemand(demand)
+        _ = queue?.requestDemand(demand)
     }
     
     func cancel() {
-        queue.expediteCompletion(.finished)
+        queue = nil
     }
 }

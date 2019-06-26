@@ -126,7 +126,6 @@ fileprivate final class ReplaySubjectSubscription<Sink: Subscriber>: Subscriptio
     
     func forwardCompletionToSink(_ completion: Subscribers.Completion<Sink.Failure>) {
         queue.expediteCompletion(completion)
-        cleanup()
     }
     
     func request(_ demand: Subscribers.Demand) {
@@ -134,11 +133,6 @@ fileprivate final class ReplaySubjectSubscription<Sink: Subscriber>: Subscriptio
     }
     
     func cancel() {
-        queue.expediteCompletion(.finished)
-        cleanup()
-    }
-    
-    func cleanup() {
         cleanupHandler?()
         cleanupHandler = nil
     }

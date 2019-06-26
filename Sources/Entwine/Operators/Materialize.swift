@@ -51,8 +51,7 @@ extension Publishers {
         var sink: MaterializeSink<Upstream, Downstream>?
         
         init(upstream: Upstream, downstream: Downstream) {
-            let sink = MaterializeSink(upstream: upstream, downstream: downstream)
-            self.sink = sink
+            self.sink = MaterializeSink(upstream: upstream, downstream: downstream)
         }
         
         // Subscription Methods
@@ -89,7 +88,6 @@ extension Publishers {
         }
         
         deinit {
-            queue.expediteCompletion(.finished)
             cancelUpstreamSubscription()
         }
         

@@ -97,6 +97,7 @@ extension Publishers {
         // for a few more elements to arrive after this is
         // called.
         func cancel() {
+            self.sink?.cancelUpstreamSubscription()
             self.sink = nil
         }
     }
@@ -107,22 +108,18 @@ extension Publishers {
             Downstream.Input == AnyPublisher<Upstream.Output.Input, DematerializationError<Upstream.Output.Failure>>,
             Downstream.Failure == DematerializationError<Upstream.Output.Failure>
     {
-        
         typealias Input = Upstream.Output
         typealias Failure = Upstream.Failure
         
+        enum Status { case pending, active(PassthroughSubject<Input.Input, Downstream.Failure>), complete }
+        
         var queue: SinkQueue<Downstream>
         var upstreamSubscription: Subscription?
-        var currentMaterializationSubject: PassthroughSubject<Input.Input, Downstream.Failure>?
+        var status = Status.pending
         
         init(upstream: Upstream, downstream: Downstream) {
             self.queue = SinkQueue(sink: downstream)
             upstream.subscribe(self)
-        }
-        
-        deinit {
-            queue.expediteCompletion(.finished)
-            cancelUpstreamSubscription()
         }
         
         // Called by the upstream publisher (or its agent) to signal
@@ -141,18 +138,17 @@ extension Publishers {
             
             switch input.signal {
             case .subscription:
-                guard currentMaterializationSubject == nil else {
+                guard case .pending = status else {
                     queue.expediteCompletion(.failure(.outOfSequence))
-                    cancelUpstreamSubscription()
                     return .none
                 }
-                currentMaterializationSubject = .init()
-                return queue.enqueue(currentMaterializationSubject!.eraseToAnyPublisher())
+                let subject = PassthroughSubject<Input.Input, Downstream.Failure>()
+                status = .active(subject)
+                return queue.enqueue(subject.eraseToAnyPublisher())
                 
             case .input(let dematerializedInput):
-                guard let subject = currentMaterializationSubject else {
+                guard case .active(let subject) = status else {
                     queue.expediteCompletion(.failure(.outOfSequence))
-                    cancelUpstreamSubscription()
                     return .none
                 }
                 subject.send(dematerializedInput)
@@ -162,16 +158,12 @@ extension Publishers {
                 return .max(1)
                 
             case .completion(let dematerializedCompletion):
-                guard let subject = currentMaterializationSubject else {
+                guard case .active(let subject) = status else {
                     queue.expediteCompletion(.failure(.outOfSequence))
-                    cancelUpstreamSubscription()
                     return .none
                 }
-                currentMaterializationSubject = nil
+                status = .complete
                 subject.send(completion: wrapSourceCompletion(dematerializedCompletion))
-                // re-imburse the sender as we're not queueing an
-                // additional element on the outer stream, only
-                // sending an element on the inner-stream
                 return .none
             }
         }
@@ -185,7 +177,6 @@ extension Publishers {
         // that the sequence has terminated
         func receive(completion: Subscribers.Completion<Upstream.Failure>) {
             _ = queue.enqueue(completion: .finished)
-            cancelUpstreamSubscription()
         }
         
         // Indirectly called by the downstream subscriber via its subscription
@@ -227,8 +218,8 @@ extension Publisher where Output: SignalConvertible, Failure == Never {
     ///
     /// - Returns: A publisher that materializes an upstream publisher of `Signal`s into the represented
     /// sequence.
-    public func dematerialize() -> Publishers.FlatMap<AnyPublisher<Self.Output.Input, DematerializationError<Self.Output.Failure>>, Publishers.First<Publishers.Dematerialize<Self>>> {
-        return dematerializedValuesPublisherSequence().first().flatMap { $0 }
+    public func dematerialize() -> Publishers.FlatMap<AnyPublisher<Self.Output.Input, DematerializationError<Self.Output.Failure>>, Publishers.Dematerialize<Self>> {
+        Publishers.Dematerialize(upstream: self).flatMap { $0 }
     }
 }
 

@@ -42,34 +42,59 @@ extension Publishers {
         }
         
         public func receive<S: Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
-            upstream.subscribe(
-                WithLatestFromSink<Upstream, Other, S>(
-                    downstream: subscriber,
-                    otherSink: WithLatestFromOtherSink(publisher: other),
-                    transform: transform
-                )
-            )
+            let otherSink = WithLatestFromOtherSink(publisher: other)
+            let upstreamSink = WithLatestFromSink(upstream: upstream, downstream: subscriber, otherSink: otherSink, transform: transform)
+            subscriber.receive(subscription: WithLatestFromSubscription(sink: upstreamSink))
         }
     }
     
+    // MARK: - Subscription
+    
+    fileprivate class WithLatestFromSubscription<Upstream: Publisher, Other: Publisher, Downstream: Subscriber>: Subscription
+        where Upstream.Failure == Other.Failure, Upstream.Failure == Downstream.Failure
+    {
+        
+        var sink: WithLatestFromSink<Upstream, Other, Downstream>?
+        
+        init(sink: WithLatestFromSink<Upstream, Other, Downstream>) {
+            self.sink = sink
+        }
+        
+        func request(_ demand: Subscribers.Demand) {
+            sink?.signalDemand(demand)
+        }
+        
+        func cancel() {
+            self.sink?.terminateSubscription()
+            self.sink = nil
+        }
+    }
+    
+    // MARK: - Main Sink
+    
     fileprivate class WithLatestFromSink<Upstream: Publisher, Other: Publisher, Downstream: Subscriber>: Subscriber
-        where Upstream.Failure == Other.Failure, Upstream.Failure == Downstream.Failure {
+        where Upstream.Failure == Other.Failure, Upstream.Failure == Downstream.Failure
+    {
         
         typealias Input = Upstream.Output
         typealias Failure = Upstream.Failure
         
-        let downstream: Downstream
+        var queue: SinkQueue<Downstream>
+        var upstreamSubscription: Subscription?
+        
         let otherSink: WithLatestFromOtherSink<Other>
         let transform: (Upstream.Output, Other.Output) -> Downstream.Input
         
-        init(downstream: Downstream, otherSink: WithLatestFromOtherSink<Other>, transform: @escaping (Input, Other.Output) -> Downstream.Input) {
-            self.downstream = downstream
+        init(upstream: Upstream, downstream: Downstream, otherSink: WithLatestFromOtherSink<Other>, transform: @escaping (Input, Other.Output) -> Downstream.Input) {
+            self.queue = SinkQueue(sink: downstream)
             self.otherSink = otherSink
             self.transform = transform
+            
+            upstream.subscribe(self)
         }
         
         func receive(subscription: Subscription) {
-            downstream.receive(subscription: subscription)
+            self.upstreamSubscription = subscription
             otherSink.subscribe()
         }
         
@@ -83,14 +108,26 @@ extension Publishers {
                 // the dropped item by returning a Subscribers.Demand of 1.
                 return .max(1)
             }
-            return downstream.receive(transform(input, otherInput))
+            return queue.enqueue(transform(input, otherInput))
         }
         
         func receive(completion: Subscribers.Completion<Downstream.Failure>) {
+            _ = queue.enqueue(completion: completion)
+        }
+        
+        func signalDemand(_ demand: Subscribers.Demand) {
+            let spareDemand = queue.requestDemand(demand)
+            guard spareDemand > .none else { return }
+            upstreamSubscription?.request(spareDemand)
+        }
+        
+        func terminateSubscription() {
             otherSink.terminateSubscription()
-            downstream.receive(completion: completion)
+            upstreamSubscription?.cancel()
         }
     }
+    
+    // MARK: - Other Sink
     
     fileprivate class WithLatestFromOtherSink<P: Publisher>: Subscriber {
         
@@ -100,7 +137,6 @@ extension Publishers {
         private let publisher: AnyPublisher<P.Output, P.Failure>
         private (set) var lastInput: Input?
         private var subscription: Subscription?
-        
         
         init(publisher: P) {
             self.publisher = publisher.eraseToAnyPublisher()
@@ -120,9 +156,7 @@ extension Publishers {
             return .none
         }
         
-        func receive(completion: Subscribers.Completion<Failure>) {
-            subscription = nil
-        }
+        func receive(completion: Subscribers.Completion<Failure>) { }
         
         func terminateSubscription() {
             subscription?.cancel()

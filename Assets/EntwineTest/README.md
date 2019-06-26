@@ -187,7 +187,6 @@ func testMap() {
         (300, .input("A")),             // received uppercased input @ 100 + subscription time
         (400, .input("B")),             // received uppercased input @ 200 + subscription time
         (500, .input("C")),             // received uppercased input @ 300 + subscription time
-        (900, .completion(.finished)),  // subscription cancelled
     ])
 }
 ```

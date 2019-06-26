@@ -53,7 +53,6 @@ final class WithLatestFromTests: XCTestCase {
             (210, .input("c")),
             (220, .input("c")),
             (230, .input("c")),
-            (900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.sequence)
@@ -81,7 +80,6 @@ final class WithLatestFromTests: XCTestCase {
             (200, .subscription),
             (220, .input("a")),
             (230, .input("b")),
-            (900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.sequence)
@@ -111,7 +109,6 @@ final class WithLatestFromTests: XCTestCase {
         let expected: TestSequence<String, Never> = [
             (200, .subscription),
             (210, .input("c")),
-            (900, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected, testableSubscriber.sequence)

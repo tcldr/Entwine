@@ -238,6 +238,27 @@ final class ReplaySubjectTests: XCTestCase {
         scheduler.resume()
     }
     
+    func testReplaysZeroValuesPassthroughSubjectControl() {
+        
+        var subject: PassthroughSubject<Int, Never>! = nil
+        
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject = PassthroughSubject() }
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+        scheduler.schedule(after: 300) { subject.send(1) }
+        scheduler.schedule(after: 400) { results1.cancel() }
+        
+        scheduler.resume()
+        
+        let expected1: TestSequence<Int, Never> = [
+            (200, .subscription),
+            (300, .input(1)),
+        ]
+        
+        XCTAssertEqual(expected1, results1.sequence)
+    }
+    
     func testReplaysZeroValues() {
         
         var subject: ReplaySubject<Int, Never>! = nil
@@ -254,7 +275,6 @@ final class ReplaySubjectTests: XCTestCase {
         let expected1: TestSequence<Int, Never> = [
             (200, .subscription),
             (300, .input(1)),
-            (400, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected1, results1.sequence)
@@ -278,7 +298,6 @@ final class ReplaySubjectTests: XCTestCase {
             (300, .subscription),
             (300, .input(1)),
             (400, .input(2)),
-            (500, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected1, results1.sequence)
@@ -307,7 +326,6 @@ final class ReplaySubjectTests: XCTestCase {
             (500, .input(3)),
             (600, .input(4)),
             (700, .input(5)),
-            (800, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected1, results1.sequence)
@@ -337,7 +355,6 @@ final class ReplaySubjectTests: XCTestCase {
             (300, .subscription),
             (300, .input(1)),
             (400, .input(2)),
-            (500, .completion(.finished)),
         ]
         
         XCTAssertEqual(expected1, results3.sequence)
@@ -345,24 +362,25 @@ final class ReplaySubjectTests: XCTestCase {
         XCTAssertEqual(expected1, results3.sequence)
     }
     
-    func testCancelPropagatesDownstream() {
+    func testCancelPropagationDownstreamMatchesControl() {
         
         var subject: ReplaySubject<Int, Never>! = nil
+        var control: PassthroughSubject<Int, Never>! = nil
         
         let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        let results2 = scheduler.createTestableSubscriber(Int.self, Never.self)
         
         scheduler.schedule(after: 100) { subject = ReplaySubject(maxBufferSize: 1) }
         scheduler.schedule(after: 200) { subject.subscribe(results1) }
         scheduler.schedule(after: 300) { results1.cancel() }
         
+        scheduler.schedule(after: 100) { control = PassthroughSubject() }
+        scheduler.schedule(after: 200) { control.subscribe(results2) }
+        scheduler.schedule(after: 300) { results2.cancel() }
+        
         scheduler.resume()
         
-        let expected1: TestSequence<Int, Never> = [
-            (200, .subscription),
-            (300, .completion(.finished)),
-        ]
-        
-        XCTAssertEqual(expected1, results1.sequence)
+        XCTAssertEqual(results1.sequence, results2.sequence)
     }
     
     func testDeallocationBehaviorMatchesControl() {

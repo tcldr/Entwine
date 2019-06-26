@@ -156,7 +156,6 @@ extension TestableSubscriber: Subscriber {
     }
     
     public func receive(_ input: Input) -> Subscribers.Demand {
-        
         sequence.append((scheduler.now, .input(input)))
         
         debitDemand(.max(1))
@@ -167,7 +166,6 @@ extension TestableSubscriber: Subscriber {
     
     public func receive(completion: Subscribers.Completion<Failure>) {
         sequence.append((scheduler.now, .completion(completion)))
-        subscription = nil
     }    
 }
 
@@ -177,5 +175,7 @@ extension TestableSubscriber: Cancellable {
     public func cancel() {
         replenishmentToken?.cancel()
         subscription?.cancel()
+        subscription = nil
+        replenishmentToken = nil
     }
 }

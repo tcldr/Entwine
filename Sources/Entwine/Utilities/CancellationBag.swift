@@ -27,6 +27,8 @@ import Combine
 /// A container for cancellables that will be cancelled when the bag is deallocated or cancelled itself
 public final class CancellationBag: Cancellable {
     
+    public init() {}
+    
     private var cancellables = [AnyCancellable]()
     
     /// Adds a cancellable to the bag which will have its `.cancel()` method invoked

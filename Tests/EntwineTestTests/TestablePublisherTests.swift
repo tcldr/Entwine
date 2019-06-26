@@ -49,7 +49,6 @@ final class TestablePublisherTests: XCTestCase {
             (200, .input(.init())),
             (400, .input(.init())),
             (600, .input(.init())),
-            (900, .completion(.finished)),
         ])
     }
     
@@ -69,7 +68,6 @@ final class TestablePublisherTests: XCTestCase {
             (200, .subscription),
             (200, .input(.init())),
             (400, .input(.init())),
-            (900, .completion(.finished)),
         ])
     }
     
