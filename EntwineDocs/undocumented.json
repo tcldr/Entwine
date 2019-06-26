@@ -2,21 +2,21 @@
   "warnings": [
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Dematerialize.swift",
-      "line": 262,
+      "line": 253,
       "symbol": "DematerializationErrorConvertible.SourceError",
       "symbol_kind": "source.lang.swift.decl.associatedtype",
       "warning": "undocumented"
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/ReplaySubject.swift",
-      "line": 149,
+      "line": 143,
       "symbol": "ReplaySubject.createUnbounded()",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/ReplaySubject.swift",
-      "line": 153,
+      "line": 147,
       "symbol": "ReplaySubject.create(bufferSize:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -53,6 +53,13 @@
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Signal.swift",
       "line": 91,
       "symbol": "Signal.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Utilities/CancellationBag.swift",
+      "line": 30,
+      "symbol": "CancellationBag.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
