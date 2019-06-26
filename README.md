@@ -57,7 +57,7 @@ let photoKitAuthorizationStatus = Publishers.Factory<PHAuthorizationStatus, Neve
 }
 ```
 ## Test publisher behavior
-Use the `TestScheduler`, `TestablePublisher` and `TestableSubscriber` to simulate _Combine_ sequences and test against expected output. [Find out more about the _EntwineTest_ library](https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md)
+Use the `TestScheduler`, `TestablePublisher` and `TestableSubscriber` to simulate _Combine_ sequences and test against expected output. [Find out more about the _EntwineTest_ library](https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md)
 
 _Testing Combine's `map(_:)` operator:_
 
