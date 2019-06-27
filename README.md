@@ -32,7 +32,7 @@ _Note: EntwineRx is maintained as a separate Swift package to minimize the SPM d
 ---
 
 ### QUICK START GUIDE
-## Make publishers from any source
+# Create _Combine_ publishers from any source
 Use the [`Publishers.Factory`](https://tcldr.github.io/Entwine/EntwineDocs/Extensions/Publishers/Factory.html) publisher from the _Entwine_ package to effortlessly create a publisher that
 meets Combine's backpressure requirements from any source. [Find out more about the _Entwine Utilities_ library.](https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md)
 
@@ -56,7 +56,7 @@ let photoKitAuthorizationStatus = Publishers.Factory<PHAuthorizationStatus, Neve
     return AnyCancellable {}
 }
 ```
-## Test publisher behavior
+# Unit test _Combine_ publisher sequences
 Use the `TestScheduler`, `TestablePublisher` and `TestableSubscriber` to simulate _Combine_ sequences and test against expected output. [Find out more about the _EntwineTest_ library](https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md)
 
 _Testing Combine's `map(_:)` operator:_
@@ -91,7 +91,7 @@ func testMap() {
 }
 ```
 
-## Use your _RxSwift_ view models with _SwiftUI_
+# Bridge your _RxSwift_ view models to _Combine_ and use with _SwiftUI_
 First, make sure you add the [_EntwineRx Swift Package_](https://github.com/tcldr/EntwineRx) (located in an external repo) as a dependency to your project.
 
 _Example coming soon_
