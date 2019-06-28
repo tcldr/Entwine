@@ -6,7 +6,7 @@ Accessories for [Apple's Combine Framework](https://developer.apple.com/document
 
 ---
 
-### ABOUT
+## About
 Entwine consists of three libraries (over two repositories) to be used in conjuction with Apple's Combine framework:
 - The [_Entwine Utilities library_](https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md) includes additional operators, subjects and utilities for working with Combine sequences.
 The package currently includes a `ReplaySubject`, a `withLatest(from:)` operator and a `Publishers.Factory` for rapidly defining publishers inline from any source.
@@ -31,8 +31,8 @@ _Note: EntwineRx is maintained as a separate Swift package to minimize the SPM d
 
 ---
 
-### QUICK START GUIDE
-## Make publishers from any source
+## Quick start guide
+### Create _Combine_ publishers from any source
 Use the [`Publishers.Factory`](https://tcldr.github.io/Entwine/EntwineDocs/Extensions/Publishers/Factory.html) publisher from the _Entwine_ package to effortlessly create a publisher that
 meets Combine's backpressure requirements from any source. [Find out more about the _Entwine Utilities_ library.](https://github.com/tcldr/Entwine/blob/master/Assets/Entwine/README.md)
 
@@ -56,7 +56,7 @@ let photoKitAuthorizationStatus = Publishers.Factory<PHAuthorizationStatus, Neve
     return AnyCancellable {}
 }
 ```
-## Test publisher behavior
+### Unit test _Combine_ publisher sequences
 Use the `TestScheduler`, `TestablePublisher` and `TestableSubscriber` to simulate _Combine_ sequences and test against expected output. [Find out more about the _EntwineTest_ library](https://github.com/tcldr/Entwine/blob/master/Assets/EntwineTest/README.md)
 
 _Testing Combine's `map(_:)` operator:_
@@ -91,25 +91,25 @@ func testMap() {
 }
 ```
 
-## Use your _RxSwift_ view models with _SwiftUI_
+### Bridge your _RxSwift_ view models to _Combine_ and use with _SwiftUI_
 First, make sure you add the [_EntwineRx Swift Package_](https://github.com/tcldr/EntwineRx) (located in an external repo) as a dependency to your project.
 
 _Example coming soon_
 
 ---
 
-### REQUIREMENTS
+## Requirements
 Entwine sits on top of Apple's Combine framework and therefore requires _Xcode 11_ and is has minimum deployment targets of _macOS 10.15_, _iOS 13_, _tvOS 13_ or _watchOS 6_.
 
 ---
 
-### INSTALLATION
+## Installation
 Entwine is delivered via a Swift Package and can be installed either as a dependency to another Swift Package by adding it to the dependencies section of a `Package.swift`  file
 or to an Xcode 11 project by via the `File -> Swift Packages -> Add package dependency...` menu in Xcode 11. 
 
 ---
 
-### DOCUMENTATION
+## Documentation
 Documentation for each package is available at:
 - [Entwine Documentation](https://tcldr.github.io/Entwine/EntwineDocs/) (Operators, Publishers and Accessories)
 - [EntwineTest Documentation](https://tcldr.github.io/Entwine/EntwineTestDocs/) (Tools for testing _Combine_ sequence behavior)
@@ -117,7 +117,7 @@ Documentation for each package is available at:
 
 ---
 
-### COPYRIGHT AND LICENSE
+## Copyright and license
 
 This project is released under the [MIT license](https://github.com/tcldr/Entwine/blob/master/LICENSE)
 

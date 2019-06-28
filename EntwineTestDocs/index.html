@@ -109,7 +109,7 @@
 <p>Part of <a href="https://github.com/tcldr/Entwine">Entwine</a> – A collection of accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
 
 <hr>
-<h3 id='contents' class='heading'>CONTENTS</h3>
+<h2 id='contents' class='heading'>Contents</h2>
 
 <ul>
 <li><a href="#about-entwinetest">About <em>EntwineTest</em></a></li>
@@ -128,19 +128,19 @@
 </ul>
 
 <hr>
-<h3 id='about-em-entwine-test-em' class='heading'>ABOUT <em>ENTWINE TEST</em></h3>
+<h2 id='about-em-entwinetest-em' class='heading'>About <em>EntwineTest</em></h2>
 
 <p><em>EntwineTest</em> packages a concise set of tools that are designed to work together to help you test your <em>Combine</em> sequences and operators.</p>
 
 <p>In addition, <em>EntwineTest</em> includes tools to help you to determine whether your publishers are complying with subscriber demand requests (backpressure) so that you can ensure your publisher is behaving like a good <em>Combine</em> citizen before releasing it out in the wild.</p>
 
 <hr>
-<h3 id='getting-started' class='heading'>GETTING STARTED</h3>
+<h2 id='getting-started' class='heading'>Getting Started</h2>
 
 <p>The <em>EntwineTest</em> packages consists of three major components – together, they help you write better tests for your <em>Combine</em> sequences.</p>
 
 <p>Let&rsquo;s go through them one by one before finally seeing how they all fit together:</p>
-<h2 id='code-testscheduler-code' class='heading'><code><a href="Classes/TestScheduler.html">TestScheduler</a></code>:</h2>
+<h3 id='code-testscheduler-code' class='heading'><code><a href="Classes/TestScheduler.html">TestScheduler</a></code>:</h3>
 
 <p>At the heart of <em>Combine</em> is the concept of schedulers. Without them, no work gets done. Essentially they are responsible for both <em>where</em> an action is excuted (main thread, a dipatch queue, or the current thread), and <em>when</em> it is is executed (right now, after the current task has finished, five minutes from now).</p>
 
@@ -167,7 +167,7 @@
 </code></pre>
 
 <p>Notice that as we&rsquo;ve scheduled <q>bosh</q> to print at <code>300</code>, and <q>bish</q> to print at <code>100</code>, when we start the scheduler by calling <code>.resume()</code>, <q>bish</q> is printed first.</p>
-<h2 id='code-testablepublisher-code' class='heading'><code><a href="Structs/TestablePublisher.html">TestablePublisher</a></code>:</h2>
+<h3 id='code-testablepublisher-code' class='heading'><code><a href="Structs/TestablePublisher.html">TestablePublisher</a></code>:</h3>
 
 <p>Now that we have our scheduler, we can think about how we&rsquo;re going to simulate some <em>Combine</em> sequences. If we want to simulate a sequence, we&rsquo;ll need a publisher that lets us define <em>what</em> each element a sequence should be, and <em>when</em> that element should be emitted.</p>
 
@@ -213,7 +213,7 @@
 </code></pre>
 
 <p>Notice how the events events scheduled by the relative publisher fired <em>after</em> the events scheduled by the absolute publisher. As we had set the time of our scheduler to <code>200</code> in its initializer, when we subscribed to our relative publisher with the <code>sink(_:)</code> method, our publisher took the current time and added that value to each scheduled event.</p>
-<h2 id='code-testablesubscriber-code' class='heading'><code><a href="Classes/TestableSubscriber.html">TestableSubscriber</a></code>:</h2>
+<h3 id='code-testablesubscriber-code' class='heading'><code><a href="Classes/TestableSubscriber.html">TestableSubscriber</a></code>:</h3>
 
 <p>The final piece in the jigsaw is the <code><a href="Classes/TestableSubscriber.html">TestableSubscriber</a></code>. Its role is to gather the output of a publisher so that it can be compared against some expected output. It also depends on the <code><a href="Classes/TestScheduler.html">TestScheduler</a></code>, so to get one we call <code>createTestableSubscriber(_:_:)</code> on our scheduler.</p>
 
@@ -246,7 +246,7 @@
 <span class="c1">// outputs:</span>
 <span class="c1">//  sequences match: true</span>
 </code></pre>
-<h2 id='putting-it-all-together' class='heading'>Putting it all together</h2>
+<h3 id='putting-it-all-together' class='heading'>Putting it all together</h3>
 
 <p>Now that we have our <code><a href="Classes/TestScheduler.html">TestScheduler</a></code>, <code>TestPublisher</code>, and <code>TestSubscriber</code> let&rsquo;s put them together to test our operators and sequences.</p>
 
@@ -297,7 +297,7 @@
 <p>Hopefully this should be everything you need to get you started with testing your <em>Combine</em> sequences. Don&rsquo;t forget that further information can be found <a href="http://tcldr.github.io/Entwine/EntwineTestDocs">in the docs</a>.</p>
 
 <hr>
-<h3 id='installation' class='heading'>INSTALLATION</h3>
+<h2 id='installation' class='heading'>Installation</h2>
 <h3 id='as-part-of-another-swift-package' class='heading'>As part of another Swift Package:</h3>
 
 <ol>
@@ -332,17 +332,17 @@
 <p><em>n.b. <em>EntwineTest</em> is pre-release software and as such the API may change prior to reaching 1.0. For finer-grained control please use <code>.upToNextMinor(from:)</code> in your SPM dependency declaration</em></p>
 
 <hr>
-<h3 id='documentation' class='heading'>DOCUMENTATION</h3>
+<h2 id='documentation' class='heading'>Documentation</h2>
 
 <p>Full documentation for <em>EntwineTest</em> can be found at <a href="http://tcldr.github.io/Entwine/EntwineTestDocs">http://tcldr.github.io/Entwine/EntwineTestDocs</a>.</p>
 
 <hr>
-<h3 id='acknowledgements' class='heading'>ACKNOWLEDGEMENTS</h3>
+<h2 id='acknowledgments' class='heading'>Acknowledgments</h2>
 
 <p><em>EntwineTest</em> is inspired by the great work done in the <em>RxTest</em> library by the contributors to <a href="https://github.com/ReactiveX/RxSwift"><em>RxSwift</em></a>.</p>
 
 <hr>
-<h3 id='copyright-and-license' class='heading'>COPYRIGHT AND LICENSE</h3>
+<h2 id='copyright-and-license' class='heading'>Copyright and license</h2>
 
 <p>Copyright 2019 © Tristan Celder</p>
 
@@ -357,7 +357,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-26)</p>
+      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-28)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
