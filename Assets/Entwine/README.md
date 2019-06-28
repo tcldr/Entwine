@@ -5,7 +5,7 @@ Part of [Entwine](https://github.com/tcldr/Entwine) – A collection of accessor
 
 ---
 
-### CONTENTS
+## Contents
 - [About](#about)
 - [Getting Started](#getting-started)
 - [Installation](#installation)
@@ -14,7 +14,7 @@ Part of [Entwine](https://github.com/tcldr/Entwine) – A collection of accessor
 
 ---
 
-### ABOUT
+## About
 
 _Entwine Utilities_ are a collection of operators, tools and extensions to make working with _Combine_ even more productive.
 
@@ -27,7 +27,7 @@ be sure to checkout the [documentation](http://tcldr.github.io/Entwine/EntwineDo
 
 ---
 
-### GETTING STARTED
+## Getting started
 
 Ensure to `import Entwine` in each file you wish to the utilities with.
 
@@ -62,7 +62,7 @@ Each operator, subject and utility is documented with examples. check out the [f
 
 ---
 
-### INSTALLATION
+## Installation
 ### As part of another Swift Package:
 1. Include it in your `Package.swift` file as both a dependency and a dependency of your target.
 
@@ -93,12 +93,12 @@ let package = Package(
 
 ---
 
-### DOCUMENTATION
+## Documentation
 Full documentation for _Entwine_ can be found at [http://tcldr.github.io/Entwine/EntwineDocs](http://tcldr.github.io/Entwine/EntwineDocs).
 
 ---
 
-### COPYRIGHT AND LICENSE
+## Copyright and license
 Copyright 2019 © Tristan Celder
 
 _Entwine_ is made available under the [MIT License](http://github.com/tcldr/Entwine/blob/master/LICENSE)

@@ -5,7 +5,7 @@ Part of [Entwine](https://github.com/tcldr/Entwine) – A collection of accessor
 
 ---
 
-### CONTENTS
+## Contents
 - [About _EntwineTest_](#about-entwinetest)
 - [Getting Started](#getting-started)
     - [TestScheduler](#testscheduler)
@@ -19,7 +19,7 @@ Part of [Entwine](https://github.com/tcldr/Entwine) – A collection of accessor
 
 ---
 
-### ABOUT _ENTWINE TEST_
+## About _EntwineTest_
 
 _EntwineTest_ packages a concise set of tools that are designed to work together to help you test your _Combine_ sequences and operators.
 
@@ -27,13 +27,13 @@ In addition, _EntwineTest_ includes tools to help you to determine whether your 
 
 ---
 
-### GETTING STARTED
+## Getting Started
 
 The _EntwineTest_ packages consists of three major components – together, they help you write better tests for your _Combine_ sequences.
 
 Let's go through them one by one before finally seeing how they all fit together:
 
-## `TestScheduler`:
+### `TestScheduler`:
 
 At the heart of _Combine_ is the concept of schedulers. Without them, no work gets done. Essentially they are responsible for both _where_ an action is excuted (main thread, a dipatch queue, or the current thread), and _when_ it is is executed (right now, after the current task has finished, five minutes from now).
 
@@ -61,7 +61,7 @@ scheduler.resume() // the clock is paused until this is called
 
 ```
 Notice that as we've scheduled "bosh" to print at `300`, and "bish" to print at `100`, when we start the scheduler by calling `.resume()`, "bish" is printed first.
-## `TestablePublisher`:
+### `TestablePublisher`:
 
 Now that we have our scheduler, we can think about how we're going to simulate some _Combine_ sequences. If we want to simulate a sequence, we'll need a publisher that lets us define _what_ each element a sequence should be, and _when_ that element should be emitted.
 
@@ -109,7 +109,7 @@ scheduler.resume()
 ```
 Notice how the events events scheduled by the relative publisher fired _after_ the events scheduled by the absolute publisher. As we had set the time of our scheduler to `200` in its initializer, when we subscribed to our relative publisher with the `sink(_:)` method, our publisher took the current time and added that value to each scheduled event.
 
-## `TestableSubscriber`:
+### `TestableSubscriber`:
 
 The final piece in the jigsaw is the `TestableSubscriber`. Its role is to gather the output of a publisher so that it can be compared against some expected output. It also depends on the `TestScheduler`, so to get one we call `createTestableSubscriber(_:_:)` on our scheduler.
 
@@ -145,7 +145,7 @@ print("sequences match: \(expected == subscriber.sequence)")
 //  sequences match: true
 ```
 
-## Putting it all together
+### Putting it all together
 Now that we have our `TestScheduler`, `TestPublisher`, and `TestSubscriber` let's put them together to test our operators and sequences.
 
 But first, there's one additional method that you should be aware of. That's the `start(create:)` method on `TestScheduler`.
@@ -194,7 +194,7 @@ Hopefully this should be everything you need to get you started with testing you
 
 ---
 
-### INSTALLATION
+## Installation
 ### As part of another Swift Package:
 1. Include it in your `Package.swift` file as both a dependency and a dependency of your target.
 
@@ -225,17 +225,17 @@ let package = Package(
 
 ---
 
-### DOCUMENTATION
+## Documentation
 Full documentation for _EntwineTest_ can be found at [http://tcldr.github.io/Entwine/EntwineTestDocs](http://tcldr.github.io/Entwine/EntwineTestDocs).
 
 ---
 
-### ACKNOWLEDGEMENTS
+## Acknowledgments
 _EntwineTest_ is inspired by the great work done in the _RxTest_ library by the contributors to [_RxSwift_](https://github.com/ReactiveX/RxSwift).
 
 ---
 
-### COPYRIGHT AND LICENSE
+## Copyright and license
 Copyright 2019 © Tristan Celder
 
 _EntwineTest_ is made available under the [MIT License](http://github.com/tcldr/Entwine/blob/master/LICENSE)
