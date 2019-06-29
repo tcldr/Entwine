@@ -83,7 +83,7 @@
 <p>Part of <a href="https://github.com/tcldr/Entwine">Entwine</a> – A collection of accessories for <a href="https://developer.apple.com/documentation/combine">Apple&rsquo;s Combine Framework</a>.</p>
 
 <hr>
-<h3 id='contents' class='heading'>CONTENTS</h3>
+<h2 id='contents' class='heading'>Contents</h2>
 
 <ul>
 <li><a href="#about-entwinerx">About EnwtineRx</a></li>
@@ -94,15 +94,15 @@
 </ul>
 
 <hr>
-<h3 id='about-entwine-rx' class='heading'>ABOUT ENTWINE RX</h3>
+<h2 id='about-em-entwinerx-em' class='heading'>About <em>EntwineRx</em></h2>
 
 <p><em>EntwineRx</em> is a lightweight library of two operators to bridge from <em>RxSwift</em> to <em>Combine</em> and back again. You can use <em>EntwineRx</em> to make your existing <em>RxSwift</em> view models and operators work seamlessly with any <em>Combine</em> based code you might be developing.</p>
 
 <p>Be sure to checkout the <a href="https://github.com/tcldr/Entwine">main Entwine repository</a> for general testing tools and operators for <em>Combine</em>.</p>
 
 <hr>
-<h3 id='getting-started' class='heading'>GETTING STARTED</h3>
-<h2 id='from-em-combine-em-to-em-rxswift-em' class='heading'>From <em>Combine</em> to <em>RxSwift</em></h2>
+<h2 id='getting-started' class='heading'>Getting started</h2>
+<h3 id='from-em-combine-em-to-em-rxswift-em' class='heading'>From <em>Combine</em> to <em>RxSwift</em></h3>
 
 <p>The <code>bridgeToRx()</code> operator that <em>EntwineRx</em> adds to <em>Combine</em>&lsquo;s <code>Publisher</code> type means that you can bridge to <em>RxSwift</em> as simply as:</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Combine</span>
@@ -112,7 +112,7 @@
 <span class="k">let</span> <span class="nv">myRxObservable</span> <span class="o">=</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Just</span><span class="o">&lt;</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="nf">bridgeToRx</span><span class="p">()</span>
 
 </code></pre>
-<h2 id='from-em-rxswift-em-to-em-combine-em' class='heading'>From <em>RxSwift</em> to <em>Combine</em></h2>
+<h3 id='from-em-rxswift-em-to-em-combine-em' class='heading'>From <em>RxSwift</em> to <em>Combine</em></h3>
 
 <p>This direction requires a little more thought as we now have to account for <em>Combine</em>&rsquo;s requirement that any publisher obeys its <a href="#backpressure-and-combine">strict back pressure requirements</a>.</p>
 
@@ -148,16 +148,18 @@
 <p>If you&rsquo;re feeling especially self-assured you can chain the <code>.assertBridgeBufferNeverOverflows()</code> operator after the bridge operator. Be warned though – as the name suggests this will cause an assertion failure if your hypothesis proves incorrect.</p>
 
 <hr>
-<h3 id='backpressure-and-em-combine-em' class='heading'>BACKPRESSURE AND <em>COMBINE</em></h3>
+<h2 id='back-pressure-and-em-combine-em' class='heading'>Back pressure and <em>Combine</em></h2>
 
-<p>Backpressure is the situation in which a publisher is producing elements faster than a subscriber can consume.</p>
+<p>Back pressure is a mechanism that <em>Combine</em> employs to enforce that publishers only produce as many elements as the subscriber has requested.</p>
 
-<p>This behavior can result in a scenario where unconsumed elements are building up in the buffer of some publisher faster than they can be processed by a downstream subscriber. This can very quickly consume system resources causing performance degradation – and ultimately out-of-memory errors.</p>
+<p>The reason the back pressure mechanism exists is to prevent a situation where elements build up in the buffer of some publisher faster than they can be processed by a downstream subscriber. This can very quickly consume system resources causing performance degradation – and ultimately out-of-memory errors.</p>
 
-<p><em>Combine</em> handles backpressure by only allowing a publisher to emit an element if it is has been signalled by its subscriber. A subscriber can signal at any point during the lifetime of a subscription, and may decide not to signal at all. Therefore it is the responsibility of the publisher to limit its output accordingly.</p>
+<p><em>Combine</em> applies &#39;back pressure&rsquo; upstream by contractually obliging a publisher to only emit an element if it is has been signalled by its subscriber though &lsquo;demand&rsquo; requests. A subscriber can signal at any point during the lifetime of a subscription – and may decide not to signal at all. With back pressure, it becomes possible to tightly control the rate of production of any arbitrary publisher.</p>
+
+<p>For publishers that rely on a source with an unbounded rate of production – an <code>Observable</code>, a timer, mouse clicks, etc. – the publisher must either maintain a buffer or drop elements to maintain its obligations to the downstream subscriber. </p>
 
 <hr>
-<h3 id='installation' class='heading'>INSTALLATION</h3>
+<h2 id='installation' class='heading'>Installation</h2>
 <h3 id='as-part-of-another-swift-package' class='heading'>As part of another Swift Package:</h3>
 
 <ol>
@@ -185,19 +187,19 @@
 <ol>
 <li>Select the <code>File -&gt; Swift Packages -&gt; Add package dependency...</code> menu item.</li>
 <li>Enter the repository url <code>https://github.com/tcldr/EntwineRx</code> and tap next.</li>
-<li>Select &#39;version, &#39;up to next major&rsquo;, enter <code>0.0.0</code>, hit next.</li>
+<li>Select &lsquo;version, &#39;up to next major&rsquo;, enter <code>0.0.0</code>, hit next.</li>
 <li>Select the <em>EntwineRx</em> library and specify the target you wish to use it with.</li>
 </ol>
 
 <p><em>n.b. <em>EntwineRx</em> is pre-release software and as such the API may change prior to reaching 1.0. For finer-grained control please use <code>.upToNextMinor(from:)</code> in your SPM dependency declaration</em></p>
 
 <hr>
-<h3 id='documentation' class='heading'>DOCUMENTATION</h3>
+<h2 id='documentation' class='heading'>Documentation</h2>
 
 <p>Full documentation for <em>EntwineRx</em> can be found at <a href="http://tcldr.github.io/Entwine/EntwineRxDocs">http://tcldr.github.io/Entwine/EntwineRxDocs</a>.</p>
 
 <hr>
-<h3 id='copyright-and-license' class='heading'>COPYRIGHT AND LICENSE</h3>
+<h2 id='copyright-and-license' class='heading'>Copyright and license</h2>
 
 <p>Copyright 2019 © Tristan Celder</p>
 
@@ -212,7 +214,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-28)</p>
+      <p>&copy; 2019 <a class="link" href="https://twitter.com/_goluxo" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-06-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
