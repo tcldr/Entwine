@@ -74,7 +74,7 @@ final class MaterializeTests: XCTestCase {
     
     func testMaterializesJust1() {
         
-        let results1 = scheduler.start { Publishers.Just<Int>(1).materialize() }
+        let results1 = scheduler.start { Just<Int>(1).materialize() }
         
         let expected1: TestSequence<Signal<Int, Never>, Never> = [
             (200, .subscription),

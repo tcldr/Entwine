@@ -147,10 +147,10 @@ extension DemandLedger.Transaction: CustomDebugStringConvertible {
 
 extension Subscribers.Demand {
     func prettyDescription() -> String {
-        guard case .max(let amount) = self else {
+        guard let max = max else {
             return ".unlimited"
         }
-        return ".max(\(amount))"
+        return ".max(\(max))"
     }
 }
 

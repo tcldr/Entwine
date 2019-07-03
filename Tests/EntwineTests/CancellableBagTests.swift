@@ -28,7 +28,7 @@ import Combine
 @testable import Entwine
 @testable import EntwineTest
 
-final class CancellationBagTests: XCTestCase {
+final class CancellableBagTests: XCTestCase {
     
     func testBagCancelsContainedCancellablesOnDeallocation() {
         
@@ -36,7 +36,7 @@ final class CancellationBagTests: XCTestCase {
         let subject = PassthroughSubject<Int, Never>()
         let subscriber = scheduler.createTestableSubscriber(Int.self, Never.self)
         
-        var sut: CancellationBag! = CancellationBag()
+        var sut: CancellableBag! = CancellableBag()
         
         subscriber.cancelled(by: sut)
         
@@ -61,7 +61,7 @@ final class CancellationBagTests: XCTestCase {
         let subject = PassthroughSubject<Int, Never>()
         let subscriber = scheduler.createTestableSubscriber(Int.self, Never.self)
         
-        let sut = CancellationBag()
+        let sut = CancellableBag()
         
         subscriber.cancelled(by: sut)
         

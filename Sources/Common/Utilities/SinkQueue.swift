@@ -34,7 +34,6 @@ class SinkQueue<Sink: Subscriber> {
     private var demandRequested = Subscribers.Demand.none
     private var demandProcessed = Subscribers.Demand.none
     private var demandForwarded = Subscribers.Demand.none
-    private var demandQueued: Subscribers.Demand { .max(buffer.count) }
     
     private var completion: Subscribers.Completion<Sink.Failure>?
     private var isActive: Bool { sink != nil && completion == nil }
@@ -78,13 +77,13 @@ class SinkQueue<Sink: Subscriber> {
             demandProcessed += 1
             demandRequested += sink.receive(next)
         }
-        if let completion = completion, demandQueued < 1 {
+        if let completion = completion, buffer.count < 1 {
             expediteCompletion(completion)
             return .none
         }
-        let spareDemand = max(.none, demandRequested - demandProcessed - demandQueued - demandForwarded)
-        demandForwarded += spareDemand
-        return spareDemand
+        let forwardableDemand = (demandRequested - demandForwarded)
+        demandForwarded += forwardableDemand
+        return forwardableDemand
     }
     
     func assertPreCompletion() {

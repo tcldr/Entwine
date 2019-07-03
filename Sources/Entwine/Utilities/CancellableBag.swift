@@ -25,7 +25,7 @@
 import Combine
 
 /// A container for cancellables that will be cancelled when the bag is deallocated or cancelled itself
-public final class CancellationBag: Cancellable {
+public final class CancellableBag: Cancellable {
     
     public init() {}
     
@@ -47,7 +47,7 @@ public final class CancellationBag: Cancellable {
 
 public extension Cancellable {
     /// Adds this cancellable to the passed `CancellationBag`
-    func cancelled(by cancellationBag: CancellationBag) {
+    func cancelled(by cancellationBag: CancellableBag) {
         cancellationBag.add(self)
     }
 }

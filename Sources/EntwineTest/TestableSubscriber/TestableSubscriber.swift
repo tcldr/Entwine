@@ -93,10 +93,8 @@ public final class TestableSubscriber<Input, Failure: Error> {
     func debitDemand(_ demand: Subscribers.Demand) {
         
         let authorized = (demandBalance > .none)
-        
-        demandBalance -= demand
+        demandBalance -= authorized ? demand : .none
         demands.append((scheduler.now, demandBalance, .debit(authorized: authorized)))
-        
         if !authorized {
             signalNegativeBalance()
         }

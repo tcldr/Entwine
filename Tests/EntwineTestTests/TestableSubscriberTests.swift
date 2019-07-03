@@ -188,10 +188,10 @@ final class TestableSubscriberTests: XCTestCase {
         
         
         let expectedDemandLedger: DemandLedger<VirtualTime> = [
-            (200, .max( 2), .credit(amount: .max(2))),
-            (200, .max( 1), .debit(authorized: true)),
-            (200, .none,    .debit(authorized: true)),
-            (200, .max(-1), .debit(authorized: false)),
+            (200, .max(2), .credit(amount: .max(2))),
+            (200, .max(1), .debit(authorized: true)),
+            (200, .none,   .debit(authorized: true)),
+            (200, .none,   .debit(authorized: false)),
         ]
         
         XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
