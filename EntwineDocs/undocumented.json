@@ -1,6 +1,13 @@
 {
   "warnings": [
     {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Deprecations.swift",
+      "line": 9,
+      "symbol": "CancellationBag",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Dematerialize.swift",
       "line": 253,
       "symbol": "DematerializationErrorConvertible.SourceError",
@@ -57,9 +64,9 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Utilities/CancellationBag.swift",
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Utilities/CancellableBag.swift",
       "line": 30,
-      "symbol": "CancellationBag.init()",
+      "symbol": "CancellableBag.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }

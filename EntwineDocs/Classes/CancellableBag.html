@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ReplaySubject Class Reference</title>
+    <title>CancellableBag Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Class/ReplaySubject" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/CancellableBag" class="dashAnchor"></a>
 
-    <a title="ReplaySubject Class Reference"></a>
+    <a title="CancellableBag Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">Entwine Reference</a>
       <img class="carat" src="../img/carat.png" />
-      ReplaySubject Class Reference
+      CancellableBag Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -121,19 +121,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>ReplaySubject</h1>
+            <h1>CancellableBag</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ReplaySubject</span><span class="o">&lt;</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Failure</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">CancellableBag</span> <span class="p">:</span> <span class="kt">Cancellable</span></code></pre>
 
                 </div>
               </div>
-            <p>A subject that maintains a buffer of its latest values for replay to new subscribers and passes
-through subsequent elements and completion</p>
-
-<p>The subject passes through elements and completion states unchanged and in addition
-replays the latest elements to any new subscribers. Use this subject when you want subscribers
-to receive the most recent previous elements in addition to all future elements.</p>
+            <p>A container for cancellables that will be cancelled when the bag is deallocated or cancelled itself</p>
 
           </div>
         </section>
@@ -145,9 +140,9 @@ to receive the most recent previous elements in addition to all future elements.
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7Entwine13ReplaySubjectC13maxBufferSizeACyxq_GSi_tcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(maxBufferSize:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Entwine13ReplaySubjectC13maxBufferSizeACyxq_GSi_tcfc">init(maxBufferSize:)</a>
+                    <a name="/s:7Entwine14CancellableBagC3addyyx7Combine0B0RzlF"></a>
+                    <a name="//apple_ref/swift/Method/add(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Entwine14CancellableBagC3addyyx7Combine0B0RzlF">add(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -155,98 +150,15 @@ to receive the most recent previous elements in addition to all future elements.
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">maxBufferSize</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+                        <p>Adds a cancellable to the bag which will have its <code><a href="../Classes/CancellableBag.html#/s:7Entwine14CancellableBagC6cancelyyF">.cancel()</a></code> method invoked
+when the bag is deallocated or cancelled itself</p>
 
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>maxBufferSize</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The number of elements that should be buffered for
-replay to new subscribers</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A subject that maintains a buffer of its recent values for replay to new subscribers
-and passes through subsequent values and completion</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF"></a>
-                    <a name="//apple_ref/swift/Method/receive(subscriber:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF">receive(subscriber:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">receive</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="k">where</span> <span class="kt">Output</span> <span class="o">==</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Input</span><span class="p">,</span> <span class="kt">Failure</span> <span class="o">==</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Failure</span><span class="p">,</span> <span class="kt">S</span> <span class="p">:</span> <span class="kt">Subscriber</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine7SubjectP4sendyy6OutputQzF"></a>
-                    <a name="//apple_ref/swift/Method/send(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine7SubjectP4sendyy6OutputQzF">send(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">send</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Output</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">add</span><span class="o">&lt;</span><span class="kt">C</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">cancellable</span><span class="p">:</span> <span class="kt">C</span><span class="p">)</span> <span class="k">where</span> <span class="kt">C</span> <span class="p">:</span> <span class="kt">Cancellable</span></code></pre>
 
                         </div>
                       </div>
@@ -256,9 +168,9 @@ and passes through subsequent values and completion</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7Combine7SubjectP4send10completionyAA11SubscribersO10CompletionOy_7FailureQzG_tF"></a>
-                    <a name="//apple_ref/swift/Method/send(completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine7SubjectP4send10completionyAA11SubscribersO10CompletionOy_7FailureQzG_tF">send(completion:)</a>
+                    <a name="/s:7Entwine14CancellableBagC6cancelyyF"></a>
+                    <a name="//apple_ref/swift/Method/cancel()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Entwine14CancellableBagC6cancelyyF">cancel()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -266,13 +178,14 @@ and passes through subsequent values and completion</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Empties the bag and cancels each contained item</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">send</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kt">Subscribers</span><span class="o">.</span><span class="kt">Completion</span><span class="o">&lt;</span><span class="kt">Failure</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cancel</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>

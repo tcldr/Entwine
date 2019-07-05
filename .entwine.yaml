@@ -11,5 +11,5 @@ xcodebuild_arguments:
   - -scheme
   - Entwine
 author: Tristan Celder
-author_url: https://twitter.com/_goluxo
+author_url: https://github.com/tcldr
 github_url: https://github.com/tcldr/Entwine
