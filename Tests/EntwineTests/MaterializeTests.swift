@@ -44,7 +44,7 @@ final class MaterializeTests: XCTestCase {
     
     func testMaterializesEmpty() {
         
-        let results1 = scheduler.start { Publishers.Empty<Int, Never>().materialize() }
+        let results1 = scheduler.start { Empty<Int, Never>().materialize() }
         
         let expected1: TestSequence<Signal<Int, Never>, Never> = [
             (200, .subscription),
@@ -60,7 +60,7 @@ final class MaterializeTests: XCTestCase {
         
         enum MaterializedError: Error { case error }
         
-        let results1 = scheduler.start { Publishers.Fail<Int, MaterializedError>(error: .error).materialize() }
+        let results1 = scheduler.start { Fail<Int, MaterializedError>(error: .error).materialize() }
         
         let expected1: TestSequence<Signal<Int, MaterializedError>, Never> = [
             (200, .subscription),

@@ -112,6 +112,7 @@ extension Publishers {
         }
         
         func receive(completion: Subscribers.Completion<Downstream.Failure>) {
+            terminateSubscription()
             _ = queue.enqueue(completion: completion)
         }
         
@@ -124,6 +125,7 @@ extension Publishers {
         func terminateSubscription() {
             otherSink.terminateSubscription()
             upstreamSubscription?.cancel()
+            upstreamSubscription = nil
         }
     }
     
@@ -160,6 +162,7 @@ extension Publishers {
         
         func terminateSubscription() {
             subscription?.cancel()
+            subscription = nil
         }
     }
 }
