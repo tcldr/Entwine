@@ -1,6 +1,20 @@
 {
   "warnings": [
     {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/Deprecations.swift",
+      "line": 28,
+      "symbol": "TestableSubscriber.sequence",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/Deprecations.swift",
+      "line": 31,
+      "symbol": "TestableSubscriber.demands",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestEvent.swift",
       "line": 45,
       "symbol": "TestEvent",

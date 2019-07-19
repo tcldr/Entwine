@@ -97,6 +97,9 @@
                 <a class="nav-group-task-link" href="../Extensions/Publishers/Materialize.html">– Materialize</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers/SignpostConfiguration.html">– SignpostConfiguration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Publishers/WithLatestFrom.html">– WithLatestFrom</a>
               </li>
               <li class="nav-group-task">
@@ -136,6 +139,13 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Publisher"></a>
+                <a name="//apple_ref/swift/Section/Publisher" class="dashAnchor"></a>
+                <a href="#/Publisher">
+                  <h3 class="section-name">Publisher</h3>
+                </a>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
@@ -185,6 +195,13 @@ type that matches the materially represented original sequence.</p>
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Publisher2"></a>
+                <a name="//apple_ref/swift/Section/Publisher" class="dashAnchor"></a>
+                <a href="#/Publisher2">
+                  <h3 class="section-name">Publisher</h3>
+                </a>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
@@ -209,6 +226,54 @@ into a stream of <code><a href="../Enums/Signal.html">Signal</a></code> elements
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Materialize</span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Upstream</span> <span class="p">:</span> <span class="kt">Publisher</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Publisher%20configuration"></a>
+                <a name="//apple_ref/swift/Section/Publisher configuration" class="dashAnchor"></a>
+                <a href="#/Publisher%20configuration">
+                  <h3 class="section-name">Publisher configuration</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine10PublishersO7EntwineE21SignpostConfigurationV"></a>
+                    <a name="//apple_ref/swift/Struct/SignpostConfiguration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine10PublishersO7EntwineE21SignpostConfigurationV">SignpostConfiguration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Configuration values for the <code>Publishers.Signpost</code> operator.</p>
+
+<p>Pass <code>Publishers.SignpostConfiguration.Marker</code> values to the initializer to define how signposts for
+each event should be labelled:</p>
+
+<ul>
+<li>A nil marker value will disable signposts for that event</li>
+<li>A <code>.default</code> marker value will use the event name as the event label</li>
+<li>A <code>.named(_:)</code> marker value will use the passed string as the event label</li>
+</ul>
+
+                        <a href="../Extensions/Publishers/SignpostConfiguration.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SignpostConfiguration</span></code></pre>
 
                         </div>
                       </div>
@@ -322,7 +387,7 @@ strain on resources</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-07-05)</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-07-19)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

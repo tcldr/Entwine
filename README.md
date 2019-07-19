@@ -82,7 +82,7 @@ func testMap() {
     // schedules a subscription at 200, to be cancelled at 900
     let results = testScheduler.start { subjectUnderTest }
     
-    XCTAssertEqual(results.sequence, [
+    XCTAssertEqual(results.recordedOutput, [
         (200, .subscription),           // subscribed at 200
         (300, .input("A")),             // received uppercased input @ 100 + subscription time
         (400, .input("B")),             // received uppercased input @ 200 + subscription time

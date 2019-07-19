@@ -97,6 +97,9 @@
                 <a class="nav-group-task-link" href="../Extensions/Publishers/Materialize.html">– Materialize</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Publishers/SignpostConfiguration.html">– SignpostConfiguration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Publishers/WithLatestFrom.html">– WithLatestFrom</a>
               </li>
               <li class="nav-group-task">
@@ -291,6 +294,64 @@ buffer of its latest values for replay to new subscribers</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:7Combine9PublisherP7EntwineE8signpost13configurationAA10PublishersOADE8SignpostVy_xGAhDE0G13ConfigurationV_tF"></a>
+                    <a name="//apple_ref/swift/Method/signpost(configuration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE8signpost13configurationAA10PublishersOADE8SignpostVy_xGAhDE0G13ConfigurationV_tF">signpost(configuration:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Marks points of interest for your publisher events as time intervals for debugging performance in Instruments.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">signpost</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">SignpostConfiguration</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">receiveMarker</span><span class="p">:</span> <span class="o">.</span><span class="k">default</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Signpost</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configuration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A configuration value specifying which events to mark as points of interest.
+The default value specifies signposts should be grouped into the <code>com.github.tcldr.Entwine.Signpost</code>
+subsystem using the <code>.pointsOfInterest</code> category (displayed in most Xcode Intruments templates
+by default under the &lsquo;Points of Interest&rsquo; instrument) . See <code><a href="../Extensions/Publishers/SignpostConfiguration.html">Publishers.SignpostConfiguration</a></code>
+initializer for detailed options.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher that marks points of interest when specified publisher events occur</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:7Combine9PublisherP7EntwineE10withLatest4from9transformAA10PublishersOADE04WithE4FromVy_xqd_0_qd__Gqd_0__qd__6OutputQz_AMQyd_0_tctAaBRd_0_7FailureQyd_0_APRtzr0_lF"></a>
                     <a name="//apple_ref/swift/Method/withLatest(from:transform:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:7Combine9PublisherP7EntwineE10withLatest4from9transformAA10PublishersOADE04WithE4FromVy_xqd_0_qd__Gqd_0__qd__6OutputQz_AMQyd_0_tctAaBRd_0_7FailureQyd_0_APRtzr0_lF">withLatest(from:transform:)</a>
@@ -413,7 +474,7 @@ this publisher produces an element</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-07-05)</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-07-19)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
