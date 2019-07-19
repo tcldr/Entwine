@@ -30,11 +30,9 @@ struct LinkedListStack<Element> {
     typealias Node = LinkedList<Element>
     
     private (set) var node = Node.empty
-    private (set) var count: Int = 0
     
     init<C: Collection>(_ elements: C) where C.Element == Element {
         node = LinkedList(elements)
-        count = elements.count
     }
     
     func peek() -> Element? {
@@ -43,7 +41,6 @@ struct LinkedListStack<Element> {
     
     mutating func push(_ element: Element) {
         node.prepend(element)
-        count += 1
     }
 }
 
@@ -53,7 +50,6 @@ extension LinkedListStack: IteratorProtocol {
     
     mutating func next() -> Element? {
         guard let value = node.poll() else { return nil }
-        count -= 1
         return value
     }
 }

@@ -37,6 +37,7 @@ class SinkQueue<Sink: Subscriber> {
     
     private var completion: Subscribers.Completion<Sink.Failure>?
     private var isActive: Bool { sink != nil && completion == nil }
+    private var shouldBuffer: Bool { demandRequested < .unlimited }
     
     init(sink: Sink) {
         self.sink = sink
@@ -48,13 +49,26 @@ class SinkQueue<Sink: Subscriber> {
     }
     
     func enqueue(_ input: Sink.Input) -> Subscribers.Demand {
-        assertPreCompletion()
+        guard completion == nil, let sink = sink else {
+            assertionFailure("Out of sequence. A completion signal is queued or has already been sent.")
+            return .none
+        }
+        guard shouldBuffer else {
+            return sink.receive(input)
+        }
         buffer.enqueue(input)
         return processDemand()
     }
     
     func enqueue(completion: Subscribers.Completion<Sink.Failure>) -> Subscribers.Demand {
-        assertPreCompletion()
+        guard self.completion == nil, sink != nil else {
+            assertionFailure("Out of sequence. A completion signal is queued or has already been sent.")
+            return .none
+        }
+        guard shouldBuffer else {
+            expediteCompletion(completion)
+            return .none
+        }
         self.completion = completion
         return processDemand()
     }
@@ -84,9 +98,5 @@ class SinkQueue<Sink: Subscriber> {
         let forwardableDemand = (demandRequested - demandForwarded)
         demandForwarded += forwardableDemand
         return forwardableDemand
-    }
-    
-    func assertPreCompletion() {
-        assert(completion == nil && sink != nil, "Out of sequence. A completion signal is queued or has already been sent.")
     }
 }
