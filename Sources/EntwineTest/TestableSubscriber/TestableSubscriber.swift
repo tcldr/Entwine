@@ -61,10 +61,10 @@ public final class TestableSubscriber<Input, Failure: Error> {
     public typealias Sequence = TestSequence<Input, Failure>
     
     /// A time-stamped log of `Signal`s produced during the lifetime of a subscription to a publisher.
-    public internal(set) var sequence = TestSequence<Input, Failure>()
+    public internal(set) var recordedOutput = TestSequence<Input, Failure>()
     /// A time-stamped account of `Subscribers.Demand`s issued upstream, and incoming elements
     /// downstream, during the lifetime of a subscription to a publisher.
-    public internal(set) var demands = DemandLedger<VirtualTime>()
+    public internal(set) var recordedDemandLog = DemandLedger<VirtualTime>()
     
     private let scheduler: TestScheduler
     private let options: TestableSubscriberOptions
@@ -85,7 +85,7 @@ public final class TestableSubscriber<Input, Failure: Error> {
     func issueDemandCredit(_ demand: Subscribers.Demand) {
         
         demandBalance += demand
-        demands.append((scheduler.now, demandBalance, .credit(amount: demand)))
+        recordedDemandLog.append((scheduler.now, demandBalance, .credit(amount: demand)))
         
         subscription?.request(demand)
     }
@@ -94,7 +94,7 @@ public final class TestableSubscriber<Input, Failure: Error> {
         
         let authorized = (demandBalance > .none)
         demandBalance -= authorized ? demand : .none
-        demands.append((scheduler.now, demandBalance, .debit(authorized: authorized)))
+        recordedDemandLog.append((scheduler.now, demandBalance, .debit(authorized: authorized)))
         if !authorized {
             signalNegativeBalance()
         }
@@ -147,14 +147,14 @@ extension TestableSubscriber: Subscriber {
         self.demandBalance = .none
         self.subscription = subscription
         
-        sequence.append((scheduler.now, .subscription))
+        recordedOutput.append((scheduler.now, .subscription))
         
         issueDemandCredit(options.initialDemand)
         delayedReplenishDemandIfNeeded()
     }
     
     public func receive(_ input: Input) -> Subscribers.Demand {
-        sequence.append((scheduler.now, .input(input)))
+        recordedOutput.append((scheduler.now, .input(input)))
         
         debitDemand(.max(1))
         delayedReplenishDemandIfNeeded()
@@ -163,7 +163,7 @@ extension TestableSubscriber: Subscriber {
     }
     
     public func receive(completion: Subscribers.Completion<Failure>) {
-        sequence.append((scheduler.now, .completion(completion)))
+        recordedOutput.append((scheduler.now, .completion(completion)))
     }    
 }
 

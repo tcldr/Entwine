@@ -22,5 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-@available(*, deprecated, renamed: "CancellableBag")
-public typealias CancellationBag = CancellableBag
+public extension TestableSubscriber {
+    
+    @available(*, deprecated, renamed: "recordedOutput")
+    var sequence: TestSequence<Input, Failure>{ recordedOutput }
+    
+    @available(*, deprecated, renamed: "recordedDemandLog")
+    var demands: DemandLedger<VirtualTime>{ recordedDemandLog }
+}

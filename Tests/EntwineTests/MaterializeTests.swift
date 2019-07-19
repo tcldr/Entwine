@@ -53,7 +53,7 @@ final class MaterializeTests: XCTestCase {
             (200, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected1, results1.sequence)
+        XCTAssertEqual(expected1, results1.recordedOutput)
     }
     
     func testMaterializesError() {
@@ -69,7 +69,7 @@ final class MaterializeTests: XCTestCase {
             (200, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected1, results1.sequence)
+        XCTAssertEqual(expected1, results1.recordedOutput)
     }
     
     func testMaterializesJust1() {
@@ -84,6 +84,6 @@ final class MaterializeTests: XCTestCase {
             (200, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected1, results1.sequence)
+        XCTAssertEqual(expected1, results1.recordedOutput)
     }
 }

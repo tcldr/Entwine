@@ -26,6 +26,8 @@ import Combine
 
 extension Publishers {
     
+    // MARK: - Publisher
+    
     /// Wraps all the elements as well as the subscription and completion events of an upstream publisher
     /// into a stream of `Signal` elements
     public struct Materialize<Upstream: Publisher>: Publisher {
@@ -43,6 +45,8 @@ extension Publishers {
             subscriber.receive(subscription: MaterializeSubscription(upstream: upstream, downstream: subscriber))
         }
     }
+    
+    // MARK: - Subscription
     
     // Owned by the downstream subscriber
     fileprivate class MaterializeSubscription<Upstream: Publisher, Downstream: Subscriber>: Subscription
@@ -71,6 +75,8 @@ extension Publishers {
             self.sink = nil
         }
     }
+    
+    // MARK: - Sink
     
     fileprivate class MaterializeSink<Upstream: Publisher, Downstream: Subscriber>: Subscriber
          where Never == Downstream.Failure, Signal<Upstream.Output, Upstream.Failure> == Downstream.Input
@@ -129,6 +135,8 @@ extension Publishers {
         }
     }
 }
+
+// MARK: - Operator
 
 public extension Publisher {
     

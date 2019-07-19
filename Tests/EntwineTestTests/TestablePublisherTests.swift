@@ -44,7 +44,7 @@ final class TestablePublisherTests: XCTestCase {
         
         let testableSubscriber = testScheduler.start { testablePublisher }
         
-        XCTAssertEqual(testableSubscriber.sequence, [
+        XCTAssertEqual(testableSubscriber.recordedOutput, [
             (200, .subscription),
             (200, .input(.init())),
             (400, .input(.init())),
@@ -64,7 +64,7 @@ final class TestablePublisherTests: XCTestCase {
         
         let testableSubscriber = testScheduler.start { testablePublisher }
         
-        XCTAssertEqual(testableSubscriber.sequence, [
+        XCTAssertEqual(testableSubscriber.recordedOutput, [
             (200, .subscription),
             (200, .input(.init())),
             (400, .input(.init())),

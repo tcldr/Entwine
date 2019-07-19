@@ -53,13 +53,13 @@ final class TestableSubscriberTests: XCTestCase {
             (200, .subscription),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.sequence)
+        XCTAssertEqual(expected, testableSubscriber.recordedOutput)
         
         let expectedDemandLedger: DemandLedger<VirtualTime> = [
             (200, .none, .credit(amount: .none))
         ]
         
-        XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
+        XCTAssertEqual(expectedDemandLedger, testableSubscriber.recordedDemandLog)
     }
     
     func testSubscriberObeysSubsequentDemandLimit() {
@@ -92,7 +92,7 @@ final class TestableSubscriberTests: XCTestCase {
             (300, .input(.init())),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.sequence)
+        XCTAssertEqual(expected, testableSubscriber.recordedOutput)
         
         let expectedDemandLedger: DemandLedger<VirtualTime> = [
             (200, .none,      .credit(amount: .none)),
@@ -102,7 +102,7 @@ final class TestableSubscriberTests: XCTestCase {
             (300, .unlimited, .debit(authorized: true)),
         ]
         
-        XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
+        XCTAssertEqual(expectedDemandLedger, testableSubscriber.recordedDemandLog)
     }
     
     func testSubscriberObeysThrottledDemandLimit() {
@@ -135,7 +135,7 @@ final class TestableSubscriberTests: XCTestCase {
             (340, .input(.init())),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.sequence)
+        XCTAssertEqual(expected, testableSubscriber.recordedOutput)
         
         let expectedDemandLedger: DemandLedger<VirtualTime> = [
             (200, .max(2), .credit(amount: .max(2))),
@@ -147,7 +147,7 @@ final class TestableSubscriberTests: XCTestCase {
             (440, .max(2), .credit(amount: .max(2))),
         ]
         
-        XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
+        XCTAssertEqual(expectedDemandLedger, testableSubscriber.recordedDemandLog)
     }
     
     func testSubscriberSignalsOnNegativeBalance() {
@@ -194,7 +194,7 @@ final class TestableSubscriberTests: XCTestCase {
             (200, .none,   .debit(authorized: false)),
         ]
         
-        XCTAssertEqual(expectedDemandLedger, testableSubscriber.demands)
+        XCTAssertEqual(expectedDemandLedger, testableSubscriber.recordedDemandLog)
     }
     
     func testDoesNotCreateRetainCycleWhenStreamFinishesBeforeSubscriberDeallocation() {
@@ -213,7 +213,7 @@ final class TestableSubscriberTests: XCTestCase {
             (200, .input(.init())),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.sequence)
+        XCTAssertEqual(expected, testableSubscriber.recordedOutput)
         
         testableSubscriber = nil
         
@@ -247,7 +247,7 @@ final class TestableSubscriberTests: XCTestCase {
             (300, .input(.init())),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.sequence)
+        XCTAssertEqual(expected, testableSubscriber.recordedOutput)
         
         testableSubscriber = nil
         
@@ -277,7 +277,7 @@ final class TestableSubscriberTests: XCTestCase {
             (310, .input(2)),
         ]
         
-        XCTAssertEqual(expected, subject.sequence)
+        XCTAssertEqual(expected, subject.recordedOutput)
     }
     
     static var allTests = [

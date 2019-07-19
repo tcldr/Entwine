@@ -55,7 +55,7 @@ final class WithLatestFromTests: XCTestCase {
             (230, .input("c")),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.sequence)
+        XCTAssertEqual(expected, testableSubscriber.recordedOutput)
     }
     
     func testDropsUpstreamValuesReceivedPriorToFirstOtherValue() {
@@ -82,7 +82,7 @@ final class WithLatestFromTests: XCTestCase {
             (230, .input("b")),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.sequence)
+        XCTAssertEqual(expected, testableSubscriber.recordedOutput)
     }
     
     func testMatchesLimitedSubscriberDemand() {
@@ -111,7 +111,7 @@ final class WithLatestFromTests: XCTestCase {
             (210, .input("c")),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.sequence)
+        XCTAssertEqual(expected, testableSubscriber.recordedOutput)
     }
     
     func testCancelsUpstreamSubscriptions() {

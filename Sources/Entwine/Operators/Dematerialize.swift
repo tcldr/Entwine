@@ -24,20 +24,9 @@
 
 import Combine
 
-/// Represents an error for a dematerialized sequence
-///
-/// Consumers of publishers with a `Failure` of this type can opt-in to force unwrapping
-/// the error using the `assertNoDematerializationFailure()` operator
-public enum DematerializationError<SourceError: Error>: Error {
-    /// Sequencing error during dematerialization. e.g. an `.input` arriving after a `.completion`
-    case outOfSequence
-    /// A wrapped error of the represented material sequence
-    case sourceError(SourceError)
-}
-
-extension DematerializationError: Equatable where SourceError: Equatable {}
-
 extension Publishers {
+    
+    // MARK: - Publisher
     
     /// Converts a materialized publisher of `Signal`s into the represented sequence. Fails on a malformed
     /// source sequence.
@@ -70,6 +59,8 @@ extension Publishers {
         }
     }
     
+    // MARK: - Subscription
+    
     fileprivate class DematerializeSubscription<Upstream: Publisher, Downstream: Subscriber>: Subscription
          where
             Upstream.Output: SignalConvertible,
@@ -101,6 +92,8 @@ extension Publishers {
             self.sink = nil
         }
     }
+    
+    // MARK: - Sink
     
     fileprivate class DematerializeSink<Upstream: Publisher, Downstream: Subscriber>: Subscriber
         where
@@ -194,6 +187,8 @@ extension Publishers {
     }
 }
 
+// MARK: - Operators
+
 extension Publisher where Output: SignalConvertible, Failure == Never {
     
     private func dematerializedValuesPublisherSequence() -> Publishers.Dematerialize<Self> {
@@ -246,6 +241,21 @@ extension Publisher where Failure: DematerializationErrorConvertible {
         }
     }
 }
+
+// MARK: - Errors
+
+/// Represents an error for a dematerialized sequence
+///
+/// Consumers of publishers with a `Failure` of this type can opt-in to force unwrapping
+/// the error using the `assertNoDematerializationFailure()` operator
+public enum DematerializationError<SourceError: Error>: Error {
+    /// Sequencing error during dematerialization. e.g. an `.input` arriving after a `.completion`
+    case outOfSequence
+    /// A wrapped error of the represented material sequence
+    case sourceError(SourceError)
+}
+
+extension DematerializationError: Equatable where SourceError: Equatable {}
 
 /// A type which can be converted into a `DematerializationError`
 public protocol DematerializationErrorConvertible {

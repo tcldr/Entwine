@@ -55,7 +55,7 @@ final class DematerializeTests: XCTestCase {
                 .assertNoDematerializationFailure()
         }
         
-        XCTAssertEqual(results1.sequence, [
+        XCTAssertEqual(results1.recordedOutput, [
             (200, .subscription),
             (200, .completion(.finished)),
         ])
@@ -76,7 +76,7 @@ final class DematerializeTests: XCTestCase {
                 .assertNoDematerializationFailure()
         }
         
-        XCTAssertEqual(results1.sequence, [
+        XCTAssertEqual(results1.recordedOutput, [
             (200, .subscription),
             (200, .completion(.failure(.error))),
         ])
@@ -96,7 +96,7 @@ final class DematerializeTests: XCTestCase {
                 .assertNoDematerializationFailure()
         }
         
-        XCTAssertEqual(results1.sequence, [
+        XCTAssertEqual(results1.recordedOutput, [
             (200, .subscription),
             (200, .input(1)),
             (200, .completion(.finished)),

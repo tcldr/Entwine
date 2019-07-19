@@ -153,7 +153,7 @@ final class TestSchedulerTests: XCTestCase {
             (310, .input(2)),
         ]
         
-        XCTAssertEqual(expected, results.sequence)
+        XCTAssertEqual(expected, results.recordedOutput)
     }
     
     func testFiresEventsScheduledBeforeStartCalled() {
@@ -175,7 +175,7 @@ final class TestSchedulerTests: XCTestCase {
             (500, .input(2)),
         ]
         
-        XCTAssertEqual(expected, testableSubscriber.sequence)
+        XCTAssertEqual(expected, testableSubscriber.recordedOutput)
     }
     
     func testTrampolinesImmediatelyScheduledTasks() {
@@ -206,7 +206,7 @@ final class TestSchedulerTests: XCTestCase {
             (200, .input(2)),
         ]
         
-        XCTAssertEqual(expected, results.sequence)
+        XCTAssertEqual(expected, results.recordedOutput)
     }
 
     static var allTests = [

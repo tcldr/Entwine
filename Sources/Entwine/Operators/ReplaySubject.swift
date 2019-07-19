@@ -78,9 +78,12 @@ extension ReplaySubject: Publisher {
         subscriptions.append(subscription)
         
         subscription.cleanupHandler = { [weak self] in
-            if let index = self?.subscriptions.firstIndex(where: { subscriberIdentifier == $0.subscriberIdentifier }) {
-                self?.subscriberIdentifiers.remove(subscriberIdentifier)
-                self?.subscriptions.remove(at: index)
+            
+            guard let self = self else { return }
+            
+            if let index = self.subscriptions.firstIndex(where: { subscriberIdentifier == $0.subscriberIdentifier }) {
+                self.subscriberIdentifiers.remove(subscriberIdentifier)
+                self.subscriptions.remove(at: index)
             }
         }
         subscriber.receive(subscription: subscription)

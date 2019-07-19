@@ -71,7 +71,7 @@ final class TrampolineSchedulerTests: XCTestCase {
             (200, .input("3b")),
         ]
         
-        XCTAssertEqual(expected, results.sequence)
+        XCTAssertEqual(expected, results.recordedOutput)
     }
     
     func testSchedulerPerformsAsFIFOQueue() {
@@ -103,6 +103,6 @@ final class TrampolineSchedulerTests: XCTestCase {
             (200, .input("innerAction2")),
         ]
         
-        XCTAssertEqual(expected, results.sequence)
+        XCTAssertEqual(expected, results.recordedOutput)
     }
 }

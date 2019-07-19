@@ -48,7 +48,7 @@ final class CancellableBagTests: XCTestCase {
         
         scheduler.resume()
         
-        XCTAssertEqual(subscriber.sequence, [
+        XCTAssertEqual(subscriber.recordedOutput, [
             (100, .subscription),
             (110, .input(1)),
             (120, .input(2)),
@@ -73,7 +73,7 @@ final class CancellableBagTests: XCTestCase {
         
         scheduler.resume()
         
-        XCTAssertEqual(subscriber.sequence, [
+        XCTAssertEqual(subscriber.recordedOutput, [
             (100, .subscription),
             (110, .input(1)),
             (120, .input(2)),

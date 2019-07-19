@@ -62,14 +62,14 @@ final class ShareReplayTests: XCTestCase {
             (400, .input(1)),
         ]
         
-        XCTAssertEqual(expected1, results1.sequence)
+        XCTAssertEqual(expected1, results1.recordedOutput)
         
         let expected2: TestSequence<Int, Never> = [
             (300, .subscription),
             (400, .input(1)),
         ]
         
-        XCTAssertEqual(expected2, results2.sequence)
+        XCTAssertEqual(expected2, results2.recordedOutput)
     }
 
     func testPassesThroughValueWithBufferOfOne() {
@@ -92,7 +92,7 @@ final class ShareReplayTests: XCTestCase {
             (400, .input(1)),
         ]
         
-        XCTAssertEqual(expected1, results1.sequence)
+        XCTAssertEqual(expected1, results1.recordedOutput)
         
         let expected2: TestSequence<Int, Never> = [
             (300, .subscription),
@@ -100,7 +100,7 @@ final class ShareReplayTests: XCTestCase {
             (400, .input(1)),
         ]
         
-        XCTAssertEqual(expected2, results2.sequence)
+        XCTAssertEqual(expected2, results2.recordedOutput)
     }
 
     func testPassesThroughLatestValueWithBufferOfOne() {
@@ -125,7 +125,7 @@ final class ShareReplayTests: XCTestCase {
             (400, .input(2)),
         ]
         
-        XCTAssertEqual(expected1, results1.sequence)
+        XCTAssertEqual(expected1, results1.recordedOutput)
         
         let expected2: TestSequence<Int, Never> = [
             (300, .subscription),
@@ -133,7 +133,7 @@ final class ShareReplayTests: XCTestCase {
             (400, .input(2)),
         ]
         
-        XCTAssertEqual(expected2, results2.sequence)
+        XCTAssertEqual(expected2, results2.recordedOutput)
     }
 
     func testPassesThroughCompletionIssuedPreSubscribe() {
@@ -152,7 +152,7 @@ final class ShareReplayTests: XCTestCase {
             (200, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, results1.sequence)
+        XCTAssertEqual(expected, results1.recordedOutput)
     }
 
     func testPassesThroughCompletionIssuedPostSubscribe() {
@@ -172,7 +172,7 @@ final class ShareReplayTests: XCTestCase {
             (300, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected, results1.sequence)
+        XCTAssertEqual(expected, results1.recordedOutput)
     }
 
     func testStopsForwardingToSubscribersPostCompletion() {
@@ -193,7 +193,7 @@ final class ShareReplayTests: XCTestCase {
             (300, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected1, results1.sequence)
+        XCTAssertEqual(expected1, results1.recordedOutput)
     }
 
     func testImmediatelyCompletesForNewSubscribersPostPreviousCompletion() {
@@ -220,13 +220,13 @@ final class ShareReplayTests: XCTestCase {
             (400, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected1, results1.sequence)
+        XCTAssertEqual(expected1, results1.recordedOutput)
         
         let expected2: TestSequence<Int, Never> = [
             (500, .subscription),
             (500, .completion(.finished)),
         ]
         
-        XCTAssertEqual(expected2, results2.sequence)
+        XCTAssertEqual(expected2, results2.recordedOutput)
     }
 }

@@ -44,6 +44,16 @@ public enum Signal <Input, Failure: Error> {
     case completion(Subscribers.Completion<Failure>)
 }
 
+// MARK: - Signal extensions
+
+public extension Signal {
+    /// Whether the signal indicates sequence completion
+    var isCompletion: Bool {
+        guard case .completion(_) = self else { return false }
+        return true
+    }
+}
+
 // MARK: - Equatable conformance
 
 extension Signal: Equatable where Input: Equatable, Failure: Equatable {
