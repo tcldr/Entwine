@@ -107,14 +107,14 @@
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Signal.swift",
-      "line": 94,
+      "line": 122,
       "symbol": "SignalConvertible.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Signal.swift",
-      "line": 101,
+      "line": 129,
       "symbol": "Signal.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

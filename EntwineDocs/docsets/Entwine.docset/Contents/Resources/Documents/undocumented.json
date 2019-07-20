@@ -2,30 +2,86 @@
   "warnings": [
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Deprecations.swift",
-      "line": 9,
+      "line": 26,
       "symbol": "CancellationBag",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Dematerialize.swift",
-      "line": 253,
+      "line": 263,
       "symbol": "DematerializationErrorConvertible.SourceError",
       "symbol_kind": "source.lang.swift.decl.associatedtype",
       "warning": "undocumented"
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/ReplaySubject.swift",
-      "line": 143,
+      "line": 146,
       "symbol": "ReplaySubject.createUnbounded()",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/ReplaySubject.swift",
-      "line": 147,
+      "line": 150,
       "symbol": "ReplaySubject.create(bufferSize:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "line": 41,
+      "symbol": "Publishers.SignpostConfiguration.Marker",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "line": 94,
+      "symbol": "Publishers.SignpostConfiguration.log",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "line": 95,
+      "symbol": "Publishers.SignpostConfiguration.receiveSubscriptionMarker",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "line": 96,
+      "symbol": "Publishers.SignpostConfiguration.receiveMarker",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "line": 97,
+      "symbol": "Publishers.SignpostConfiguration.receiveCompletionMarker",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "line": 98,
+      "symbol": "Publishers.SignpostConfiguration.requestMarker",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "line": 99,
+      "symbol": "Publishers.SignpostConfiguration.cancelMarker",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "line": 104,
+      "symbol": "Publishers.Signpost",
+      "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
@@ -51,14 +107,14 @@
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Signal.swift",
-      "line": 84,
+      "line": 94,
       "symbol": "SignalConvertible.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/Entwine/Signal.swift",
-      "line": 91,
+      "line": 101,
       "symbol": "Signal.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

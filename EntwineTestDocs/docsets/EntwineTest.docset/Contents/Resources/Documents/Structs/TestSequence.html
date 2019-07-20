@@ -174,6 +174,108 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11EntwineTest0B8SequenceV8mapInputyACyqd__q_Gqd__xXElF"></a>
+                    <a name="//apple_ref/swift/Method/mapInput(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11EntwineTest0B8SequenceV8mapInputyACyqd__q_Gqd__xXElF">mapInput(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a TestSequence containing the results of mapping the given closure over the sequence’s input elements.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">mapInput</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="p">(</span><span class="kt">Input</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">TestSequence</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transform</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A mapping closure. <code>transform</code> accepts an element of this sequence&rsquo;s Input type
+as its parameter and returns a transformed value of the same or of a different type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A TestSequence containing the transformed input elements</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11EntwineTest0B8SequenceV10mapFailureyACyxqd__Gqd__q_XEs5ErrorRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/mapFailure(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11EntwineTest0B8SequenceV10mapFailureyACyxqd__Gqd__q_XEs5ErrorRd__lF">mapFailure(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a TestSequence containing the results of mapping the given closure over the sequence’s completion elements.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">mapFailure</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="p">(</span><span class="kt">Failure</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">TestSequence</span><span class="o">&lt;</span><span class="kt">Input</span><span class="p">,</span> <span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transform</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A mapping closure. <code>transform</code> accepts an element of this sequence&rsquo;s failure type
+as its parameter and returns a transformed error of the same or a different type</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A TestSequence containing the transformed completion elements</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -538,7 +640,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-07-19)</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-07-20)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
