@@ -40,6 +40,23 @@ public struct TestSequence <Input, Failure: Error> {
     public init() {
         self.contents = [Element]()
     }
+    
+    
+    /// Returns a TestSequence containing the results of mapping the given closure over the sequence’s input elements.
+    /// - Parameter transform: A mapping closure. `transform` accepts an element of this sequence's Input type
+    /// as its parameter and returns a transformed value of the same or of a different type.
+    /// - Returns: A TestSequence containing the transformed input elements
+    public func mapInput<T>(_ transform: (Input) -> T) -> TestSequence<T, Failure> {
+        TestSequence<T, Failure>(map { ($0.0, $0.1.mapInput(transform)) })
+    }
+    
+    /// Returns a TestSequence containing the results of mapping the given closure over the sequence’s completion elements.
+    /// - Parameter transform: A mapping closure. `transform` accepts an element of this sequence's failure type
+    /// as its parameter and returns a transformed error of the same or a different type
+    /// - Returns: A TestSequence containing the transformed completion elements
+    public func mapFailure<T: Error>(_ transform: (Failure) -> T) -> TestSequence<Input, T> {
+        TestSequence<Input, T>(map { ($0.0, $0.1.mapFailure(transform)) })
+    }
 }
 
 // MARK: - Sequence conformance

@@ -52,6 +52,34 @@ public extension Signal {
         guard case .completion(_) = self else { return false }
         return true
     }
+    
+    /// Returns a signal with a transformed input type and input element
+    /// - Parameter transform: A mapping closure. `transform` accepts an element of this signal's input type
+    /// as its parameter and returns a transformed value of the same or of a different type.
+    /// - Returns: A signal with a transformed input type and input element
+    func mapInput<T>(_ transform: (Input) -> T) -> Signal<T, Failure> {
+        switch self {
+        case .input(let value):             return .input(transform(value))
+        case .completion(let completion):   return .completion(completion)
+        case .subscription:                 return .subscription
+        }
+    }
+    
+    /// Returns a signal with a transformed failure type and completion element
+    /// - Parameter transform: A mapping closure. `transform` accepts an element of this signal's failure type
+    /// as its parameter and returns a transformed error of the same or of a different type.
+    /// - Returns: A signal with a transformed failure type and completion element
+    func mapFailure<T: Error>(_ transform: (Failure) -> T) -> Signal<Input, T> {
+        switch self {
+        case .completion(let completion):
+            guard case .failure(let error) = completion else {
+                return .completion(.finished)
+            }
+            return .completion(.failure(transform(error)))
+        case .input(let value):             return .input(value)
+        case .subscription:                 return .subscription
+        }
+    }
 }
 
 // MARK: - Equatable conformance
