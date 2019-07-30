@@ -92,6 +92,10 @@ extension ReplaySubject: Publisher {
 
 extension ReplaySubject: Subject {
     
+    public func send(subscription: Subscription) {
+        subscription.request(.unlimited)
+    }
+    
     public func send(_ value: Output) {
         guard status == .active else { return }
         replayValues.addValueToBuffer(value)
