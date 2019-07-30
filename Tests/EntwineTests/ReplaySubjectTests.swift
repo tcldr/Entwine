@@ -434,4 +434,71 @@ final class ReplaySubjectTests: XCTestCase {
             subject.send(i)
         }
     }
+
+    func testControlSubjectSendSubscriptionBehavior() {
+        
+        let subscription = TestSubscription()
+        let subject = PassthroughSubject<Int, Never>()
+        
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject.send(subscription: subscription) }
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+        scheduler.schedule(after: 300) { XCTAssertEqual(subscription.demand, .some(.unlimited)) }
+        scheduler.schedule(after: 400) { subject.send(1) }
+        scheduler.schedule(after: 500) { subject.send(2) }
+        scheduler.schedule(after: 600) { subject.send(3) }
+        
+        scheduler.resume()
+        
+        let expected1: TestSequence<Int, Never> = [
+            (200, .subscription),
+            (400, .input(1)),
+            (500, .input(2)),
+            (600, .input(3)),
+        ]
+        
+        XCTAssertFalse(subscription.cancelled)
+        XCTAssertEqual(expected1, results1.recordedOutput)
+    }
+
+    func testReplaySubjectSendSubscriptionBehavior() {
+        
+        let subscription = TestSubscription()
+        let subject = ReplaySubject<Int, Never>(maxBufferSize: 0)
+        
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject.send(subscription: subscription) }
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+        scheduler.schedule(after: 300) { XCTAssertEqual(subscription.demand, .some(.unlimited)) }
+        scheduler.schedule(after: 400) { subject.send(1) }
+        scheduler.schedule(after: 500) { subject.send(2) }
+        scheduler.schedule(after: 600) { subject.send(3) }
+        
+        scheduler.resume()
+        
+        let expected1: TestSequence<Int, Never> = [
+            (200, .subscription),
+            (400, .input(1)),
+            (500, .input(2)),
+            (600, .input(3)),
+        ]
+        
+        XCTAssertFalse(subscription.cancelled)
+        XCTAssertEqual(expected1, results1.recordedOutput)
+    }
+}
+
+fileprivate final class TestSubscription: Subscription {
+    func request(_ demand: Subscribers.Demand) {
+        self.demand = demand
+    }
+    
+    func cancel() {
+        cancelled = true
+    }
+    
+    var cancelled = false
+    var demand: Subscribers.Demand?
 }
