@@ -91,6 +91,10 @@ extension ReplaySubject: Publisher {
 }
 
 extension ReplaySubject: Subject {
+  
+    public func send(subscription: Subscription) {
+        // don't handle backpressure in this ReplaySubject
+    }
     
     public func send(_ value: Output) {
         guard status == .active else { return }
