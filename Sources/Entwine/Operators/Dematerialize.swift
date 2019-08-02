@@ -232,7 +232,7 @@ extension Publisher where Failure: DematerializationErrorConvertible {
     ///
     /// - Returns: A publisher with a `Failure` type that matches that of the materially represented original
     /// sequence
-    func assertNoDematerializationFailure() -> Publishers.MapError<Self, Failure.SourceError> {
+    public func assertNoDematerializationFailure() -> Publishers.MapError<Self, Failure.SourceError> {
         return mapError { error -> Failure.SourceError in
             guard case .sourceError(let e) = error.dematerializationError else {
                 preconditionFailure("Unhandled dematerialization error: \(error)")
