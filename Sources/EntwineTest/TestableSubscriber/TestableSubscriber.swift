@@ -83,10 +83,9 @@ public final class TestableSubscriber<Input, Failure: Error> {
     }
     
     func issueDemandCredit(_ demand: Subscribers.Demand) {
-        
         demandBalance += demand
         recordedDemandLog.append((scheduler.now, demandBalance, .credit(amount: demand)))
-        
+        guard demand > .none else { return }
         subscription?.request(demand)
     }
     
