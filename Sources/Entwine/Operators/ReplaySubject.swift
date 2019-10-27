@@ -81,7 +81,6 @@ extension ReplaySubject: Publisher {
             if let index = self.subscriptions.firstIndex(where: { subscriberIdentifier == $0.subscriberIdentifier }) {
                 self.subscriberIdentifiers.remove(subscriberIdentifier)
                 self.subscriptions.remove(at: index)
-                Swift.print("self.subscriptions: \(self.subscriptions.count)")
             }
         }
         subscriber.receive(subscription: subscription)
