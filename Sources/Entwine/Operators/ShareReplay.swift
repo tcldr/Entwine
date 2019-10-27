@@ -37,6 +37,6 @@ extension Publisher {
     /// - Returns: A class instance that republishes its upstream publisher and maintains a
     /// buffer of its latest values for replay to new subscribers
     public func share(replay maxBufferSize: Int) -> Publishers.Autoconnect<Publishers.Multicast<Self, ReplaySubject<Output, Failure>>> {
-        multicast { ReplaySubject<Output, Failure>(maxBufferSize: maxBufferSize) }.autoconnect()
+        multicast(subject: ReplaySubject<Output, Failure>(maxBufferSize: maxBufferSize)).autoconnect()
     }
 }

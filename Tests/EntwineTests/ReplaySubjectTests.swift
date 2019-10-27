@@ -238,6 +238,31 @@ final class ReplaySubjectTests: XCTestCase {
         scheduler.resume()
     }
     
+    func testReplaysValuesToNewSubscribersPostCompletion() {
+        
+        var subject: ReplaySubject<Int, Never>! = nil
+        
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject = ReplaySubject(maxBufferSize: 2) }
+        scheduler.schedule(after: 110) { subject.send(0) }
+        scheduler.schedule(after: 120) { subject.send(1) }
+        scheduler.schedule(after: 130) { subject.send(2) }
+        scheduler.schedule(after: 140) { subject.send(completion: .finished) }
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+        
+        scheduler.resume()
+        
+        let expected1: TestSequence<Int, Never> = [
+            (200, .subscription),
+            (200, .input(1)),
+            (200, .input(2)),
+            (200, .completion(.finished)),
+        ]
+        
+        XCTAssertEqual(expected1, results1.recordedOutput)
+    }
+    
     func testReplaysZeroValuesPassthroughSubjectControl() {
         
         var subject: PassthroughSubject<Int, Never>! = nil

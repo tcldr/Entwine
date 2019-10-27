@@ -34,18 +34,14 @@ public final class ReplaySubject<Output, Failure: Error> {
     
     typealias Sink = AnySubscriber<Output, Failure>
     
-    private enum Status { case active, completed }
-    
-    private var status = Status.active
     private var subscriptions = [ReplaySubjectSubscription<Sink>]()
     private var subscriberIdentifiers = Set<CombineIdentifier>()
     
-    private var buffer = [Output]()
     private var replayValues: ReplaySubjectValueBuffer<Output>
+    private var completion: Subscribers.Completion<Failure>?
     
-    var subscriptionCount: Int {
-        return subscriptions.count
-    }
+    private var isActive: Bool { completion == nil }
+    var subscriptionCount: Int { subscriptions.count }
     
     /// - Parameter maxBufferSize: The number of elements that should be buffered for
     /// replay to new subscribers
@@ -60,14 +56,15 @@ extension ReplaySubject: Publisher {
     
     public func receive<S : Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
         
-        guard status != .completed, !subscriberIdentifiers.contains(subscriber.combineIdentifier) else {
+        guard !subscriberIdentifiers.contains(subscriber.combineIdentifier) else {
             subscriber.receive(subscription: Subscriptions.empty)
             subscriber.receive(completion: .finished)
             return
         }
         
         let subscriberIdentifier = subscriber.combineIdentifier
-        let subscription = ReplaySubjectSubscription(sink: AnySubscriber(subscriber), replayedInputs: replayValues.buffer)
+        
+        let subscription = ReplaySubjectSubscription(sink: AnySubscriber(subscriber))
         
         // we use seperate collections for identifiers and subscriptions
         // to improve performance of identifier lookups and to keep the
@@ -84,9 +81,11 @@ extension ReplaySubject: Publisher {
             if let index = self.subscriptions.firstIndex(where: { subscriberIdentifier == $0.subscriberIdentifier }) {
                 self.subscriberIdentifiers.remove(subscriberIdentifier)
                 self.subscriptions.remove(at: index)
+                Swift.print("self.subscriptions: \(self.subscriptions.count)")
             }
         }
         subscriber.receive(subscription: subscription)
+        subscription.replayInputs(replayValues.buffer, completion: completion)
     }
 }
 
@@ -97,7 +96,7 @@ extension ReplaySubject: Subject {
     }
     
     public func send(_ value: Output) {
-        guard status == .active else { return }
+        guard isActive else { return }
         replayValues.addValueToBuffer(value)
         subscriptions.forEach { subscription in
             subscription.forwardValueToSink(value)
@@ -105,12 +104,11 @@ extension ReplaySubject: Subject {
     }
     
     public func send(completion: Subscribers.Completion<Failure>) {
-        guard status == .active else { return }
-        self.status = .completed
+        guard isActive else { return }
+        self.completion = completion
         subscriptions.forEach { subscription in
             subscription.forwardCompletionToSink(completion)
         }
-        subscriptions.removeAll()
     }
 }
 
@@ -121,10 +119,16 @@ fileprivate final class ReplaySubjectSubscription<Sink: Subscriber>: Subscriptio
     var cleanupHandler: (() -> Void)?
     let subscriberIdentifier: CombineIdentifier
     
-    init<ReplayedInputs: Sequence>(sink: Sink, replayedInputs: ReplayedInputs) where ReplayedInputs.Element == Sink.Input {
+    init(sink: Sink) {
         self.queue = SinkQueue(sink: sink)
         self.subscriberIdentifier = sink.combineIdentifier
-        replayedInputs.forEach { _ = queue.enqueue($0) }
+    }
+    
+    func replayInputs<ReplayedInputs: Sequence>(_ replayedInputs: ReplayedInputs, completion: Subscribers.Completion<Sink.Failure>?) where ReplayedInputs.Element == Sink.Input {
+        replayedInputs.forEach(forwardValueToSink)
+        if let completion = completion {
+            forwardCompletionToSink(completion)
+        }
     }
     
     func forwardValueToSink(_ value: Sink.Input) {
@@ -132,7 +136,7 @@ fileprivate final class ReplaySubjectSubscription<Sink: Subscriber>: Subscriptio
     }
     
     func forwardCompletionToSink(_ completion: Subscribers.Completion<Sink.Failure>) {
-        queue.expediteCompletion(completion)
+        _ = queue.enqueue(completion: completion)
     }
     
     func request(_ demand: Subscribers.Demand) {
