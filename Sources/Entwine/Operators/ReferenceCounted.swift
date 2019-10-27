@@ -27,7 +27,9 @@ import Combine
 // MARK: - Publisher
 
 extension Publishers {
-
+    
+    /// Automates the process of connecting to a multicast publisher. Connects when the first
+    /// subscriber connects then cancels and discards when the subscriber count falls to zero.
     public final class ReferenceCounted<Upstream: Publisher, SubjectType: Subject>: Publisher
         where Upstream.Output == SubjectType.Output, Upstream.Failure == SubjectType.Failure
     {
@@ -112,10 +114,11 @@ extension Publishers {
 
 extension Publishers.Multicast {
     
-    /// Automates the process of connecting to a connectable publisher.
+    /// Automates the process of connecting to a multicast publisher. Connects when the first
+    /// subscriber connects then cancels and discards when the subscriber count falls to zero.
     ///
-    /// - Returns: A publisher which automatically connects to its upstream connectable publisher.
-    func referenceCounted() -> Publishers.ReferenceCounted<Upstream, SubjectType> {
+    /// - Returns: A publisher which automatically connects to its upstream multicast publisher.
+    public func referenceCounted() -> Publishers.ReferenceCounted<Upstream, SubjectType> {
         .init(upstream: upstream, createSubject: createSubject)
     }
 }
