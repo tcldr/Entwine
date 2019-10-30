@@ -229,4 +229,62 @@ final class ShareReplayTests: XCTestCase {
         
         XCTAssertEqual(expected2, results2.recordedOutput)
     }
+    
+    func testPassesThroughInitialValueToFirstSubscriberOnly() {
+        
+        let passthrough = PassthroughSubject<Int, Never>()
+        let subject = passthrough.prepend(-1).share()
+
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        let results2 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject.subscribe(results1) }
+        scheduler.schedule(after: 110) { subject.subscribe(results2) }
+        scheduler.schedule(after: 200) { passthrough.send(0) }
+        scheduler.schedule(after: 210) { passthrough.send(1) }
+
+        scheduler.resume()
+        
+        let expected2: TestSequence<Int, Never> = [
+            (110, .subscription),
+            (200, .input( 0)),
+            (210, .input( 1)),
+        ]
+        
+        XCTAssertEqual(expected2, results2.recordedOutput)
+    }
+    
+    func testResetsWhenReferenceCountReachesZero() {
+
+        let passthrough = PassthroughSubject<Int, Never>()
+        let subject = passthrough.prepend(-1).share(replay: 2)
+
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        let results2 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject.subscribe(results1) }
+        scheduler.schedule(after: 110) { passthrough.send(0) }
+        scheduler.schedule(after: 200) { results1.cancel() }
+        scheduler.schedule(after: 200) { subject.subscribe(results2) }
+        scheduler.schedule(after: 300) { passthrough.send(5) }
+        scheduler.schedule(after: 310) { passthrough.send(6) }
+
+        scheduler.resume()
+        
+        let expected1: TestSequence<Int, Never> = [
+            (100, .subscription),
+            (100, .input(-1)),
+            (110, .input( 0)),
+        ]
+        
+        let expected2: TestSequence<Int, Never> = [
+            (200, .subscription),
+            (200, .input(-1)),
+            (300, .input( 5)),
+            (310, .input( 6)),
+        ]
+        
+        XCTAssertEqual(expected1, results1.recordedOutput)
+        XCTAssertEqual(expected2, results2.recordedOutput)
+    }
 }
