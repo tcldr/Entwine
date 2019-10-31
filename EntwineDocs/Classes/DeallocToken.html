@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Cancellable Extension Reference</title>
+    <title>DeallocToken Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Extension/Cancellable" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/DeallocToken" class="dashAnchor"></a>
 
-    <a title="Cancellable Extension Reference"></a>
+    <a title="DeallocToken Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">Entwine Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Cancellable Extension Reference
+      DeallocToken Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -133,15 +133,15 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>Cancellable</h1>
+            <h1>DeallocToken</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="kt">OSX</span> <span class="mf">10.15</span><span class="p">,</span> <span class="n">iOS</span> <span class="mf">13.0</span><span class="p">,</span> <span class="n">tvOS</span> <span class="mf">13.0</span><span class="p">,</span> <span class="n">watchOS</span> <span class="mf">6.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Cancellable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">DeallocToken</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>An object that notifies of its deallocation via a publisher sequence</p>
+
           </div>
         </section>
 
@@ -152,9 +152,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7Combine11CancellableP7EntwineE9cancelled2byyAD0B3BagC_tF"></a>
-                    <a name="//apple_ref/swift/Method/cancelled(by:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine11CancellableP7EntwineE9cancelled2byyAD0B3BagC_tF">cancelled(by:)</a>
+                    <a name="/s:7Entwine12DeallocTokenC9publisher7Combine12AnyPublisherVyyts5NeverOGvp"></a>
+                    <a name="//apple_ref/swift/Property/publisher" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Entwine12DeallocTokenC9publisher7Combine12AnyPublisherVyyts5NeverOGvp">publisher</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -162,14 +162,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Adds this cancellable to the passed <code>CancellationBag</code></p>
+                        <p>A publisher that, upon deallocation of the token, publishes a single element and then immediately completes.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">cancelled</span><span class="p">(</span><span class="n">by</span> <span class="nv">cancellationBag</span><span class="p">:</span> <span class="kt"><a href="../Classes/CancellableBag.html">CancellableBag</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">publisher</span><span class="p">:</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">(),</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

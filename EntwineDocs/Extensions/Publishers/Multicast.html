@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>WithLatestFrom Structure Reference</title>
+    <title>Multicast Extension Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/WithLatestFrom" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Extension/Multicast" class="dashAnchor"></a>
 
-    <a title="WithLatestFrom Structure Reference"></a>
+    <a title="Multicast Extension Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html">Entwine Reference</a>
       <img class="carat" src="../../img/carat.png" />
-      WithLatestFrom Structure Reference
+      Multicast Extension Reference
     </p>
 
     <div class="content-wrapper">
@@ -133,15 +133,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>WithLatestFrom</h1>
+            <h1>Multicast</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">WithLatestFrom</span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="p">,</span> <span class="kt">Other</span><span class="p">,</span> <span class="kt">Output</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Upstream</span> <span class="p">:</span> <span class="kt">Publisher</span><span class="p">,</span> <span class="kt">Other</span> <span class="p">:</span> <span class="kt">Publisher</span><span class="p">,</span> <span class="kt">Upstream</span><span class="o">.</span><span class="kt">Failure</span> <span class="o">==</span> <span class="kt">Other</span><span class="o">.</span><span class="kt">Failure</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Multicast</span></code></pre>
 
                 </div>
               </div>
-            <p>A publisher that combines the latest value from another publisher with each value from an upstream publisher</p>
-
+            
           </div>
         </section>
 
@@ -152,9 +151,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7Combine9PublisherP7FailureQa"></a>
-                    <a name="//apple_ref/swift/Alias/Failure" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7FailureQa">Failure</a>
+                    <a name="/s:7Combine10PublishersO9MulticastC7EntwineE16referenceCountedAcFE09ReferenceF0Cy_xq_GyF"></a>
+                    <a name="//apple_ref/swift/Method/referenceCounted()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine10PublishersO9MulticastC7EntwineE16referenceCountedAcFE09ReferenceF0Cy_xq_GyF">referenceCounted()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -162,41 +161,21 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Automates the process of connecting to a multicast publisher. Connects when the first
+subscriber connects then cancels and discards when the subscriber count falls to zero.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Failure</span> <span class="o">=</span> <span class="kt">Upstream</span><span class="o">.</span><span class="kt">Failure</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">referenceCounted</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/ReferenceCounted.html">ReferenceCounted</a></span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="p">,</span> <span class="kt">SubjectType</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF"></a>
-                    <a name="//apple_ref/swift/Method/receive(subscriber:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF">receive(subscriber:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">receive</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="k">where</span> <span class="kt">Output</span> <span class="o">==</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Input</span><span class="p">,</span> <span class="kt">S</span> <span class="p">:</span> <span class="kt">Subscriber</span><span class="p">,</span> <span class="kt">Other</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/WithLatestFrom.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span> <span class="o">==</span> <span class="kt">S</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/WithLatestFrom.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span></code></pre>
-
-                        </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher which automatically connects to its upstream multicast publisher.</p>
                       </div>
                     </section>
                   </div>

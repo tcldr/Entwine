@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Dematerialize Structure Reference</title>
+    <title>ReferenceCounted Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/Dematerialize" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/ReferenceCounted" class="dashAnchor"></a>
 
-    <a title="Dematerialize Structure Reference"></a>
+    <a title="ReferenceCounted Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html">Entwine Reference</a>
       <img class="carat" src="../../img/carat.png" />
-      Dematerialize Structure Reference
+      ReferenceCounted Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -133,31 +133,16 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>Dematerialize</h1>
+            <h1>ReferenceCounted</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Dematerialize</span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Upstream</span> <span class="p">:</span> <span class="kt">Publisher</span><span class="p">,</span> <span class="kt">Upstream</span><span class="o">.</span><span class="kt">Output</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/SignalConvertible.html">SignalConvertible</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ReferenceCounted</span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="p">:</span> <span class="kt">Publisher</span><span class="p">,</span> <span class="kt">SubjectType</span><span class="p">:</span> <span class="kt">Subject</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">Publisher</span>
+    <span class="k">where</span> <span class="kt">Upstream</span><span class="o">.</span><span class="kt">Output</span> <span class="o">==</span> <span class="kt">SubjectType</span><span class="o">.</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Upstream</span><span class="o">.</span><span class="kt">Failure</span> <span class="o">==</span> <span class="kt">SubjectType</span><span class="o">.</span><span class="kt">Failure</span></code></pre>
 
                 </div>
               </div>
-            <p>Converts a materialized publisher of <code><a href="../../Enums/Signal.html">Signal</a></code>s into the represented sequence. Fails on a malformed
-source sequence.</p>
-
-<p>Use this operator to convert a stream of <code><a href="../../Enums/Signal.html">Signal</a></code> values from an upstream publisher into
-its materially represented publisher type. Malformed sequences will fail with a
-<code><a href="../../Enums/DematerializationError.html">DematerializationError</a></code>.</p>
-
-<p>For each element:</p>
-
-<ul>
-<li><code>.subscription</code> elements are ignored</li>
-<li><code>.input(_)</code> elements are unwrapped and forwarded to the subscriber</li>
-<li><code>.completion(_)</code> elements are forwarded within the <code><a href="../../Enums/DematerializationError.html">DematerializationError</a></code> wrapper</li>
-</ul>
-
-<p>If the integrity of the upstream sequence can be guaranteed, applying the <code>assertNoDematerializationFailure()</code>
-operator to this publisher will force unwrap any errors and produce a publisher with a <code>Failure</code>
-type that matches the materially represented original sequence.</p>
+            <p>Automates the process of connecting to a multicast publisher. Connects when the first
+subscriber connects then cancels and discards when the subscriber count falls to zero.</p>
 
           </div>
         </section>
@@ -166,32 +151,6 @@ type that matches the materially represented original sequence.</p>
           <div class="section-content">
             <div class="task-group">
               <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine9PublisherP7FailureQa"></a>
-                    <a name="//apple_ref/swift/Alias/Failure" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7FailureQa">Failure</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Failure</span> <span class="o">=</span> <span class="kt"><a href="../../Enums/DematerializationError.html">DematerializationError</a></span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP6OutputQa">Output</a></span><span class="o">.</span><span class="kt">Failure</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -211,7 +170,33 @@ type that matches the materially represented original sequence.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Output</span> <span class="o">=</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">.</span><span class="kt">Output</span><span class="o">.</span><span class="kt">Input</span><span class="p">,</span> <span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Output</span> <span class="o">=</span> <span class="kt">Upstream</span><span class="o">.</span><span class="kt">Output</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP7FailureQa"></a>
+                    <a name="//apple_ref/swift/Alias/Failure" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7FailureQa">Failure</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Failure</span> <span class="o">=</span> <span class="kt">Upstream</span><span class="o">.</span><span class="kt">Failure</span></code></pre>
 
                         </div>
                       </div>
@@ -237,7 +222,7 @@ type that matches the materially represented original sequence.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">receive</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="k">where</span> <span class="kt">S</span> <span class="p">:</span> <span class="kt">Subscriber</span><span class="p">,</span> <span class="kt">S</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span> <span class="o">==</span> <span class="kt"><a href="../../Enums/DematerializationError.html">DematerializationError</a></span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP6OutputQa">Output</a></span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Input</span> <span class="o">==</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP6OutputQa">Output</a></span><span class="o">.</span><span class="kt">Input</span><span class="p">,</span> <span class="kt"><a href="../../Enums/DematerializationError.html">DematerializationError</a></span><span class="o">&lt;</span><span class="kt">Upstream</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP6OutputQa">Output</a></span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/Dematerialize.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span><span class="o">&gt;&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">receive</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">subscriber</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="k">where</span> <span class="kt">S</span> <span class="p">:</span> <span class="kt">Subscriber</span><span class="p">,</span> <span class="kt">SubjectType</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/ReferenceCounted.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span> <span class="o">==</span> <span class="kt">S</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/ReferenceCounted.html#/s:7Combine9PublisherP7FailureQa">Failure</a></span><span class="p">,</span> <span class="kt">SubjectType</span><span class="o">.</span><span class="kt"><a href="../../Extensions/Publishers/ReferenceCounted.html#/s:7Combine9PublisherP6OutputQa">Output</a></span> <span class="o">==</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Input</span></code></pre>
 
                         </div>
                       </div>

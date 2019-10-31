@@ -1,145 +1,145 @@
 {
   "warnings": [
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/Deprecations.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/Deprecations.swift",
       "line": 28,
       "symbol": "TestableSubscriber.sequence",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/Deprecations.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/Deprecations.swift",
       "line": 31,
       "symbol": "TestableSubscriber.demands",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestEvent.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestEvent.swift",
       "line": 45,
       "symbol": "TestEvent",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/TestScheduler.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/TestScheduler.swift",
       "line": 55,
       "symbol": "TestScheduler.Configuration.default",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTime.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTime.swift",
       "line": 34,
       "symbol": "VirtualTime.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 34,
       "symbol": "VirtualTimeInterval.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 101,
       "symbol": "VirtualTimeInterval.seconds(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 105,
       "symbol": "VirtualTimeInterval.seconds(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 109,
       "symbol": "VirtualTimeInterval.milliseconds(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 113,
       "symbol": "VirtualTimeInterval.microseconds(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 117,
       "symbol": "VirtualTimeInterval.nanoseconds(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 126,
       "symbol": "VirtualTimeInterval.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 130,
       "symbol": "VirtualTimeInterval.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 134,
       "symbol": "VirtualTimeInterval.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 138,
       "symbol": "VirtualTimeInterval.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 142,
       "symbol": "VirtualTimeInterval.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 146,
       "symbol": "VirtualTimeInterval.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestableSubscriber/DemandLedger.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestableSubscriber/DemandLedger.swift",
       "line": 40,
       "symbol": "DemandLedger.Transaction.credit(amount:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestableSubscriber/DemandLedger.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestableSubscriber/DemandLedger.swift",
       "line": 41,
       "symbol": "DemandLedger.Transaction.debit(authorized:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestableSubscriber/TestableSubscriber.swift",
+      "file": "/Users/tristan/Development/library/EntwineDocs/Entwine/Sources/EntwineTest/TestableSubscriber/TestableSubscriber.swift",
       "line": 61,
       "symbol": "TestableSubscriber.Sequence",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Volumes/Macintosh HD/Users/tristan/Development/library/EntwineDocs"
+  "source_directory": "/Users/tristan/Development/library/EntwineDocs"
 }
