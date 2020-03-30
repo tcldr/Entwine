@@ -107,7 +107,7 @@ scheduler.resume()
 //    time: 220 - Mi
 //    time: 230 - Fa
 ```
-Notice how the events events scheduled by the relative publisher fired _after_ the events scheduled by the absolute publisher. As we had set the time of our scheduler to `200` in its initializer, when we subscribed to our relative publisher with the `sink(_:)` method, our publisher took the current time and added that value to each scheduled event.
+Notice how the events scheduled by the relative publisher fired _after_ the events scheduled by the absolute publisher. As we had set the time of our scheduler to `200` in its initializer, when we subscribed to our relative publisher with the `sink(_:)` method, our publisher took the current time and added that value to each scheduled event.
 
 ### `TestableSubscriber`:
 
