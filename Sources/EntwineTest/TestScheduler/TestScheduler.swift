@@ -81,7 +81,7 @@ public class TestScheduler {
     /// - Returns: A `TestableSubscriber` that contains, or is scheduled to contain, the output of the publisher subscription.
     public func start<P: Publisher>(configuration: Configuration = .default, create: @escaping () -> P) -> TestableSubscriber<P.Output, P.Failure> {
         
-        var subscriber = createTestableSubscriber(P.Output.self, P.Failure.self, options: configuration.subscriberOptions)
+        let subscriber = createTestableSubscriber(P.Output.self, P.Failure.self, options: configuration.subscriberOptions)
         var source: AnyPublisher<P.Output, P.Failure>!
         
         schedule(after: configuration.created, tolerance: minimumTolerance, options: nil) {
