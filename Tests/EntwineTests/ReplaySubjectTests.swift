@@ -451,6 +451,28 @@ final class ReplaySubjectTests: XCTestCase {
         
         XCTAssertEqual(results2.recordedOutput, results1.recordedOutput)
     }
+    
+    func testDuplicateSubscriptionMatchesControl() {
+        
+        var subject: ReplaySubject<Int, Never>! = nil
+        var control: PassthroughSubject<Int, Never>! = nil
+        
+        let results1 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        let results2 = scheduler.createTestableSubscriber(Int.self, Never.self)
+        
+        scheduler.schedule(after: 100) { subject = ReplaySubject(maxBufferSize: 1) }
+        scheduler.schedule(after: 100) { control = PassthroughSubject() }
+        scheduler.schedule(after: 200) { subject.subscribe(results1) }
+        scheduler.schedule(after: 200) { control.subscribe(results2) }
+        scheduler.schedule(after: 300) { subject.subscribe(results1) }
+        scheduler.schedule(after: 300) { control.subscribe(results2) }
+        scheduler.schedule(after: 400) { subject = nil }
+        scheduler.schedule(after: 400) { control = nil }
+        
+        scheduler.resume()
+        
+        XCTAssertEqual(results2.recordedOutput, results1.recordedOutput)
+    }
 
     func testSendSubscriptionInitialDemandUnlimitedBehaviorMatchesControl() {
         

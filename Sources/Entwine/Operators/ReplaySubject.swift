@@ -58,7 +58,6 @@ extension ReplaySubject: Publisher {
         
         guard !subscriberIdentifiers.contains(subscriber.combineIdentifier) else {
             subscriber.receive(subscription: Subscriptions.empty)
-            subscriber.receive(completion: .finished)
             return
         }
         
