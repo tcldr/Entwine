@@ -21,7 +21,6 @@ _Entwine Utilities_ are a collection of operators, tools and extensions to make 
 - The `ReplaySubject` makes it simple for subscribers to receive the most recent values immediately upon subscription.
 - The `withLatest(from:)` operator enables state to be taken alongside UI events.
 - `Publishers.Factory` makes creating publishers fast and simple – they can even be created inline!
-- `CancellableBag` helps to gather all your cancellable in a single place and helps to make your publisher chain declarations even clearer.
 
 be sure to checkout the [documentation](http://tcldr.github.io/Entwine/EntwineDocs) for the full list of operators and utilities.
 

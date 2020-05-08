@@ -1,7 +1,7 @@
 //
 //  Entwine
 //  https://github.com/tcldr/Entwine
-//  
+//
 //  Copyright © 2019 Tristan Celder. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,30 +24,5 @@
 
 import Combine
 
-/// A container for cancellables that will be cancelled when the bag is deallocated or cancelled itself
-public final class CancellableBag: Cancellable {
-    
-    public init() {}
-    
-    private var cancellables = [AnyCancellable]()
-    
-    /// Adds a cancellable to the bag which will have its `.cancel()` method invoked
-    /// when the bag is deallocated or cancelled itself
-    public func add<C: Cancellable>(_ cancellable: C) {
-        cancellables.append(AnyCancellable { cancellable.cancel() })
-    }
-    
-    /// Empties the bag and cancels each contained item
-    public func cancel() {
-        cancellables.removeAll()
-    }
-}
-
-// MARK: - Cancellable extension
-
-public extension Cancellable {
-    /// Adds this cancellable to the passed `CancellationBag`
-    func cancelled(by cancellationBag: CancellableBag) {
-        cancellationBag.add(self)
-    }
-}
+@available(*, deprecated, message: "Replace with mutable Set<AnyCancellable>")
+public typealias CancellationBag = Set<AnyCancellable>
