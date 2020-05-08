@@ -35,8 +35,6 @@ public final class ReplaySubject<Output, Failure: Error> {
     typealias Sink = AnySubscriber<Output, Failure>
     
     private var subscriptions = [ReplaySubjectSubscription<Sink>]()
-    private var subscriberIdentifiers = Set<CombineIdentifier>()
-    
     private var replayValues: ReplaySubjectValueBuffer<Output>
     private var completion: Subscribers.Completion<Failure>?
     
@@ -55,32 +53,13 @@ public final class ReplaySubject<Output, Failure: Error> {
 extension ReplaySubject: Publisher {
     
     public func receive<S : Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
-        
-        guard !subscriberIdentifiers.contains(subscriber.combineIdentifier) else {
-            subscriber.receive(subscription: Subscriptions.empty)
-            return
-        }
-        
         let subscriberIdentifier = subscriber.combineIdentifier
-        
         let subscription = ReplaySubjectSubscription(sink: AnySubscriber(subscriber))
-        
-        // we use seperate collections for identifiers and subscriptions
-        // to improve performance of identifier lookups and to keep the
-        // order in which subscribers are signalled to be in the order that
-        // they intially subscribed.
-        
-        subscriberIdentifiers.insert(subscriberIdentifier)
         subscriptions.append(subscription)
-        
         subscription.cleanupHandler = { [weak self] in
-            
-            guard let self = self else { return }
-            
-            if let index = self.subscriptions.firstIndex(where: { subscriberIdentifier == $0.subscriberIdentifier }) {
-                self.subscriberIdentifiers.remove(subscriberIdentifier)
-                self.subscriptions.remove(at: index)
-            }
+            let firstIndex = self?.subscriptions.firstIndex { subscriberIdentifier == $0.subscriberIdentifier }
+            guard let index = firstIndex else { return }
+            self?.subscriptions.remove(at: index)
         }
         subscriber.receive(subscription: subscription)
         subscription.replayInputs(replayValues.buffer, completion: completion)

@@ -169,7 +169,6 @@ final class ReplaySubjectTests: XCTestCase {
         scheduler.schedule(after: 600) { subject.send(0) }
         scheduler.schedule(after: 700) { subject.send(completion: .finished) }
 
-
         scheduler.resume()
         
         let expected1: TestSequence<Int, Never> = [
