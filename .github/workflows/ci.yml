@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Set up Environment
+        run: |
+          workflowsPath=${{ github.workspace }}/.github/workflows
+          echo "::set-env name=workflows_path::$workflowsPath"
+          
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Build
+        run: |
+            make build -C ${{ github.workspace }} 2>&1 \
+                | ${{ env.workflows_path }}/ci-step-build.awk \
+                    -v prefix=${{ github.workspace }}
+                    
+      - name: Run Tests
+        run: |
+            make test -C ${{ github.workspace }} 2>&1 \
+                | ${{ env.workflows_path }}/ci-step-test.awk \
+                    -v prefix=${{ github.workspace }}
+
