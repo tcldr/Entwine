@@ -22,20 +22,6 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EntwineTest"
-               BuildableName = "EntwineTest"
-               BlueprintName = "EntwineTest"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
@@ -45,20 +31,6 @@
                BlueprintIdentifier = "EntwineTests"
                BuildableName = "EntwineTests"
                BlueprintName = "EntwineTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EntwineTestTests"
-               BuildableName = "EntwineTestTests"
-               BlueprintName = "EntwineTestTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -77,16 +49,6 @@
                BlueprintIdentifier = "EntwineTests"
                BuildableName = "EntwineTests"
                BlueprintName = "EntwineTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EntwineTestTests"
-               BuildableName = "EntwineTestTests"
-               BlueprintName = "EntwineTestTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
