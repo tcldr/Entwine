@@ -1,6 +1,8 @@
 
 
 # [Entwine](https://github.com/tcldr/Entwine)
+![CI](https://github.com/tcldr/Entwine/workflows/CI/badge.svg)
+[![@tcldr1](https://img.shields.io/static/v1?label=&message=@tcldr1&color=1DA1F2&logo=twitter&labelColor=24292e)](https;//twitter.com/tcldr1)
 
 Accessories for [Apple's Combine Framework](https://developer.apple.com/documentation/combine).
 
