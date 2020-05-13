@@ -3,7 +3,7 @@ update-docs: generate-docs publish-docs
 generate-docs: generate-entwine-docs generate-entwine-rx-docs
 
 publish-docs:
-	git add . && git commit -am "auto-publish docs" && git push
+	git add -A && git commit -m "auto-publish docs" && git push
 		
 generate-entwine-docs:
 	git clone https://github.com/tcldr/Entwine && \
