@@ -6,6 +6,7 @@ on:
 
 jobs:
   publish-docs:
+    name: Publish Docs
     runs-on: macos-latest
 
     steps:
