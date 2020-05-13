@@ -103,7 +103,7 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             <h1>Structures</h1>
             <p>The following structures are available globally.</p>
 
@@ -116,9 +116,11 @@
               <div class="task-name-container">
                 <a name="/VirtualTime%20value%20definition"></a>
                 <a name="//apple_ref/swift/Section/VirtualTime value definition" class="dashAnchor"></a>
-                <a href="#/VirtualTime%20value%20definition">
-                  <h3 class="section-name">VirtualTime value definition</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/VirtualTime%20value%20definition"></a>
+                  <h3 class="section-name"><p>VirtualTime value definition</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -143,6 +145,10 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">VirtualTime</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">VirtualTime</span><span class="p">:</span> <span class="kt">SignedNumeric</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">VirtualTime</span><span class="p">:</span> <span class="kt">Strideable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">VirtualTime</span><span class="p">:</span> <span class="kt">ExpressibleByIntegerLiteral</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">VirtualTime</span><span class="p">:</span> <span class="kt">CustomDebugStringConvertible</span></code></pre>
 
                         </div>
                       </div>
@@ -155,9 +161,11 @@
               <div class="task-name-container">
                 <a name="/VirtualTimeInterval%20value%20definition"></a>
                 <a name="//apple_ref/swift/Section/VirtualTimeInterval value definition" class="dashAnchor"></a>
-                <a href="#/VirtualTimeInterval%20value%20definition">
-                  <h3 class="section-name">VirtualTimeInterval value definition</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/VirtualTimeInterval%20value%20definition"></a>
+                  <h3 class="section-name"><p>VirtualTimeInterval value definition</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -182,6 +190,10 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">VirtualTimeInterval</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">VirtualTimeInterval</span><span class="p">:</span> <span class="kt">SignedNumeric</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">VirtualTimeInterval</span><span class="p">:</span> <span class="kt">Comparable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">VirtualTimeInterval</span><span class="p">:</span> <span class="kt">ExpressibleByIntegerLiteral</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">VirtualTimeInterval</span><span class="p">:</span> <span class="kt">SchedulerTimeIntervalConvertible</span></code></pre>
 
                         </div>
                       </div>
@@ -194,9 +206,11 @@
               <div class="task-name-container">
                 <a name="/TestSequence%20definition"></a>
                 <a name="//apple_ref/swift/Section/TestSequence definition" class="dashAnchor"></a>
-                <a href="#/TestSequence%20definition">
-                  <h3 class="section-name">TestSequence definition</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/TestSequence%20definition"></a>
+                  <h3 class="section-name"><p>TestSequence definition</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -221,6 +235,10 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TestSequence</span><span class="o">&lt;</span><span class="kt">Input</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Failure</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TestSequence</span><span class="p">:</span> <span class="kt">Sequence</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TestSequence</span><span class="p">:</span> <span class="kt">RangeReplaceableCollection</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TestSequence</span><span class="p">:</span> <span class="kt">ExpressibleByArrayLiteral</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TestSequence</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Input</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Failure</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -233,9 +251,11 @@
               <div class="task-name-container">
                 <a name="/Publisher%20definition"></a>
                 <a name="//apple_ref/swift/Section/Publisher definition" class="dashAnchor"></a>
-                <a href="#/Publisher%20definition">
-                  <h3 class="section-name">Publisher definition</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Publisher%20definition"></a>
+                  <h3 class="section-name"><p>Publisher definition</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -274,9 +294,11 @@
               <div class="task-name-container">
                 <a name="/TestSequence%20definition2"></a>
                 <a name="//apple_ref/swift/Section/TestSequence definition" class="dashAnchor"></a>
-                <a href="#/TestSequence%20definition2">
-                  <h3 class="section-name">TestSequence definition</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/TestSequence%20definition2"></a>
+                  <h3 class="section-name"><p>TestSequence definition</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -303,6 +325,10 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DemandLedger</span><span class="o">&lt;</span><span class="kt">Time</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Time</span> <span class="p">:</span> <span class="kt">Strideable</span><span class="p">,</span> <span class="kt">Time</span><span class="o">.</span><span class="kt">Stride</span> <span class="p">:</span> <span class="kt">SchedulerTimeIntervalConvertible</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DemandLedger</span><span class="p">:</span> <span class="kt">Sequence</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DemandLedger</span><span class="p">:</span> <span class="kt">RangeReplaceableCollection</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DemandLedger</span><span class="p">:</span> <span class="kt">ExpressibleByArrayLiteral</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DemandLedger</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -315,9 +341,11 @@
               <div class="task-name-container">
                 <a name="/TestableSubscriberOptions%20value%20definition"></a>
                 <a name="//apple_ref/swift/Section/TestableSubscriberOptions value definition" class="dashAnchor"></a>
-                <a href="#/TestableSubscriberOptions%20value%20definition">
-                  <h3 class="section-name">TestableSubscriberOptions value definition</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/TestableSubscriberOptions%20value%20definition"></a>
+                  <h3 class="section-name"><p>TestableSubscriberOptions value definition</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -356,8 +384,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-10-31)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2020-05-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

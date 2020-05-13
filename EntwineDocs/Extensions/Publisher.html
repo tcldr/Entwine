@@ -85,9 +85,6 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/Cancellable.html">Cancellable</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Publisher.html">Publisher</a>
               </li>
               <li class="nav-group-task">
@@ -132,12 +129,13 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             <h1>Publisher</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="kt">OSX</span> <span class="mf">10.15</span><span class="p">,</span> <span class="n">iOS</span> <span class="mf">13.0</span><span class="p">,</span> <span class="n">tvOS</span> <span class="mf">13.0</span><span class="p">,</span> <span class="n">watchOS</span> <span class="mf">6.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
-<span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SignalConvertible.html">SignalConvertible</a></span><span class="p">,</span> <span class="kt">Failure</span> <span class="o">==</span> <span class="kt">Never</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Publisher</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Output</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SignalConvertible.html">SignalConvertible</a></span><span class="p">,</span> <span class="kt">Failure</span> <span class="o">==</span> <span class="kt">Never</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Publisher</span> <span class="k">where</span> <span class="kt">Failure</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DematerializationErrorConvertible.html">DematerializationErrorConvertible</a></span></code></pre>
 
                 </div>
               </div>
@@ -147,103 +145,6 @@
 
         <section class="section">
           <div class="section-content">
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine9PublisherP7Entwines5NeverO7FailureRtzAD17SignalConvertible6OutputRpzrlE13dematerializeAA10PublishersO7FlatMapVy_AA03AnyB0VyAJ_5InputQZAD22DematerializationErrorOyAJ_AGQZGGAnDE13DematerializeVy_xGGyF"></a>
-                    <a name="//apple_ref/swift/Method/dematerialize()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7Entwines5NeverO7FailureRtzAD17SignalConvertible6OutputRpzrlE13dematerializeAA10PublishersO7FlatMapVy_AA03AnyB0VyAJ_5InputQZAD22DematerializationErrorOyAJ_AGQZGGAnDE13DematerializeVy_xGGyF">dematerialize()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Converts a materialized upstream publisher of <code><a href="../Enums/Signal.html">Signal</a></code>s into the represented sequence. Fails on
-a malformed source sequence.</p>
-
-<p>Use this operator to convert a stream of <code><a href="../Enums/Signal.html">Signal</a></code> values from an upstream publisher into
-its materially represented publisher type. Malformed sequences will fail with a
-<code><a href="../Enums/DematerializationError.html">DematerializationError</a></code>.</p>
-
-<p>For each element:</p>
-
-<ul>
-<li><code>.subscription</code> elements are ignored</li>
-<li><code>.input(_)</code> elements are unwrapped and forwarded to the subscriber</li>
-<li><code>.completion(_)</code> elements are forwarded within the <code><a href="../Enums/DematerializationError.html">DematerializationError</a></code> wrapper</li>
-</ul>
-
-<p>If the integrity of the upstream sequence can be guaranteed, use the <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP7EntwineAD33DematerializationErrorConvertible7FailureRpzrlE08assertNodG0AA10PublishersO03MapE0Vy_xAF_06SourceE0AdEPQZGyF">assertNoDematerializationFailure()</a></code>
-operator immediately following this one to force unwrap any errors and produce a publisher with a <code>Failure</code>
-type that matches the materially represented original sequence.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dematerialize</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">FlatMap</span><span class="o">&lt;</span><span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="o">.</span><span class="kt">Input</span><span class="p">,</span> <span class="kt"><a href="../Enums/DematerializationError.html">DematerializationError</a></span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="o">.</span><span class="kt">Failure</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Dematerialize</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">&gt;&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A publisher that materializes an upstream publisher of <code><a href="../Enums/Signal.html">Signal</a></code>s into the represented
-sequence.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7Combine9PublisherP7EntwineAD33DematerializationErrorConvertible7FailureRpzrlE08assertNodG0AA10PublishersO03MapE0Vy_xAF_06SourceE0AdEPQZGyF"></a>
-                    <a name="//apple_ref/swift/Method/assertNoDematerializationFailure()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7EntwineAD33DematerializationErrorConvertible7FailureRpzrlE08assertNodG0AA10PublishersO03MapE0Vy_xAF_06SourceE0AdEPQZGyF">assertNoDematerializationFailure()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Force unwraps the errors of a dematerialized publisher to return a publisher that matches that of
-the materially represented original sequence</p>
-
-<p>When using the <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP7Entwines5NeverO7FailureRtzAD17SignalConvertible6OutputRpzrlE13dematerializeAA10PublishersO7FlatMapVy_AA03AnyB0VyAJ_5InputQZAD22DematerializationErrorOyAJ_AGQZGGAnDE13DematerializeVy_xGGyF">dematerialize()</a></code> operator the publisher returned has a <code>Failure</code> type of
-<code><a href="../Enums/DematerializationError.html">DematerializationError</a></code> to account for the possibility of a malformed <code><a href="../Enums/Signal.html">Signal</a></code> sequence.</p>
-
-<p>If the integrity of the upstream sequence can be guaranteed, use this operator to force unwrap the
-errors to produce a publisher with a <code>Failure</code> type that matches the materially represented original
-sequence.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">assertNoDematerializationFailure</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">MapError</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">.</span><span class="kt">SourceError</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A publisher with a <code>Failure</code> type that matches that of the materially represented original
-sequence</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
             <div class="task-group">
               <ul class="item-container">
                 <li class="item">
@@ -279,16 +180,12 @@ subscription and completion events, into <code><a href="../Enums/Signal.html">Si
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
                     <a name="/s:7Combine9PublisherP7EntwineE5share6replayAA10PublishersOADE16ReferenceCountedCy_xAD13ReplaySubjectCy6OutputQz7FailureQzGGSi_tF"></a>
                     <a name="//apple_ref/swift/Method/share(replay:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE5share6replayAA10PublishersOADE16ReferenceCountedCy_xAD13ReplaySubjectCy6OutputQz7FailureQzGGSi_tF">share(replay:)</a>
+                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE5share6replayAA10PublishersOADE16ReferenceCountedCy_xAD13ReplaySubjectCy6OutputQz7FailureQzGGSi_tF">share(replay:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -343,13 +240,22 @@ buffer of its latest values for replay to new subscribers</p>
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Operator"></a>
+                <a name="//apple_ref/swift/Section/Operator" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Operator"></a>
+                  <h3 class="section-name"><p>Operator</p>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
                     <a name="/s:7Combine9PublisherP7EntwineE8signpost13configurationAA10PublishersOADE8SignpostVy_xGAhDE0G13ConfigurationV_tF"></a>
                     <a name="//apple_ref/swift/Method/signpost(configuration:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE8signpost13configurationAA10PublishersOADE8SignpostVy_xGAhDE0G13ConfigurationV_tF">signpost(configuration:)</a>
+                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE8signpost13configurationAA10PublishersOADE8SignpostVy_xGAhDE0G13ConfigurationV_tF">signpost(configuration:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -398,16 +304,12 @@ initializer for detailed options.</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
                     <a name="/s:7Combine9PublisherP7EntwineE10withLatest4from9transformAA10PublishersOADE04WithE4FromVy_xqd_0_qd__Gqd_0__qd__6OutputQz_AMQyd_0_tctAaBRd_0_7FailureQyd_0_APRtzr0_lF"></a>
                     <a name="//apple_ref/swift/Method/withLatest(from:transform:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE10withLatest4from9transformAA10PublishersOADE04WithE4FromVy_xqd_0_qd__Gqd_0__qd__6OutputQz_AMQyd_0_tctAaBRd_0_7FailureQyd_0_APRtzr0_lF">withLatest(from:transform:)</a>
+                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE10withLatest4from9transformAA10PublishersOADE04WithE4FromVy_xqd_0_qd__Gqd_0__qd__6OutputQz_AMQyd_0_tctAaBRd_0_7FailureQyd_0_APRtzr0_lF">withLatest(from:<wbr>transform:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -423,7 +325,7 @@ publisher.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">withLatest</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt">P</span><span class="p">:</span> <span class="kt">Publisher</span><span class="o">&gt;</span><span class="p">(</span><span class="n">from</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">P</span><span class="p">,</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">P</span><span class="o">.</span><span class="kt">Output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">WithLatestFrom</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">P</span><span class="p">,</span> <span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">P</span><span class="o">.</span><span class="kt">Failure</span> <span class="o">==</span> <span class="kt">Failure</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">withLatest</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt">P</span><span class="o">&gt;</span><span class="p">(</span><span class="n">from</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">P</span><span class="p">,</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">P</span><span class="o">.</span><span class="kt">Output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">WithLatestFrom</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">P</span><span class="p">,</span> <span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">P</span> <span class="p">:</span> <span class="kt">Publisher</span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Failure</span> <span class="o">==</span> <span class="kt">P</span><span class="o">.</span><span class="kt">Failure</span></code></pre>
 
                         </div>
                       </div>
@@ -472,7 +374,7 @@ value from this publisher</p>
                     <code>
                     <a name="/s:7Combine9PublisherP7EntwineE10withLatest4fromAA10PublishersOADE04WithE4FromVy_xqd__6OutputQyd__Gqd___tAaBRd__7FailureQyd__ANRtzlF"></a>
                     <a name="//apple_ref/swift/Method/withLatest(from:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE10withLatest4fromAA10PublishersOADE04WithE4FromVy_xqd__6OutputQyd__Gqd___tAaBRd__7FailureQyd__ANRtzlF">withLatest(from:)</a>
+                    <a class="token" href="#/s:7Combine9PublisherP7EntwineE10withLatest4fromAA10PublishersOADE04WithE4FromVy_xqd__6OutputQyd__Gqd___tAaBRd__7FailureQyd__ANRtzlF">withLatest(from:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -521,14 +423,129 @@ this publisher produces an element</p>
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Output%60:%20%60SignalConvertible%60,%20%60Failure%60%20==%20%60Never%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Output`: `SignalConvertible`, `Failure` == `Never`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Output%60:%20%60SignalConvertible%60,%20%60Failure%60%20==%20%60Never%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Output</code>: <code><a href="../Protocols/SignalConvertible.html">SignalConvertible</a></code>, <code>Failure</code> == <code>Never</code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP7Entwines5NeverO7FailureRtzAD17SignalConvertible6OutputRpzrlE13dematerializeAA10PublishersO7FlatMapVy_AA03AnyB0VyAJ_5InputQZAD22DematerializationErrorOyAJ_AGQZGGAnDE13DematerializeVy_xGGyF"></a>
+                    <a name="//apple_ref/swift/Method/dematerialize()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7Entwines5NeverO7FailureRtzAD17SignalConvertible6OutputRpzrlE13dematerializeAA10PublishersO7FlatMapVy_AA03AnyB0VyAJ_5InputQZAD22DematerializationErrorOyAJ_AGQZGGAnDE13DematerializeVy_xGGyF">dematerialize()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Converts a materialized upstream publisher of <code><a href="../Enums/Signal.html">Signal</a></code>s into the represented sequence. Fails on
+a malformed source sequence.</p>
+
+<p>Use this operator to convert a stream of <code><a href="../Enums/Signal.html">Signal</a></code> values from an upstream publisher into
+its materially represented publisher type. Malformed sequences will fail with a
+<code><a href="../Enums/DematerializationError.html">DematerializationError</a></code>.</p>
+
+<p>For each element:</p>
+
+<ul>
+<li><code>.subscription</code> elements are ignored</li>
+<li><code>.input(_)</code> elements are unwrapped and forwarded to the subscriber</li>
+<li><code>.completion(_)</code> elements are forwarded within the <code><a href="../Enums/DematerializationError.html">DematerializationError</a></code> wrapper</li>
+</ul>
+
+<p>If the integrity of the upstream sequence can be guaranteed, use the <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP7EntwineAD33DematerializationErrorConvertible7FailureRpzrlE08assertNodG0AA10PublishersO03MapE0Vy_xAF_06SourceE0AdEPQZGyF">assertNoDematerializationFailure()</a></code>
+operator immediately following this one to force unwrap any errors and produce a publisher with a <code>Failure</code>
+type that matches the materially represented original sequence.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dematerialize</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">FlatMap</span><span class="o">&lt;</span><span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="o">.</span><span class="kt">Input</span><span class="p">,</span> <span class="kt"><a href="../Enums/DematerializationError.html">DematerializationError</a></span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Output</span><span class="o">.</span><span class="kt">Failure</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">Dematerialize</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">&gt;&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher that materializes an upstream publisher of <code><a href="../Enums/Signal.html">Signal</a></code>s into the represented
+sequence.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Failure%60:%20%60DematerializationErrorConvertible%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Failure`: `DematerializationErrorConvertible`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Failure%60:%20%60DematerializationErrorConvertible%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Failure</code>: <code><a href="../Protocols/DematerializationErrorConvertible.html">DematerializationErrorConvertible</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Combine9PublisherP7EntwineAD33DematerializationErrorConvertible7FailureRpzrlE08assertNodG0AA10PublishersO03MapE0Vy_xAF_06SourceE0AdEPQZGyF"></a>
+                    <a name="//apple_ref/swift/Method/assertNoDematerializationFailure()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Combine9PublisherP7EntwineAD33DematerializationErrorConvertible7FailureRpzrlE08assertNodG0AA10PublishersO03MapE0Vy_xAF_06SourceE0AdEPQZGyF">assertNoDematerializationFailure()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Force unwraps the errors of a dematerialized publisher to return a publisher that matches that of
+the materially represented original sequence</p>
+
+<p>When using the <code><a href="../Extensions/Publisher.html#/s:7Combine9PublisherP7Entwines5NeverO7FailureRtzAD17SignalConvertible6OutputRpzrlE13dematerializeAA10PublishersO7FlatMapVy_AA03AnyB0VyAJ_5InputQZAD22DematerializationErrorOyAJ_AGQZGGAnDE13DematerializeVy_xGGyF">dematerialize()</a></code> operator the publisher returned has a <code>Failure</code> type of
+<code><a href="../Enums/DematerializationError.html">DematerializationError</a></code> to account for the possibility of a malformed <code><a href="../Enums/Signal.html">Signal</a></code> sequence.</p>
+
+<p>If the integrity of the upstream sequence can be guaranteed, use this operator to force unwrap the
+errors to produce a publisher with a <code>Failure</code> type that matches the materially represented original
+sequence.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">assertNoDematerializationFailure</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Publishers</span><span class="o">.</span><span class="kt">MapError</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">.</span><span class="kt">SourceError</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A publisher with a <code>Failure</code> type that matches that of the materially represented original
+sequence</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-10-31)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2020-05-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

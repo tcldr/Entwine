@@ -85,9 +85,6 @@
             <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/Cancellable.html">Cancellable</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/Publisher.html">Publisher</a>
               </li>
               <li class="nav-group-task">
@@ -132,7 +129,7 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             <h1>Enumerations</h1>
             <p>The following enumerations are available globally.</p>
 
@@ -145,9 +142,11 @@
               <div class="task-name-container">
                 <a name="/Errors"></a>
                 <a name="//apple_ref/swift/Section/Errors" class="dashAnchor"></a>
-                <a href="#/Errors">
-                  <h3 class="section-name">Errors</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Errors"></a>
+                  <h3 class="section-name"><p>Errors</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -175,6 +174,8 @@ the error using the <code>assertNoDematerializationFailure()</code> operator</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">DematerializationError</span><span class="o">&lt;</span><span class="kt">SourceError</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Error</span> <span class="k">where</span> <span class="kt">SourceError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DematerializationError</span><span class="p">:</span> <span class="kt"><a href="Protocols/DematerializationErrorConvertible.html">DematerializationErrorConvertible</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DematerializationError</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">SourceError</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -187,9 +188,11 @@ the error using the <code>assertNoDematerializationFailure()</code> operator</p>
               <div class="task-name-container">
                 <a name="/Signal%20value%20definition"></a>
                 <a name="//apple_ref/swift/Section/Signal value definition" class="dashAnchor"></a>
-                <a href="#/Signal%20value%20definition">
-                  <h3 class="section-name">Signal value definition</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Signal%20value%20definition"></a>
+                  <h3 class="section-name"><p>Signal value definition</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -222,6 +225,8 @@ the error using the <code>assertNoDematerializationFailure()</code> operator</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Signal</span><span class="o">&lt;</span><span class="kt">Input</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Failure</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Signal</span><span class="p">:</span> <span class="kt"><a href="Protocols/SignalConvertible.html">SignalConvertible</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Signal</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Input</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Failure</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -236,8 +241,8 @@ the error using the <code>assertNoDematerializationFailure()</code> operator</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-10-31)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2020-05-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

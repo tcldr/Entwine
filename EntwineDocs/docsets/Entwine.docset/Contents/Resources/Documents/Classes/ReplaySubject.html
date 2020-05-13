@@ -85,9 +85,6 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/Cancellable.html">Cancellable</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Publisher.html">Publisher</a>
               </li>
               <li class="nav-group-task">
@@ -132,11 +129,13 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             <h1>ReplaySubject</h1>
               <div class="declaration">
                 <div class="language">
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ReplaySubject</span><span class="o">&lt;</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Failure</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Failure</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ReplaySubject</span><span class="p">:</span> <span class="kt">Publisher</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ReplaySubject</span><span class="p">:</span> <span class="kt">Subject</span></code></pre>
 
                 </div>
               </div>
@@ -159,7 +158,7 @@ to receive the most recent previous elements in addition to all future elements.
                     <code>
                     <a name="/s:7Entwine13ReplaySubjectC13maxBufferSizeACyxq_GSi_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(maxBufferSize:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Entwine13ReplaySubjectC13maxBufferSizeACyxq_GSi_tcfc">init(maxBufferSize:)</a>
+                    <a class="token" href="#/s:7Entwine13ReplaySubjectC13maxBufferSizeACyxq_GSi_tcfc">init(maxBufferSize:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -205,16 +204,12 @@ and passes through subsequent values and completion</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
                     <a name="/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF"></a>
                     <a name="//apple_ref/swift/Method/receive(subscriber:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF">receive(subscriber:)</a>
+                    <a class="token" href="#/s:7Combine9PublisherP7receive10subscriberyqd___tAA10SubscriberRd__7FailureQyd__AGRtz5InputQyd__6OutputRtzlF">receive(subscriber:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -235,16 +230,12 @@ and passes through subsequent values and completion</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
                     <a name="/s:7Combine7SubjectP4send12subscriptionyAA12Subscription_p_tF"></a>
                     <a name="//apple_ref/swift/Method/send(subscription:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine7SubjectP4send12subscriptionyAA12Subscription_p_tF">send(subscription:)</a>
+                    <a class="token" href="#/s:7Combine7SubjectP4send12subscriptionyAA12Subscription_p_tF">send(subscription:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -270,7 +261,7 @@ and passes through subsequent values and completion</p>
                     <code>
                     <a name="/s:7Combine7SubjectP4sendyy6OutputQzF"></a>
                     <a name="//apple_ref/swift/Method/send(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine7SubjectP4sendyy6OutputQzF">send(_:)</a>
+                    <a class="token" href="#/s:7Combine7SubjectP4sendyy6OutputQzF">send(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -296,7 +287,7 @@ and passes through subsequent values and completion</p>
                     <code>
                     <a name="/s:7Combine7SubjectP4send10completionyAA11SubscribersO10CompletionOy_7FailureQzG_tF"></a>
                     <a name="//apple_ref/swift/Method/send(completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7Combine7SubjectP4send10completionyAA11SubscribersO10CompletionOy_7FailureQzG_tF">send(completion:)</a>
+                    <a class="token" href="#/s:7Combine7SubjectP4send10completionyAA11SubscribersO10CompletionOy_7FailureQzG_tF">send(completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -325,8 +316,8 @@ and passes through subsequent values and completion</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2019-10-31)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/tcldr" target="_blank" rel="external">Tristan Celder</a>. All rights reserved. (Last updated: 2020-05-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
