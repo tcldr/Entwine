@@ -1,0 +1,27 @@
+name: Docs
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  publish-docs:
+    runs-on: macos-latest
+
+    steps:
+      - name: Set up Environment
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          gem install bundler
+          gem install jazzy --no-document
+          
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: 'gh-pages'
+        
+      - name: Build Docs
+        run: make update-docs -C ${{ github.workspace }}

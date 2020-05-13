@@ -1,26 +1,33 @@
-name: Publish Docs
+name: CI
 
 on:
   push:
     branches: [ master ]
-    pull_request:
-      branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
 
 jobs:
-  build:
+  test:
     runs-on: macos-latest
 
     steps:
       - name: Set up Environment
         run: |
-          sudo gem install jazzy
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          workflowsPath=${{ github.workspace }}/.github/workflows
+          echo "::set-env name=workflows_path::$workflowsPath"
           
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-            ref: 'gh-pages'
         
-      - name: Build Docs
-        run: make update-docs -C ${{ github.workspace }}
+      - name: Build
+        run: |
+            make build -C ${{ github.workspace }} 2>&1 \
+                | ${{ env.workflows_path }}/ci-step-build.awk \
+                    -v prefix=${{ github.workspace }}
+                    
+      - name: Run Tests
+        run: |
+            make test -C ${{ github.workspace }} 2>&1 \
+                | ${{ env.workflows_path }}/ci-step-test.awk \
+                    -v prefix=${{ github.workspace }}
+
