@@ -23,12 +23,12 @@ jobs:
       - name: Build
         run: |
             make build -C ${{ github.workspace }} 2>&1 \
-                | ${{ env.workflows_path }}/ci-step-build.awk \
-                    -v prefix=${{ github.workspace }}
+                | ${{ env.workflows_path }}/ci.awk \
+                    -v prefix=${{ github.workspace }} -v fails_on_warning=1
                     
       - name: Run Tests
         run: |
             make test -C ${{ github.workspace }} 2>&1 \
-                | ${{ env.workflows_path }}/ci-step-test.awk \
-                    -v prefix=${{ github.workspace }}
+                | ${{ env.workflows_path }}/ci.awk \
+                    -v prefix=${{ github.workspace }} -v fails_on_warning=1
 
