@@ -34,14 +34,14 @@ final class TestSchedulerTests: XCTestCase {
         
         // this should order by time, then id
         
-        let t0 = TestSchedulerTask(id: 0, time: 200, action: {})
-        let t1 = TestSchedulerTask(id: 1, time: 200, action: {})
-        let t2 = TestSchedulerTask(id: 2, time: 300, action: {})
-        let t3 = TestSchedulerTask(id: 3, time: 300, action: {})
-        let t4 = TestSchedulerTask(id: 4, time: 400, action: {})
-        let t5 = TestSchedulerTask(id: 5, time: 400, action: {})
-        let t6 = TestSchedulerTask(id: 6, time: 100, action: {})
-        let t7 = TestSchedulerTask(id: 7, time: 100, action: {})
+        let t0 = TestSchedulerTask(id: 0, time: 200, interval: 0, action: {})
+        let t1 = TestSchedulerTask(id: 1, time: 200, interval: 0, action: {})
+        let t2 = TestSchedulerTask(id: 2, time: 300, interval: 0, action: {})
+        let t3 = TestSchedulerTask(id: 3, time: 300, interval: 0, action: {})
+        let t4 = TestSchedulerTask(id: 4, time: 400, interval: 0, action: {})
+        let t5 = TestSchedulerTask(id: 5, time: 400, interval: 0, action: {})
+        let t6 = TestSchedulerTask(id: 6, time: 100, interval: 0, action: {})
+        let t7 = TestSchedulerTask(id: 7, time: 100, interval: 0, action: {})
         
         let unsorted = [t0, t1, t2, t3, t4, t5, t6, t7,]
         let sorted = [t6, t7, t0, t1, t2, t3, t4, t5,]
@@ -208,6 +208,36 @@ final class TestSchedulerTests: XCTestCase {
         
         XCTAssertEqual(expected, results.recordedOutput)
     }
+    
+    func testSchedulesAndCancelsRepeatingTask() {
+        
+        let subject = TestScheduler(initialClock: 0)
+        let publisher1 = PassthroughSubject<VirtualTime, Never>()
+        let results = subject.createTestableSubscriber(VirtualTime.self, Never.self)
+        
+        subject.schedule(after: 100, { publisher1.subscribe(results) })
+        let cancellable = subject.schedule(
+            after: 200,
+            interval: 2,
+            tolerance: subject.minimumTolerance,
+            options: nil,
+            { publisher1.send(subject.now) }
+        )
+        subject.schedule(after: 210, { cancellable.cancel() })
+        subject.resume()
+        
+        let expected: TestSequence<VirtualTime, Never> = [
+            (100, .subscription),
+            (200, .input(200)),
+            (202, .input(202)),
+            (204, .input(204)),
+            (206, .input(206)),
+            (208, .input(208)),
+            (210, .input(210)),
+        ]
+        
+        XCTAssertEqual(expected, results.recordedOutput)
+    }
 
     static var allTests = [
         ("testSchedulerTasksSortSensibly", testSchedulerTasksSortSensibly),
@@ -216,5 +246,9 @@ final class TestSchedulerTests: XCTestCase {
         ("testSchedulerInvokesDeferredTask", testSchedulerInvokesDeferredTask),
         ("testSchedulerInvokesDeferredTaskScheduledForPastImmediately", testSchedulerInvokesDeferredTaskScheduledForPastImmediately),
         ("testSchedulerRemovesCancelledTasks", testSchedulerRemovesCancelledTasks),
+        ("testSchedulerQueues", testSchedulerQueues),
+        ("testFiresEventsScheduledBeforeStartCalled", testFiresEventsScheduledBeforeStartCalled),
+        ("testTrampolinesImmediatelyScheduledTasks", testTrampolinesImmediatelyScheduledTasks),
+        ("testSchedulesRepeatingTask", testSchedulesAndCancelsRepeatingTask)
     ]
 }

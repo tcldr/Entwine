@@ -154,6 +154,16 @@ public class TestScheduler {
             }
             next.action()
             schedulerQueue.remove(next)
+            if next.interval > 0 {
+                schedulerQueue.push(
+                    .init(
+                        id: next.id,
+                        time: now + max(minimumTolerance, next.interval),
+                        interval: next.interval,
+                        action: next.action
+                    )
+                )
+            }
         }
     }
     
@@ -185,15 +195,18 @@ extension TestScheduler: Scheduler {
     public var minimumTolerance: VirtualTimeInterval { 1 }
     
     public func schedule(options: Never?, _ action: @escaping () -> Void) {
-        schedulerQueue.push(TestSchedulerTask(id: nextTaskId(), time: currentTime, action: action))
+        schedulerQueue.push(
+            TestSchedulerTask(id: nextTaskId(), time: currentTime, interval: 0, action: action))
     }
     
     public func schedule(after date: VirtualTime, tolerance: VirtualTimeInterval, options: Never?, _ action: @escaping () -> Void) {
-        schedulerQueue.push(TestSchedulerTask(id: nextTaskId(), time: date, action: action))
+        schedulerQueue.push(
+            TestSchedulerTask(id: nextTaskId(), time: date, interval: 0, action: action))
     }
     
     public func schedule(after date: VirtualTime, interval: VirtualTimeInterval, tolerance: VirtualTimeInterval, options: Never?, _ action: @escaping () -> Void) -> Cancellable {
-        let task = TestSchedulerTask(id: nextTaskId(), time: date, action: action)
+        let task = TestSchedulerTask(
+            id: nextTaskId(), time: date, interval: interval, action: action)
         schedulerQueue.push(task)
         return AnyCancellable {
             self.schedulerQueue.remove(task)
@@ -209,11 +222,13 @@ struct TestSchedulerTask {
     
     let id: Int
     let time: VirtualTime
+    let interval: VirtualTimeInterval
     let action: Action
     
-    init(id: Int, time: VirtualTime, action: @escaping Action) {
+    init(id: Int, time: VirtualTime, interval: VirtualTimeInterval, action: @escaping Action) {
         self.id = id
         self.time = time
+        self.interval = interval
         self.action = action
     }
 }
