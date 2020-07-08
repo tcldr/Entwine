@@ -56,13 +56,19 @@ public class TestScheduler {
     }
     
     private var currentTime = VirtualTime(0)
+    private let maxTime: VirtualTime
     private var lastTaskId = -1
     private var schedulerQueue: PriorityQueue<TestSchedulerTask>
     
     /// Initialises the scheduler with the given commencement time
-    public init(initialClock: VirtualTime = 0) {
+    ///
+    /// - Parameters:
+    ///   - initialClock: The VirtualTime at which the scheduler will start
+    ///   - maxClock: The VirtualTime ceiling after which the scheduler will cease to process tasks
+    public init(initialClock: VirtualTime = 0, maxClock: VirtualTime = 100_000) {
         self.schedulerQueue = PriorityQueue(ascending: true, startingValues: [])
         self.currentTime = initialClock
+        self.maxTime = maxClock
     }
     
     /// Schedules the creation and subscription of an arbitrary `Publisher` to a `TestableSubscriber`, and
@@ -149,6 +155,12 @@ public class TestScheduler {
     /// more actions remain.
     public func resume() {
         while let next = findNext() {
+            guard next.time <= maxTime else {
+                print("""
+                ⚠️ TestScheduler maxClock (\(maxTime)) reached. Remaining Scheduler tasks aborted.
+                """)
+                break
+            }
             if next.time > currentTime {
                 currentTime = next.time
             }
