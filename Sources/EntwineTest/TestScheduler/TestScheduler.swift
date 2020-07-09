@@ -157,14 +157,13 @@ public class TestScheduler {
         while let next = findNext() {
             guard next.time <= maxTime else {
                 print("""
-                ⚠️ TestScheduler maxClock (\(maxTime)) reached. Remaining Scheduler tasks aborted.
+                ⚠️ TestScheduler maxClock (\(maxTime)) reached. Scheduler aborted with \(schedulerQueue.count) remaining tasks.
                 """)
                 break
             }
             if next.time > currentTime {
                 currentTime = next.time
             }
-            next.action()
             schedulerQueue.remove(next)
             if next.interval > 0 {
                 schedulerQueue.push(
@@ -176,6 +175,7 @@ public class TestScheduler {
                     )
                 )
             }
+            next.action()
         }
     }
     

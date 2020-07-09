@@ -266,6 +266,32 @@ final class TestSchedulerTests: XCTestCase {
         
         XCTAssertEqual(expected, results.recordedOutput)
     }
+    
+    func testRemovesTaskCancelledWithinOwnAction() {
+        let subject = TestScheduler(initialClock: 0, maxClock: 500)
+        let publisher1 = PassthroughSubject<VirtualTime, Never>()
+        let results = subject.createTestableSubscriber(VirtualTime.self, Never.self)
+        var cancellables = Set<AnyCancellable>()
+        
+        subject.schedule(after: 100, { publisher1.subscribe(results) })
+        subject.schedule(
+                after: 200,
+                interval: 100,
+                tolerance: subject.minimumTolerance,
+                options: nil) {
+                    publisher1.send(subject.now)
+                    cancellables.removeAll()
+                }
+            .store(in: &cancellables)
+        subject.resume()
+        
+        let expected: TestSequence<VirtualTime, Never> = [
+            (100, .subscription),
+            (200, .input(200))
+        ]
+        
+        XCTAssertEqual(expected, results.recordedOutput)
+    }
 
     static var allTests = [
         ("testSchedulerTasksSortSensibly", testSchedulerTasksSortSensibly),
@@ -278,6 +304,7 @@ final class TestSchedulerTests: XCTestCase {
         ("testFiresEventsScheduledBeforeStartCalled", testFiresEventsScheduledBeforeStartCalled),
         ("testTrampolinesImmediatelyScheduledTasks", testTrampolinesImmediatelyScheduledTasks),
         ("testSchedulesRepeatingTask", testSchedulesAndCancelsRepeatingTask),
-        ("testIgnoresTasksAfterMaxClock", testIgnoresTasksAfterMaxClock)
+        ("testIgnoresTasksAfterMaxClock", testIgnoresTasksAfterMaxClock),
+        ("testRemovesTaskCancelledWithinOwnAction", testRemovesTaskCancelledWithinOwnAction)
     ]
 }
