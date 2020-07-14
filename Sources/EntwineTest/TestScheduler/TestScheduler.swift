@@ -56,13 +56,19 @@ public class TestScheduler {
     }
     
     private var currentTime = VirtualTime(0)
+    private let maxTime: VirtualTime
     private var lastTaskId = -1
     private var schedulerQueue: PriorityQueue<TestSchedulerTask>
     
     /// Initialises the scheduler with the given commencement time
-    public init(initialClock: VirtualTime = 0) {
+    ///
+    /// - Parameters:
+    ///   - initialClock: The VirtualTime at which the scheduler will start
+    ///   - maxClock: The VirtualTime ceiling after which the scheduler will cease to process tasks
+    public init(initialClock: VirtualTime = 0, maxClock: VirtualTime = 100_000) {
         self.schedulerQueue = PriorityQueue(ascending: true, startingValues: [])
         self.currentTime = initialClock
+        self.maxTime = maxClock
     }
     
     /// Schedules the creation and subscription of an arbitrary `Publisher` to a `TestableSubscriber`, and
@@ -149,11 +155,27 @@ public class TestScheduler {
     /// more actions remain.
     public func resume() {
         while let next = findNext() {
+            guard next.time <= maxTime else {
+                print("""
+                ⚠️ TestScheduler maxClock (\(maxTime)) reached. Scheduler aborted with \(schedulerQueue.count) remaining tasks.
+                """)
+                break
+            }
             if next.time > currentTime {
                 currentTime = next.time
             }
-            next.action()
             schedulerQueue.remove(next)
+            if next.interval > 0 {
+                schedulerQueue.push(
+                    .init(
+                        id: next.id,
+                        time: now + max(minimumTolerance, next.interval),
+                        interval: next.interval,
+                        action: next.action
+                    )
+                )
+            }
+            next.action()
         }
     }
     
@@ -185,15 +207,18 @@ extension TestScheduler: Scheduler {
     public var minimumTolerance: VirtualTimeInterval { 1 }
     
     public func schedule(options: Never?, _ action: @escaping () -> Void) {
-        schedulerQueue.push(TestSchedulerTask(id: nextTaskId(), time: currentTime, action: action))
+        schedulerQueue.push(
+            TestSchedulerTask(id: nextTaskId(), time: currentTime, interval: 0, action: action))
     }
     
     public func schedule(after date: VirtualTime, tolerance: VirtualTimeInterval, options: Never?, _ action: @escaping () -> Void) {
-        schedulerQueue.push(TestSchedulerTask(id: nextTaskId(), time: date, action: action))
+        schedulerQueue.push(
+            TestSchedulerTask(id: nextTaskId(), time: date, interval: 0, action: action))
     }
     
     public func schedule(after date: VirtualTime, interval: VirtualTimeInterval, tolerance: VirtualTimeInterval, options: Never?, _ action: @escaping () -> Void) -> Cancellable {
-        let task = TestSchedulerTask(id: nextTaskId(), time: date, action: action)
+        let task = TestSchedulerTask(
+            id: nextTaskId(), time: date, interval: interval, action: action)
         schedulerQueue.push(task)
         return AnyCancellable {
             self.schedulerQueue.remove(task)
@@ -209,11 +234,13 @@ struct TestSchedulerTask {
     
     let id: Int
     let time: VirtualTime
+    let interval: VirtualTimeInterval
     let action: Action
     
-    init(id: Int, time: VirtualTime, action: @escaping Action) {
+    init(id: Int, time: VirtualTime, interval: VirtualTimeInterval, action: @escaping Action) {
         self.id = id
         self.time = time
+        self.interval = interval
         self.action = action
     }
 }
