@@ -1,145 +1,145 @@
 {
   "warnings": [
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Deprecated/CancellableBag.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Deprecated/CancellableBag.swift",
       "line": 31,
       "symbol": "CancellableBag.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Deprecated/CancellableBag.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Deprecated/CancellableBag.swift",
       "line": 51,
       "symbol": "Cancellable.cancelled(by:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Deprecated/Deprecations.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Deprecated/Deprecations.swift",
       "line": 28,
       "symbol": "CancellationBag",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Dematerialize.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Dematerialize.swift",
       "line": 263,
       "symbol": "DematerializationErrorConvertible.SourceError",
       "symbol_kind": "source.lang.swift.decl.associatedtype",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/ReplaySubject.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/ReplaySubject.swift",
       "line": 131,
       "symbol": "ReplaySubject.createUnbounded()",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/ReplaySubject.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/ReplaySubject.swift",
       "line": 135,
       "symbol": "ReplaySubject.create(bufferSize:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
       "line": 41,
       "symbol": "Publishers.SignpostConfiguration.Marker",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
       "line": 94,
       "symbol": "Publishers.SignpostConfiguration.log",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
       "line": 95,
       "symbol": "Publishers.SignpostConfiguration.receiveSubscriptionMarker",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
       "line": 96,
       "symbol": "Publishers.SignpostConfiguration.receiveMarker",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
       "line": 97,
       "symbol": "Publishers.SignpostConfiguration.receiveCompletionMarker",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
       "line": 98,
       "symbol": "Publishers.SignpostConfiguration.requestMarker",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
       "line": 99,
       "symbol": "Publishers.SignpostConfiguration.cancelMarker",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/Signpost.swift",
       "line": 104,
       "symbol": "Publishers.Signpost",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/WithLatestFrom.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Operators/WithLatestFrom.swift",
       "line": 38,
       "symbol": "Publishers.WithLatestFrom.init(upstream:other:transform:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Publishers/Factory.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Publishers/Factory.swift",
       "line": 70,
       "symbol": "Publishers.Factory.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Schedulers/TrampolineScheduler.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Schedulers/TrampolineScheduler.swift",
       "line": 38,
       "symbol": "TrampolineScheduler.shared",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Signal.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Signal.swift",
       "line": 122,
       "symbol": "SignalConvertible.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Signal.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Signal.swift",
       "line": 129,
       "symbol": "Signal.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/runners/2.169.1/work/Entwine/Entwine/Entwine/Sources/Entwine/Utilities/DeallocToken.swift",
+      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/Entwine/Utilities/DeallocToken.swift",
       "line": 35,
       "symbol": "DeallocToken.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/runner/runners/2.169.1/work/Entwine/Entwine"
+  "source_directory": "/Users/runner/work/Entwine/Entwine"
 }
