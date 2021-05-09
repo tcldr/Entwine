@@ -58,41 +58,6 @@
     },
     {
       "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
-      "line": 101,
-      "symbol": "VirtualTimeInterval.seconds(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
-      "line": 105,
-      "symbol": "VirtualTimeInterval.seconds(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
-      "line": 109,
-      "symbol": "VirtualTimeInterval.milliseconds(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
-      "line": 113,
-      "symbol": "VirtualTimeInterval.microseconds(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
-      "line": 117,
-      "symbol": "VirtualTimeInterval.nanoseconds(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Entwine/Entwine/Entwine/Sources/EntwineTest/TestScheduler/VirtualTimeInterval.swift",
       "line": 126,
       "symbol": "VirtualTimeInterval.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
