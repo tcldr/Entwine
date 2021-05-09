@@ -113,7 +113,7 @@ Notice how the events scheduled by the relative publisher fired _after_ the even
 
 The final piece in the jigsaw is the `TestableSubscriber`. Its role is to gather the output of a publisher so that it can be compared against some expected output. It also depends on the `TestScheduler`, so to get one we call `createTestableSubscriber(_:_:)` on our scheduler.
 
-Once we subscribe to a publisher, `TestableSubscriber` records all the events with their time of arrival and makes them available on its `.sequence` property ready for us to compare against some expected output. It also records the time the subscription began, as well as its completion (should it end). 
+Once we subscribe to a publisher, `TestableSubscriber` records all the events with their time of arrival and makes them available on its `.recordedOutput` property ready for us to compare against some expected output. It also records the time the subscription began, as well as its completion (should it end). 
 
 ```swift
 import Combine
@@ -139,7 +139,7 @@ let expected: TestSequence<String, Never> = [
     (300, .input("yay")),
 ]
 
-print("sequences match: \(expected == subscriber.sequence)")
+print("sequences match: \(expected == subscriber.recordedOutput)")
 
 // outputs:
 //  sequences match: true
