@@ -208,7 +208,7 @@ let package = Package(
     ],
     ...
     targets: [
-        .testTarget(name: "MyTestTarget", dependencies: ["EntwineTest"]),
+        .testTarget(name: "MyTestTarget", dependencies: [.product(name: "EntwineTest", package: "Entwine")]),
     ]
 )
 ```
