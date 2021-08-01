@@ -22,6 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
 // MARK: - TestSequence definition
@@ -29,6 +31,7 @@ import Combine
 /// A sequence of `Subscribers.Demand` transactions.
 ///
 /// `DemandLedger`'s can be compared to see if they match expectations.
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct DemandLedger<Time: Strideable> where Time.Stride : SchedulerTimeIntervalConvertible {
     
     /// The kind of transcation for a `DemandLedger`
@@ -58,6 +61,7 @@ public struct DemandLedger<Time: Strideable> where Time.Stride : SchedulerTimeIn
 
 // MARK: - Sequence conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension DemandLedger: Sequence {
     
     public typealias Iterator = IndexingIterator<[Element]>
@@ -70,6 +74,7 @@ extension DemandLedger: Sequence {
 
 // MARK: - RangeReplaceableCollection conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension DemandLedger: RangeReplaceableCollection {
     
     public typealias Index = Int
@@ -98,6 +103,7 @@ extension DemandLedger: RangeReplaceableCollection {
 
 // MARK: - ExpressibleByArrayLiteral conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension DemandLedger: ExpressibleByArrayLiteral {
     
     public typealias ArrayLiteralElement = Element
@@ -109,6 +115,7 @@ extension DemandLedger: ExpressibleByArrayLiteral {
 
 // MARK: - Equatable conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension DemandLedger: Equatable {
     
     public static func == (lhs: DemandLedger<Time>, rhs: DemandLedger<Time>) -> Bool {
@@ -119,6 +126,7 @@ extension DemandLedger: Equatable {
 
 // MARK: - DemandLedgerRow definition
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 fileprivate struct DemandLedgerRow<Time: Strideable>: Equatable where Time.Stride : SchedulerTimeIntervalConvertible {
     
     let time: VirtualTime
@@ -132,6 +140,7 @@ fileprivate struct DemandLedgerRow<Time: Strideable>: Equatable where Time.Strid
     }
 }
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension DemandLedger.Transaction: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
@@ -145,6 +154,7 @@ extension DemandLedger.Transaction: CustomDebugStringConvertible {
 
 // MARK: - Subscribers.Demand helper extension
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Subscribers.Demand {
     func prettyDescription() -> String {
         guard let max = max else {
@@ -154,3 +164,4 @@ extension Subscribers.Demand {
     }
 }
 
+#endif

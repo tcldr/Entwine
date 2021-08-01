@@ -1,6 +1,6 @@
 import XCTest
 
-#if !canImport(ObjectiveC)
+#if !canImport(ObjectiveC) && canImport(Combine)
 public func allTests() -> [XCTestCaseEntry] {
     return [
         testCase(TestSchedulerTests.allTests),

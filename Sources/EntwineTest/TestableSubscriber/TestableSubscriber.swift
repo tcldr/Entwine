@@ -22,12 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 import Entwine
 
 // MARK: - TestableSubscriberOptions value definition
 
 /// Options for the defining the behavior of a `TestableSubscriber` throughout its lifetime
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct TestableSubscriberOptions {
     /// The demand that will be signalled to the upstream `Publisher` upon subscription
     public var initialDemand = Subscribers.Demand.unlimited
@@ -56,6 +59,7 @@ public struct TestableSubscriberOptions {
 /// A subscriber that keeps a time-stamped log of the events that occur during the lifetime of a subscription to an arbitrary publisher.
 ///
 /// Initializable using the factory methods on `TestScheduler`
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public final class TestableSubscriber<Input, Failure: Error> {
     
     public typealias Sequence = TestSequence<Input, Failure>
@@ -134,6 +138,7 @@ public final class TestableSubscriber<Input, Failure: Error> {
 
 // MARK: - Subscriber conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension TestableSubscriber: Subscriber {
     
     public func receive(subscription: Subscription) {
@@ -168,6 +173,7 @@ extension TestableSubscriber: Subscriber {
 
 // MARK: - Cancellable conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension TestableSubscriber: Cancellable {
     public func cancel() {
         replenishmentToken?.cancel()
@@ -176,3 +182,5 @@ extension TestableSubscriber: Cancellable {
         replenishmentToken = nil
     }
 }
+
+#endif

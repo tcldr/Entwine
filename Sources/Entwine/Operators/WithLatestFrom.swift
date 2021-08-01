@@ -22,8 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Publishers {
     
     /// A publisher that combines the latest value from another publisher with each value from an upstream publisher
@@ -167,6 +170,7 @@ extension Publishers {
     }
 }
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension Publisher {
     
     /// Subscribes to an additional publisher and invokes a closure upon receiving output from this
@@ -191,3 +195,5 @@ public extension Publisher {
         withLatest(from: other, transform: { _, b in b })
     }
 }
+
+#endif

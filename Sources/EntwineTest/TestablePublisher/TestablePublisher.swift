@@ -22,6 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 import Entwine
 import Foundation
@@ -35,6 +37,7 @@ enum TestablePublisherBehavior { case absolute, relative }
 /// A `Publisher` that produces the elements provided in a `TestSequence`.
 ///
 /// Initializable using the factory methods on `TestScheduler`
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct TestablePublisher<Output, Failure: Error>: Publisher {
     
     private let testScheduler: TestScheduler
@@ -56,6 +59,7 @@ public struct TestablePublisher<Output, Failure: Error>: Publisher {
 
 // MARK: - Subscription definition
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscription {
     
     private let linkedList = LinkedList<Int>.empty
@@ -103,3 +107,5 @@ fileprivate final class TestablePublisherSubscription<Sink: Subscriber>: Subscri
         queue = nil
     }
 }
+
+#endif

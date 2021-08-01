@@ -22,6 +22,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension TestableSubscriber {
     
     @available(*, deprecated, renamed: "recordedOutput")
@@ -30,3 +33,5 @@ public extension TestableSubscriber {
     @available(*, deprecated, renamed: "recordedDemandLog")
     var demands: DemandLedger<VirtualTime>{ recordedDemandLog }
 }
+
+#endif

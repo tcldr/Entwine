@@ -22,11 +22,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Entwine
 
 // MARK: - TestSequence definition
 
 /// A collection of time-stamped `Signal`s
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct TestSequence <Input, Failure: Error> {
     
     private var contents: [Element]
@@ -61,6 +64,7 @@ public struct TestSequence <Input, Failure: Error> {
 
 // MARK: - Sequence conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension TestSequence: Sequence {
     
     public typealias Iterator = IndexingIterator<[Element]>
@@ -73,6 +77,7 @@ extension TestSequence: Sequence {
 
 // MARK: - RangeReplaceableCollection conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension TestSequence: RangeReplaceableCollection {
     
     public typealias Index = Int
@@ -101,6 +106,7 @@ extension TestSequence: RangeReplaceableCollection {
 
 // MARK: - ExpressibleByArrayLiteral conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension TestSequence: ExpressibleByArrayLiteral {
     
     public typealias ArrayLiteralElement = Element
@@ -112,6 +118,7 @@ extension TestSequence: ExpressibleByArrayLiteral {
 
 // MARK: - Equatable conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension TestSequence: Equatable where Input: Equatable, Failure: Equatable {
     
     private var events: [TestEvent<Signal<Input, Failure>>] {
@@ -122,3 +129,5 @@ extension TestSequence: Equatable where Input: Equatable, Failure: Equatable {
         lhs.events == rhs.events
     }
 }
+
+#endif

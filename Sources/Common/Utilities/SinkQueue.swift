@@ -22,10 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
 // MARK: - SinkQueue definition
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 class SinkQueue<Sink: Subscriber> {
     
     private var sink: Sink?
@@ -100,3 +103,5 @@ class SinkQueue<Sink: Subscriber> {
         return forwardableDemand
     }
 }
+
+#endif

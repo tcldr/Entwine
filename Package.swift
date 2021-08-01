@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Entwine",
     platforms: [
-        .macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6)
+        .macOS(.v10_12), .iOS(.v10), .tvOS(.v10), .watchOS(.v3)
     ],
     products: [
         .library(

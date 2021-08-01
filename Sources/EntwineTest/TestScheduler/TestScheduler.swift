@@ -26,6 +26,8 @@
 //  Copyright © 2015 Krunoslav Zaher All rights reserved.
 //  https://github.com/ReactiveX/RxSwift
 
+#if canImport(Combine)
+
 import Entwine
 import Combine
 
@@ -37,6 +39,7 @@ import Combine
 /// A special, non thread-safe scheduler for testing operators that require a scheduler without introducing
 /// real concurrency. Faciliates a recreatable sequence of tasks executed within 'virtual time'.
 ///
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public class TestScheduler {
     
     /// Configuration values for  a`TestScheduler` test run.
@@ -197,6 +200,7 @@ public class TestScheduler {
 
 // MARK: - TestScheduler Scheduler conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension TestScheduler: Scheduler {
     
     public typealias SchedulerTimeType = VirtualTime
@@ -257,3 +261,5 @@ extension TestSchedulerTask: Comparable {
         lhs.id == rhs.id
     }
 }
+
+#endif

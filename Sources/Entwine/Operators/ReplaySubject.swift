@@ -22,6 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
 /// A subject that maintains a buffer of its latest values for replay to new subscribers and passes
@@ -30,6 +32,7 @@ import Combine
 /// The subject passes through elements and completion states unchanged and in addition
 /// replays the latest elements to any new subscribers. Use this subject when you want subscribers
 /// to receive the most recent previous elements in addition to all future elements.
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public final class ReplaySubject<Output, Failure: Error> {
     
     typealias Sink = AnySubscriber<Output, Failure>
@@ -50,6 +53,7 @@ public final class ReplaySubject<Output, Failure: Error> {
     }
 }
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension ReplaySubject: Publisher {
     
     public func receive<S : Subscriber>(subscriber: S) where Failure == S.Failure, Output == S.Input {
@@ -66,6 +70,7 @@ extension ReplaySubject: Publisher {
     }
 }
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension ReplaySubject: Subject {
     
     public func send(subscription: Subscription) {
@@ -89,6 +94,7 @@ extension ReplaySubject: Subject {
     }
 }
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 fileprivate final class ReplaySubjectSubscription<Sink: Subscriber>: Subscription {
     
     private let queue: SinkQueue<Sink>
@@ -126,6 +132,7 @@ fileprivate final class ReplaySubjectSubscription<Sink: Subscriber>: Subscriptio
     }
 }
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension ReplaySubject {
     
     public static func createUnbounded() -> ReplaySubject<Output, Failure> {
@@ -153,3 +160,5 @@ fileprivate struct ReplaySubjectValueBuffer<Value> {
         }
     }
 }
+
+#endif

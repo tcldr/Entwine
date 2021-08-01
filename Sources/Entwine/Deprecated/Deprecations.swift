@@ -22,7 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
 @available(*, deprecated, message: "Replace with mutable Set<AnyCancellable>")
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public typealias CancellationBag = Set<AnyCancellable>
+
+#endif

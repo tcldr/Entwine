@@ -22,9 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
 /// An object that notifies of its deallocation via a publisher sequence
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public final class DeallocToken {
     
     private let subject = PassthroughSubject<(), Never>()
@@ -39,3 +42,5 @@ public final class DeallocToken {
         subject.send(completion: .finished)
     }
 }
+
+#endif
