@@ -22,12 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import XCTest
 import Combine
 
 @testable import Entwine
 @testable import EntwineTest
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 final class ReferenceCountedTests: XCTestCase {
     
     // MARK: - Properties
@@ -130,3 +133,5 @@ final class ReferenceCountedTests: XCTestCase {
         sut.multicast(factory).autoconnect().sink { print("B:\($0)") }.store(in: &cancellables)
     }
 }
+
+#endif

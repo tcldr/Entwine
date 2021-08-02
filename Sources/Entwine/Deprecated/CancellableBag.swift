@@ -22,10 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
 /// A container for cancellables that will be cancelled when the bag is deallocated or cancelled itself
 @available(*, deprecated, message: "Replace with mutable Set<AnyCancellable>")
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public final class CancellableBag: Cancellable {
     
     public init() {}
@@ -46,9 +49,12 @@ public final class CancellableBag: Cancellable {
 
 // MARK: - Cancellable extension
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension Cancellable {
     @available(*, deprecated, message: "Replace CancellableBag with Set<AnyCancellable> and use `store(in:)`")
     func cancelled(by cancellableBag: CancellableBag) {
         cancellableBag.add(self)
     }
 }
+
+#endif

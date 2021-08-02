@@ -22,9 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 import Entwine
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 struct TestEvent <Signal: SignalConvertible> {
     
     let time: VirtualTime
@@ -38,12 +41,16 @@ struct TestEvent <Signal: SignalConvertible> {
 
 // MARK: - Equatable conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension TestEvent: Equatable where Signal: Equatable {}
 
 // MARK: - CustomDebugStringConvertible conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension TestEvent: CustomDebugStringConvertible {
     public var debugDescription: String {
         return "SignalEvent(\(time), \(signal))"
     }
 }
+
+#endif

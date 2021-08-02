@@ -22,10 +22,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
 // MARK: - Publisher
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Publishers {
     
     /// Automates the process of connecting to a multicast publisher. Connects when the first
@@ -112,6 +115,7 @@ extension Publishers {
 
 // MARK: - Operator
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Publishers.Multicast {
     
     /// Automates the process of connecting to a multicast publisher. Connects when the first
@@ -122,3 +126,5 @@ extension Publishers.Multicast {
         .init(upstream: upstream, createSubject: createSubject)
     }
 }
+
+#endif

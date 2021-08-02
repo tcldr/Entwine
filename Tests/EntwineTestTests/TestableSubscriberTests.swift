@@ -22,12 +22,15 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import XCTest
 import Combine
 
 @testable import Entwine
 @testable import EntwineTest
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 final class TestableSubscriberTests: XCTestCase {
     
     struct Token: Equatable {}
@@ -289,3 +292,5 @@ final class TestableSubscriberTests: XCTestCase {
         ("testEnforcesSingleSubscriber", testEnforcesSingleSubscriber),
     ]
 }
+
+#endif

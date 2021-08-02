@@ -22,8 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Publishers {
     
     // MARK: - Publisher
@@ -189,6 +192,7 @@ extension Publishers {
 
 // MARK: - Operators
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Publisher where Output: SignalConvertible, Failure == Never {
     
     private func dematerializedValuesPublisherSequence() -> Publishers.Dematerialize<Self> {
@@ -218,6 +222,7 @@ extension Publisher where Output: SignalConvertible, Failure == Never {
     }
 }
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Publisher where Failure: DematerializationErrorConvertible {
     
     /// Force unwraps the errors of a dematerialized publisher to return a publisher that matches that of
@@ -269,3 +274,5 @@ public protocol DematerializationErrorConvertible {
 extension DematerializationError: DematerializationErrorConvertible {
     public var dematerializationError: DematerializationError<SourceError> { self }
 }
+
+#endif

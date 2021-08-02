@@ -22,6 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
 // MARK: - VirtualTimeInterval value definition
@@ -155,3 +157,5 @@ extension Int {
         self.init(value._duration)
     }
 }
+
+#endif

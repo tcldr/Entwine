@@ -22,6 +22,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
 // MARK: - Signal value definition
@@ -32,6 +34,7 @@ import Combine
 /// - Exactly one 'subscription' signal.
 /// - Followed by zero or more 'input' signals.
 /// - Terminated finally by a single 'completion' signal.
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public enum Signal <Input, Failure: Error> {
     /// Sent by a `Publisher` to a `Subscriber` in acknowledgment of the `Subscriber`'s
     /// subscription request.
@@ -46,6 +49,7 @@ public enum Signal <Input, Failure: Error> {
 
 // MARK: - Signal extensions
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension Signal {
     /// Whether the signal indicates sequence completion
     var isCompletion: Bool {
@@ -84,6 +88,7 @@ public extension Signal {
 
 // MARK: - Equatable conformance
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Signal: Equatable where Input: Equatable, Failure: Equatable {
     
     public static func ==(lhs: Signal<Input, Failure>, rhs: Signal<Input, Failure>) -> Bool {
@@ -112,6 +117,7 @@ extension Signal: Equatable where Input: Equatable, Failure: Equatable {
 }
 
 /// A type that can be converted into a `Signal`
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public protocol SignalConvertible {
     
     /// The `Input` type of the produced `Signal`
@@ -124,6 +130,7 @@ public protocol SignalConvertible {
     var signal: Signal<Input, Failure> { get }
 }
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Signal: SignalConvertible {
     
     public init(_ signal: Signal<Input, Failure>) {
@@ -134,3 +141,5 @@ extension Signal: SignalConvertible {
         return self
     }
 }
+
+#endif

@@ -22,8 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Publisher {
     /// Returns a publisher as a class instance that replays previous values to new subscribers
     ///
@@ -40,3 +43,5 @@ extension Publisher {
         multicast { ReplaySubject<Output, Failure>(maxBufferSize: maxBufferSize) }.referenceCounted()
     }
 }
+
+#endif

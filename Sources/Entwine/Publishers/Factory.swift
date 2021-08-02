@@ -22,8 +22,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Publishers {
     
     /// Creates a simple publisher inline from a provided closure
@@ -77,6 +80,7 @@ extension Publishers {
     }
 }
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 fileprivate class FactorySubscription<Sink: Subscriber>: Subscription {
     
     var subscription: ((Dispatcher<Sink.Input, Sink.Failure>) -> AnyCancellable)?
@@ -108,6 +112,7 @@ fileprivate class FactorySubscription<Sink: Subscriber>: Subscription {
 // MARK: - Public facing Dispatcher defintion
 
 /// Manages a queue of publisher sequence elements to be delivered to a subscriber
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public class Dispatcher<Input, Failure: Error> {
     
     /// Queues an element to be delivered to the subscriber
@@ -143,6 +148,7 @@ public class Dispatcher<Input, Failure: Error> {
 
 // MARK: - Internal Dispatcher defintion
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 class FactoryDispatcher<Input, Failure, Sink: Subscriber>: Dispatcher<Input, Failure>
     where Input == Sink.Input, Failure == Sink.Failure
 {
@@ -165,3 +171,5 @@ class FactoryDispatcher<Input, Failure, Sink: Subscriber>: Dispatcher<Input, Fai
         queue.expediteCompletion(completion)
     }
 }
+
+#endif

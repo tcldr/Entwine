@@ -22,9 +22,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if canImport(Combine)
+
 import Combine
 import os.log
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension Publishers {
     
     // MARK: - Publisher configuration
@@ -198,6 +201,7 @@ extension Publishers {
 
 // MARK: - Operator
 
+@available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public extension Publisher {
     
     /// Marks points of interest for your publisher events as time intervals for debugging performance in Instruments.
@@ -213,3 +217,4 @@ public extension Publisher {
     }
 }
 
+#endif
