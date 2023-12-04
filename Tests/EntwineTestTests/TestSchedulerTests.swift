@@ -77,7 +77,36 @@ final class TestSchedulerTests: XCTestCase {
         
         XCTAssertEqual(times, [100, 200, 300,])
     }
-    
+
+    func testSchedulerAdvancesToTasksTime() {
+
+        let subject = TestScheduler(initialClock: 0)
+        var changedValue = 0
+
+        subject.schedule(after: 300) { changedValue = 300 }
+        subject.schedule(after: 200) { changedValue = 200 }
+        subject.schedule(after: 100) { changedValue = 100 }
+
+        subject.advance(to: 200)
+
+        XCTAssertEqual(changedValue, 200)
+    }
+
+    func testSchedulerAdvancesToTasksByTimeInterval() {
+
+        let subject = TestScheduler(initialClock: 0)
+        var changedValue = 0
+
+        subject.schedule(after: 300) { changedValue = 300 }
+        subject.schedule(after: 200) { changedValue = 200 }
+        subject.schedule(after: 100) { changedValue = 100 }
+
+        subject.advance(to: 100)
+        XCTAssertEqual(changedValue, 100)
+        subject.advance(by: 100)
+        XCTAssertEqual(changedValue, 200)
+    }
+
     func testSchedulerInvokesDeferredTask() {
         
         let subject = TestScheduler(initialClock: 0)
@@ -308,7 +337,9 @@ final class TestSchedulerTests: XCTestCase {
         ("testTrampolinesImmediatelyScheduledTasks", testTrampolinesImmediatelyScheduledTasks),
         ("testSchedulesRepeatingTask", testSchedulesAndCancelsRepeatingTask),
         ("testIgnoresTasksAfterMaxClock", testIgnoresTasksAfterMaxClock),
-        ("testRemovesTaskCancelledWithinOwnAction", testRemovesTaskCancelledWithinOwnAction)
+        ("testRemovesTaskCancelledWithinOwnAction", testRemovesTaskCancelledWithinOwnAction),
+        ("testSchedulerAdvancesToTasksTime", testSchedulerAdvancesToTasksTime),
+        ("testSchedulerAdvancesToTasksByTimeInterval", testSchedulerAdvancesToTasksByTimeInterval)
     ]
 }
 
