@@ -196,6 +196,32 @@ public class TestScheduler {
         lastTaskId += 1
         return lastTaskId
     }
+
+    /// Performs all the actions in the scheduler's queue  until reaches to the duration that is added as virtual time from now
+    /// - Parameters:
+    ///   - duration: The `CombineTestTimeInterval` that are going to be performed all tasks until by adding interval from now
+    public func advance(by duration: VirtualTimeInterval) {
+        advance(to: now.advanced(by: duration))
+    }
+
+    /// Performs all the actions in the scheduler's queue, in time  until reaches to the duration
+    /// - Parameters:
+    ///   - instant: The `CombineTestTime` that are going to be performed all tasks until
+    public func advance(to instant: VirtualTime) {
+        while now <= instant {
+            guard
+                let next = findNext(),
+                instant >= next.time
+            else {
+                currentTime = instant
+                return
+            }
+
+            currentTime = next.time
+            schedulerQueue.remove(next)
+            next.action()
+        }
+    }
 }
 
 // MARK: - TestScheduler Scheduler conformance
