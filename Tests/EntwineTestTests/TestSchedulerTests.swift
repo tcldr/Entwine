@@ -337,7 +337,9 @@ final class TestSchedulerTests: XCTestCase {
         ("testTrampolinesImmediatelyScheduledTasks", testTrampolinesImmediatelyScheduledTasks),
         ("testSchedulesRepeatingTask", testSchedulesAndCancelsRepeatingTask),
         ("testIgnoresTasksAfterMaxClock", testIgnoresTasksAfterMaxClock),
-        ("testRemovesTaskCancelledWithinOwnAction", testRemovesTaskCancelledWithinOwnAction)
+        ("testRemovesTaskCancelledWithinOwnAction", testRemovesTaskCancelledWithinOwnAction),
+        ("testSchedulerAdvancesToTasksTime", testSchedulerAdvancesToTasksTime),
+        ("testSchedulerAdvancesToTasksByTimeInterval", testSchedulerAdvancesToTasksByTimeInterval)
     ]
 }
 
