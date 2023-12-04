@@ -199,14 +199,14 @@ public class TestScheduler {
 
     /// Performs all the actions in the scheduler's queue  until reaches to the duration that is added as virtual time from now
     /// - Parameters:
-    ///   - duration: The `CombineTestTimeInterval` that are going to be performed all tasks until by adding interval from now
+    ///   - duration: The `VirtualTimeInterval` that are going to be performed all tasks until by adding interval from now
     public func advance(by duration: VirtualTimeInterval) {
         advance(to: now.advanced(by: duration))
     }
 
     /// Performs all the actions in the scheduler's queue, in time  until reaches to the duration
     /// - Parameters:
-    ///   - instant: The `CombineTestTime` that are going to be performed all tasks until
+    ///   - instant: The `VirtualTime` that are going to be performed all tasks until
     public func advance(to instant: VirtualTime) {
         while now <= instant {
             guard
